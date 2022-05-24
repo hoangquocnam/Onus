@@ -1,5 +1,5 @@
 import React from "react";
-
+import { SignUp } from "../components";
 
 function TestComponents(){
     // TODO: Add your code here
