@@ -1,28 +1,27 @@
-import React, {useState} from 'react'
+import React from 'react'
 import "../../styles/login.css"
 
-function LoginForm({Login, error}) {
-    const [details, setDetails] = useState({username: "", password: ""});
-    const submitHandler = e => {
-        e.preventDefault();
-        Login(details);
-    }
+function LoginForm() {
     return (
-        <form onSubmit={submitHandler}>
-            <div className='form-inner'>
-                <h2>Login</h2>
-                {(error != "") ? (<div className='error'>{error}</div>) : ""}
-                <div className='form-group'>
-                    <lable htmlFor="username">UserName: </lable>
-                    <input type="text" name="username" id="username" onChange={e => setDetails({...details,username: e.target.value})} value={details.username}/>
+        <div className="login__page">
+            <div className="login__container">
+                <h2 className="login__title">Log in</h2>
+                
+                <div className="login__body">
+                    <form className="login__form">
+                        <input type="email" className="inputLogin__email" placeholder="Enter email" />
+                        <input type="password" className="inputLogin__password" placeholder="Enter password" />
+                        <input className="login__buttonSubmit" type="button" value="Log in" />
+
+                        <p>OR</p>
+                    </form>
                 </div>
-                <div className='form-group'>
-                    <lable htmlFor="password">Password: </lable>
-                    <input type="password" name="password" id="password" onChange={e => setDetails({...details,password: e.target.value})} value={details.password}/>
+                    
+                <div className='login__footer'>
+                    <a className="link__signUp" href="#">Create a new account?</a>
                 </div>
-                <input type="submit" value="LOGIN"/>
             </div>
-        </form>
+        </div>
     )
 }
 
