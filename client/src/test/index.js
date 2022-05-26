@@ -1,15 +1,13 @@
-import React from "react";
-
+import React, {useState} from "react";
+import "../components"
+import LoginForm from "../components/login";
 
 function TestComponents(){
-    // TODO: Add your code here
-
-    return(
-        <div>
-            <h1>Test Components</h1>
-            <h2>Nam dep trai</h2>
-        </div>
-    )
+  return (
+    <div className="App">
+      <LoginForm />
+    </div>
+  );
 }
 
 export default TestComponents;
