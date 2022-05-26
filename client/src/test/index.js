@@ -6,8 +6,9 @@ function TestComponents(){
   return (
     <div className="App">
       <LoginForm />
-    </div>
-  );
+            <SignUp />
+        </div>
+    )
 }
 
 export default TestComponents;
