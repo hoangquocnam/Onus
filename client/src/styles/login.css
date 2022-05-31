@@ -92,6 +92,7 @@
 .login__buttonSubmit:hover,
 .login__buttonSubmit:focus {
   cursor: pointer;
+  opacity: 0.9;
 }
 
 .link__signUp:link,
