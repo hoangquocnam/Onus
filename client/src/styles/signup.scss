@@ -73,6 +73,16 @@ code {
       }
     }
   }
+  &__errorMessage {
+    color: var(--login-error-color);
+    margin: 0;
+    width: 100%;
+    font-size: 16px;
+  }
+  
+  &__errorMessage--hidden {
+    display: none;
+  }
 
   //Signup Button
   &__btn {
@@ -97,5 +107,7 @@ code {
     &:active {
       transform: scale(.99);
     }
+    
   }
+  
 }

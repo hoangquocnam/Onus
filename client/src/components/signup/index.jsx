@@ -1,6 +1,10 @@
 import React from "react";
 import Button from "./button";
 function SignUp() {
+	const submit = (e) => {
+		e.preventDefault();
+		console.log("submit");
+	}
 	return (
 		<div className="signup">
 			<div className="signup__wrapper">
@@ -43,7 +47,7 @@ function SignUp() {
 						required
 						autoComplete="none"
 					></input>
-					<Button buttonText={"Create New Account"} />
+					<Button buttonText={"Create New Account"} submit={submit} />
 				</form>
 			</div>
 		</div>
