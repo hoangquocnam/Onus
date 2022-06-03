@@ -24,7 +24,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.App {
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
