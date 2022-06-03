@@ -27,17 +27,21 @@ code {
     monospace;
 }
 
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .signup {
-  max-height: 520rem;
-  max-width: 500px;
+  width: 500px;
   border: 20px solid #4B4E6DB5;
   border-radius: 30px;
-  margin: auto;
+  margin: auto; // Maybe redundant
+
 
   //Center the form
-  &__wrapper {
-    margin: 0 auto;
-  }
+  &__wrapper {}
 
   // Join Us title
   &__title {
@@ -73,13 +77,14 @@ code {
       }
     }
   }
+
   &__errorMessage {
     color: var(--login-error-color);
     margin: 0;
     width: 100%;
     font-size: 16px;
   }
-  
+
   &__errorMessage--hidden {
     display: none;
   }
@@ -107,7 +112,7 @@ code {
     &:active {
       transform: scale(.99);
     }
-    
+
   }
-  
+
 }
