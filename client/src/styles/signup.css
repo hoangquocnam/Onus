@@ -52,7 +52,7 @@ code {
 .signup__form input {
   width: 270px;
   height: 50px;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
   outline: none;
   border: 2px solid var(--color-border);
   padding: 0 15px;
@@ -75,7 +75,7 @@ code {
 .signup__btn {
   background-color: var(--color-btn);
   font-size: 15px;
-  width: 300px;
+  width: 270px;
   height: 50px;
   color: white;
   font-family: "Mulish";
@@ -92,4 +92,14 @@ code {
 }
 .signup__btn:active {
   transform: scale(0.99);
+}
+
+.error {
+  color: #ff4d4f;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  width: 270px;
+  transform: translateY(-130%);
+  margin-left: 1.5px;
 }
