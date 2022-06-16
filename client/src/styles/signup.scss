@@ -11,9 +11,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', ;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,14 +30,15 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #F8F8FB;
 }
 
 .signup {
   width: 500px;
-  border: 20px solid #4B4E6DB5;
-  border-radius: 30px;
+  border: 1px solid rgb(207, 204, 204);
   margin: auto; // Maybe redundant
-
+  background-color: #fff;
 
   //Center the form
   &__wrapper {}
@@ -46,7 +46,7 @@ code {
   // Join Us title
   &__title {
     font-size: 35px;
-    font-weight: 800;
+    font-weight: 500;
     margin: 2rem 0;
     color: var(--color-title);
     text-align: center;
@@ -62,21 +62,56 @@ code {
 
     //Input styles
     input {
-      width: 270px;
-      height: 50px;
+      width: 410px;
+      height: 75px;
       margin-bottom: 28px;
       outline: none;
-      border: 2px solid var(--color-border);
+      border: 1px solid var(--color-border);
       padding: 0 15px;
-      border-radius: 5px;
-      font-family: 'Mulish';
-      font-weight: 550;
+      border-radius: 4px;
+      background-color: #F8F8FB;
+      font-family: 'Poppins';
+      font-weight: 500;
+      font-size: 18px;
 
       &::placeholder {
         color: #bcbcc4;
       }
     }
+
+    &-username {
+      margin-right: calc(410px - 398px);
+      position: relative;
+
+    }
+
+    &--gender {
+      height: 75px;
+      margin-bottom: 28px;
+      outline: none;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+      font-size: 18px;
+      background-color: #F8F8FB;
+      padding: 5px 10px;
+      color: gray;
+
+      .absolute {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+
+
+    }
+
+    #switch_choice {
+      color: gray;
+      margin-bottom: 20px;
+    }
   }
+
+
 
   &__errorMessage {
     color: var(--login-error-color);
@@ -92,21 +127,48 @@ code {
   //Signup Button
   &__btn {
     background-color: var(--color-btn);
-    font-size: 15px;
-    width: 270px;
-    height: 50px;
+    font-size: 18px;
+    width: 410px;
+    height: 75px;
     color: white;
-    font-family: 'Mulish';
+    font-family: inherit;
     font-weight: 500;
-    line-height: 23px;
+    line-height: 27px;
     cursor: pointer;
     border-radius: 4px;
     display: inline-block;
     border: none;
-    margin-bottom: 3.5rem !important;
+    margin-bottom: 1.5rem !important;
+
 
     &:hover {
       background-color: #17223a;
+    }
+
+    &:active {
+      transform: scale(.99);
+    }
+
+  }
+
+  &__btn2 {
+    background-color: white;
+    font-size: 18px;
+    width: 410px;
+    height: 75px;
+    color: black;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 27px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-block;
+    border: none;
+    margin-bottom: 3rem !important;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+      background-color: #b9bfc4;
     }
 
     &:active {
@@ -122,7 +184,19 @@ code {
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.7px;
-  width: 270px;
-  transform: translateY(-130%);
+  width: 410px;
+  transform: translateY(-100%);
   margin-left: 1.5px;
+}
+
+.username--gender {
+  display: flex;
+  max-width: 410px;
+  align-items: center;
+}
+
+.username-gender-center {
+  display: flex;
+  max-width: 410px;
+
 }
