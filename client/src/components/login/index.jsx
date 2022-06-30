@@ -1,5 +1,5 @@
 import { createRef, useState } from "react";
-import "../../styles/login.css";
+import "../../styles/components/login.css";
 import { validateLogin } from "../../utils/validate";
 import { Link } from "react-router-dom";
 import routes from "../../routes";

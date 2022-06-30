@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { validationSignUp } from "../../utils/validate";
 import routes from "../../routes";
 import { Link } from "react-router-dom";
-import "../../styles/signup.css";
+import "../../styles/pages/signup.css";
 
 function SignUp() {
   const [values, setValues] = useState({

@@ -1,14 +1,14 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import routes from "../../routes";
-import { Dashboard } from "../../components";
+import { Dashboard, TopBar } from "../../components";
+import "../../styles/pages/homePage.css";
 
 export default function HomePage() {
   return (
     <React.StrictMode>
+      <TopBar />
       <div className="homePage__container">
-        <div className="homePage__header"></div>
-
         <div className="homePage__body">
           <Routes>
             <Route
@@ -21,7 +21,6 @@ export default function HomePage() {
               element={<Navigate to={routes.home.path} />}
             ></Route>
 
-            
             <Route path={routes.dashboard.path} element={<Dashboard />}></Route>
           </Routes>
         </div>
