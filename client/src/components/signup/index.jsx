@@ -1,5 +1,5 @@
 import { createRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import routes from "../../routes";
 import "../../styles/pages/signup.css";
 import {
@@ -10,8 +10,11 @@ import {
   validateUsername,
 } from "../../utils/validate";
 import SelectGender from "./selectGender";
+import { URL_Requests, methods } from "../../APIs";
 
 function SignUp() {
+  const navigate = useNavigate();
+
   const genderOptions = [
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
@@ -99,6 +102,24 @@ function SignUp() {
 
     if (!validate()) {
       return;
+    }
+
+    try {
+      await methods.post(URL_Requests.signUp.url, {
+        fullname: data.fullName,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        gender: data.gender,
+      });
+
+      navigate(routes.login.path);
+    } catch (error) {
+      setMessage({
+        item: "",
+        text: "Sign up failed. Please try again.",
+        type: "error",
+      });
     }
   }
 
