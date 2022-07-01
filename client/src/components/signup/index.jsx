@@ -1,105 +1,213 @@
-import React, { useState } from "react";
-import { validationSignUp } from "../../utils/validate";
-import routes from "../../routes";
+import { createRef, useState } from "react";
 import { Link } from "react-router-dom";
+import routes from "../../routes";
 import "../../styles/pages/signup.css";
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validateFullName,
+  validatePassword,
+  validateUsername,
+} from "../../utils/validate";
+import SelectGender from "./selectGender";
 
 function SignUp() {
-  const [values, setValues] = useState({
+  const genderOptions = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ];
+
+  const [data, setData] = useState({
     fullName: "",
-    userName: "",
+    username: "",
+    gender: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
   });
-  const [errors, setErrors] = useState({});
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setErrors(validationSignUp(values));
+
+  const [message, setMessage] = useState({
+    item: "",
+    text: "",
+    type: "",
+  });
+
+  const inputRefs = {
+    fullName: createRef(),
+    username: createRef(),
+    email: createRef(),
+    password: createRef(),
+    confirmPassword: createRef(),
   };
-  const handleChange = (e) => {
-    setValues({
-      ...values,
+
+  function handleInputChange(e) {
+    setData({
+      ...data,
       [e.target.name]: e.target.value,
     });
-  };
+
+    setMessage({
+      item: "",
+      text: "",
+      type: "",
+    });
+  }
+
+  function handleGenderChange(selected) {
+    setData({
+      ...data,
+      gender: selected.value,
+    });
+  }
+
+  function validate() {
+    const errors = {
+      fullName: validateFullName(data.fullName),
+      username: validateUsername(data.username),
+      email: validateEmail(data.email),
+      password: validatePassword(data.password),
+      confirmPassword: validateConfirmPassword(
+        data.password,
+        data.confirmPassword
+      ),
+    };
+
+    for (const prop in errors) {
+      if (!errors.hasOwnProperty(prop)) {
+        continue;
+      }
+
+      if (errors[prop] !== "") {
+        setMessage({
+          item: prop,
+          text: errors[prop],
+          type: "error",
+        });
+
+        inputRefs[prop].current.focus();
+        inputRefs[prop].current.select();
+
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+  }
+
   return (
-    <div className="signup">
-      <div className="signup__wrapper">
-        <h1 className="signup__title">Join us</h1>
-        <form className="signup__form">
-          <input
-            className="signup__form--name"
-            placeholder="Full name"
-            autoComplete="none"
-            name="fullName"
-            value={values.fullName}
-            onChange={handleChange}
-          ></input>
-          {errors.fullName && <p className="error">{errors.fullName}</p>}
-          <input
-            className="signup__form-username"
-            placeholder="Username"
-            autoComplete="none"
-            name="userName"
-            value={values.userName}
-            onChange={handleChange}
-          ></input>
-          {errors.userName && <p className="error">{errors.userName}</p>}
-          <input
-            type="text"
-            className="signup__form-email"
-            placeholder="Email"
-            autoComplete="none"
-            name="email"
-            // required
-            value={values.email}
-            onChange={handleChange}
-          ></input>
-          {errors.email && <p className="error">{errors.email}</p>}
-          <input
-            type="password"
-            className="signup__form-password"
-            placeholder="Password"
-            autoComplete="none"
-            name="password"
-            // required
-            value={values.password}
-            onChange={handleChange}
-          ></input>
-          {errors.password && <p className="error">{errors.password}</p>}
-          <input
-            type="password"
-            className="signup__form-confirm-password"
-            placeholder="Confirm password"
-            // required
-            name="confirmPassword"
-            autoComplete="none"
-            value={values.confirmPassword}
-            onChange={handleChange}
-          ></input>
-          {errors.confirmPassword && (
-            <p className="error">{errors.confirmPassword}</p>
-          )}
-          <input
-            type="tel"
-            className="signup__form-phone-number"
-            placeholder="Phone number"
-            // required
-            name="phoneNumber"
-            autoComplete="none"
-            value={values.phoneNumber}
-            onChange={handleChange}
-          ></input>
-          {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
-          <button className="signup__btn" onClick={handleFormSubmit}>
-            Create New Account
-          </button>
-				<Link to={routes.login.path} className="login__link" >Already had account?</Link>
-        </form>
+    <div className="sign-up-page">
+      <div className="sign-up__container">
+        <h2 className="sign-up__title">Sign Up</h2>
 
+        <div className="sign-up__body">
+          <form className="sign-up__form">
+            <input
+              type="text"
+              className={`sign-up__input ${
+                message.item === "fullName" ? "sign-up__input--error" : ""
+              }`}
+              placeholder="Full name"
+              onChange={handleInputChange}
+              name="fullName"
+              value={data.fullName}
+              ref={inputRefs.fullName}
+              autoFocus={true}
+            />
 
+            <div className="sign-up__input-group">
+              <input
+                type="text"
+                className={`sign-up__input ${
+                  message.item === "username" ? "sign-up__input--error" : ""
+                }`}
+                placeholder="Username"
+                onChange={handleInputChange}
+                name="username"
+                value={data.username}
+                ref={inputRefs.username}
+              />
+
+              <SelectGender
+                options={genderOptions}
+                onChange={handleGenderChange}
+                className="sign-up_select-gender"
+              />
+            </div>
+
+            <input
+              type="email"
+              className={`sign-up__input ${
+                message.item === "email" ? "sign-up__input--error" : ""
+              }`}
+              placeholder="Email"
+              onChange={handleInputChange}
+              name="email"
+              value={data.email}
+              ref={inputRefs.email}
+            />
+
+            <input
+              type="password"
+              className={`sign-up__input ${
+                message.item === "password" ? "sign-up__input--error" : ""
+              }`}
+              placeholder="Password"
+              minLength={8}
+              maxLength={14}
+              onChange={handleInputChange}
+              name="password"
+              value={data.password}
+              ref={inputRefs.password}
+            />
+
+            <input
+              type="password"
+              className={`sign-up__input ${
+                message.item === "confirmPassword"
+                  ? "sign-up__input--error"
+                  : ""
+              }`}
+              placeholder="Confirm password"
+              minLength={8}
+              maxLength={14}
+              onChange={handleInputChange}
+              name="confirmPassword"
+              value={data.confirmPassword}
+              ref={inputRefs.confirmPassword}
+            />
+
+            {message.type && (
+              <div
+                className={`sign-up__message sign-up__message--${message.type}`}
+              >
+                {message.text}
+              </div>
+            )}
+
+            <input
+              type="submit"
+              className="sign-up__submit-btn"
+              value="Create new account"
+              onClick={handleFormSubmit}
+            />
+          </form>
+
+          <p>OR</p>
+        </div>
+
+        <div className="sign-up__footer">
+          <Link to={routes.login.path} className="sign-up__log-in-link">
+            Already had an account?
+          </Link>
+        </div>
       </div>
     </div>
   );
