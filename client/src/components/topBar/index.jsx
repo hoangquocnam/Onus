@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/components/topBar.css";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle, AiOutlineSearch } from "react-icons/ai";
 import { FiAlertCircle } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -14,7 +14,15 @@ export default function TopBar() {
   return (
     <div className="topBar">
       <div className="topBar__left">
-        <div className="topBar__leftSpacing topBar__logo">ONUS</div>
+        <div className="topBar__leftSpacing">
+          <Link to={routes.home.path} className = "topBar__logo">
+            <img
+              src={require("../../assets/logo_transparent.png")}
+              alt="logo"
+              className="topBar__logoImage"
+            />
+          </Link>
+        </div>
 
         <TopBarSeparator />
 
@@ -30,7 +38,8 @@ export default function TopBar() {
         <TopBarSeparator />
 
         <div className="topBar__leftSpacing topBar__searchBox">
-          <input type="search" className="searchTopBar" />
+          <input type="search" className="searchField__topBar" />
+          <AiOutlineSearch size={20}/>
         </div>
       </div>
 
@@ -51,7 +60,7 @@ export default function TopBar() {
           <div className="topBar__avatar ">
             <Link to={routes.account.path}>
               <img
-                src="https://haycafe.vn/wp-content/uploads/2022/03/Avatar-hai-doc.jpg"
+                src="https://api.minimalavatars.com/avatar/random/png"
                 alt="avt"
                 className="account-avatar"
               />

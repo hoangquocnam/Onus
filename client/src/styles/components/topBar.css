@@ -5,7 +5,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(210, 208, 208);
 }
 
 .topBar__left {
@@ -36,6 +36,19 @@
 
 .topBar__leftSpacing {
   margin: 20.8px 13px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-items: baseline;
+}
+
+.topBar__logo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .topBar__rightSpacing {
@@ -43,8 +56,9 @@
 }
 
 .topBar__logoImage {
-  width: 32px;
-  height: 32px;
+  object-fit: fill;
+  height: 50px;
+  width: 110px;
 }
 
 .topBar__boardsImage {
@@ -60,14 +74,11 @@
   justify-items: baseline;
 }
 
-.searchTopBar {
-  background: #f4f4f4;
-  border-radius: 25px;
-  width: 512px;
-  height: 30px;
+.searchField__topBar {
+  background-color: transparent;
+  width: 500px;
   border: none;
   outline: none;
-  padding: 20px;
 }
 
 .account-avatar {
@@ -77,4 +88,11 @@
   cursor: pointer;
   margin-top: 5px;
   border: 1px solid #5C5C5C;
+}
+
+.topBar__searchBox{
+  border-radius: 25px;
+  background: #f4f4f4;
+  height: 30px;
+  padding: 20px;
 }
