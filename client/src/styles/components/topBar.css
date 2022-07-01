@@ -90,9 +90,10 @@
   border: 1px solid #5C5C5C;
 }
 
-.topBar__searchBox{
+.topBar__searchBox {
   border-radius: 25px;
   background: #f4f4f4;
   height: 30px;
   padding: 20px;
+  box-sizing: border-box;
 }
