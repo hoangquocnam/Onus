@@ -1,6 +1,8 @@
 import { createRef, useState } from "react";
-import "../../styles/login.css";
-import validate from "./validate";
+import "../../styles/components/login.css";
+import { validateLogin } from "../../utils/validate";
+import { Link } from "react-router-dom";
+import routes from "../../routes";
 
 function LogInForm() {
   const [values, setValues] = useState({
@@ -28,7 +30,7 @@ function LogInForm() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    const errors = validate(values);
+    const errors = validateLogin(values);
     setValues({ ...values, errors });
 
     if (errors.email) {
@@ -92,11 +94,9 @@ function LogInForm() {
           <p>OR</p>
         </div>
 
-        <div className="login__footer">
-          <a href="#" className="login__signup-link">
-            Create a new account?
-          </a>
-        </div>
+        <Link to={routes.signUp.path} className="signup__link">
+          Don't have an account?
+        </Link>
       </div>
     </div>
   );

@@ -1,0 +1,20 @@
+*{
+  font-family: "Poppins";
+  font-size: 16px;
+  text-decoration: none;
+}
+
+a:visited{
+  text-decoration: none; 
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+
+}
+
+#root{
+  height: 100vh;
+}
+
