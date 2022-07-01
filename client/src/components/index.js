@@ -1,6 +1,6 @@
 import SignUp from "./signup";
-import LogInForm from "./login";
+import LogIn from "./login";
 import Dashboard from "./dashboard";
 import TopBar from "./topBar";
 
-export { SignUp, LogInForm, Dashboard, TopBar };
+export { SignUp, LogIn, Dashboard, TopBar };

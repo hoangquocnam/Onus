@@ -1,4 +1,4 @@
-import { emailRegex } from "../constants";
+import { EMAIL_REGEX } from "../constants";
 
 export const validationSignUp = (values) => {
   let errors = {};
@@ -40,14 +40,14 @@ function validateEmail(email) {
     return "Email is required";
   }
 
-  if (!emailRegex.test(email.trim())) {
-    return "Email is invalid";
+  if (!EMAIL_REGEX.test(email.trim())) {
+    return "Email is not valid";
   }
 
   return "";
 }
 
-function validatePassword(password) {
+function validatePassword(password, isStrict = true) {
   if (password.trim() === "") {
     return "Password is required";
   }
@@ -58,6 +58,10 @@ function validatePassword(password) {
 
   if (password.trim().length > 14) {
     return "Password must be less than 14 characters";
+  }
+
+  if (!isStrict) {
+    return "";
   }
 
   if (!/\d/.test(password)) {
@@ -79,15 +83,34 @@ function validatePassword(password) {
   return "";
 }
 
-export function validateLogin(values) {
-  const errors = {
-    email: validateEmail(values.email),
-    password: validatePassword(values.password),
-  };
+function validateFullName(fullName) {
+  if (fullName.trim() === "") {
+    return "Full name is required";
+  }
 
-  return {
-    email: errors.email,
-    password: errors.email ? "" : errors.password,
-  };
+  return "";
 }
 
+function validateUsername(username) {
+  if (username.trim() === "") {
+    return "Username is required";
+  }
+
+  return "";
+}
+
+function validateConfirmPassword(password, confirmPassword) {
+  if (password !== confirmPassword) {
+    return "Password and confirm password does not match";
+  }
+
+  return "";
+}
+
+export {
+  validateFullName,
+  validateUsername,
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
+};
