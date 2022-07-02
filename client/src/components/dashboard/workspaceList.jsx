@@ -103,6 +103,7 @@ export function WorkspaceListView() {
                 members={workspace.members}
               />
             ))}
+            
           </ScrollMenu>
         </div>
       </div>

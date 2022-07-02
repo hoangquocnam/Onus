@@ -49,6 +49,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 50px;
+  height: 100%;
 }
 
 .topBar__rightSpacing {
@@ -57,8 +59,8 @@
 
 .topBar__logoImage {
   object-fit: fill;
-  height: 50px;
-  width: 110px;
+  width: 40px;
+  height: 40px;
 }
 
 .topBar__boardsImage {
@@ -97,3 +99,4 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
