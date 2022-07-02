@@ -26,6 +26,7 @@ function WorkspaceItemCard(props) {
                   <div
                     className="workspace-item-card-member"
                     style={{ left: 20 * index + "px" }}
+                    key={index}
                   >
                     {index <= 4 ? (
                       <img
