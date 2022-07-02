@@ -10,10 +10,8 @@
 }
 
 .workspace-item-card {
-  background: #f4f4f4;
   border-radius: 10px;
   width: 322px;
-  height: 125px;
   margin: 15px;
   padding: 20px;
 }
@@ -39,6 +37,12 @@
   background-color: transparent;
 }
 
+.workspace-list-view-arrow:hover {
+  cursor: pointer;
+  background-color: rgb(214, 211, 208);
+  border-radius: 50%;
+}
+
 .workspace-item-card-title {
   font-style: normal;
   font-weight: 400;
@@ -53,9 +57,59 @@
   line-height: 19px;
 }
 
-#style-2::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+.workspace-item-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  position: relative;
+}
+
+.workspace-item-card-members {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  position: absolute;
+}
+
+.workspace-item-card-member {
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.workspace-item-card-arrow {
+  opacity: 0.5;
+  position: absolute;
+  right: 0;
+  top: 25.5%;
+  bottom: 72.83%;
+}
+
+.workspace-item-card-member :hover {
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(199, 197, 197);
+  z-index: 1;
+}
+
+
+.workspace-item-card:hover{
+  filter: brightness(85%);
+  cursor: pointer;
 }
