@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import "../../styles/components/workspaceListView.css";
 
 function WorkspaceItemCard(props) {
-  const { title, description, id } = props;
+  const { title, description, itemId } = props;
+
+  return <div className="workspace-item-card" tabIndex={0}></div>;
+}
+
+function LeftArrow() {
+  const { isFirstItemVisible, scrollPrev } =
+    React.useContext(VisibilityContext);
+
   return (
-    <div className="workspace-item-card">
-      <div className="workspace-item-card-title">{title}</div>
-      <div className="workspace-item-card-description">{description}</div>
-    </div>
+    <button
+      type="button"
+      style={{ width: "50px", height: "50px" }}
+      onClick={() => scrollPrev()}
+    />
+  );
+}
+
+function RightArrow() {
+  const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
+
+  return (
+    <input
+      type="button"
+      style={{ width: "50px", height: "50px" }}
+      onClick={() => scrollNext()}
+    />
   );
 }
 
@@ -27,13 +49,16 @@ export function WorkspaceListView() {
       </div>
 
       <div className="workspaceList__container">
-        {workspaces.map((workspace) => (
-          <WorkspaceItemCard
-            key={workspace.id}
-            title={workspace.title}
-            description={workspace.description}
-          />
-        ))}
+        <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+          {workspaces.map((workspace) => (
+            <WorkspaceItemCard
+              key={workspace.id}
+              title={workspace.title}
+              description={workspace.description}
+              itemId={workspace.id}
+            />
+          ))}
+        </ScrollMenu>
       </div>
     </React.StrictMode>
   );

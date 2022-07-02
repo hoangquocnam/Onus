@@ -6,17 +6,27 @@
 }
 
 .workspaceList__container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  
+  width: 100%
 }
 
 .workspace-item-card {
-  width: 362px;
-  height: 144px;
-
   background: #f4f4f4;
   border-radius: 10px;
+  width: 362px;
+  height: 145px;
+  margin: 15px;
+  vertical-align: middle;
+  display: inline-block;
+
+}
+
+.react-horizontal-scrolling-menu--arrow-left{
+  display: flex;
+  align-items: center;
+  
+}
+
+.react-horizontal-scrolling-menu--arrow-right{
+  display: flex;
+  align-items: center;
 }
