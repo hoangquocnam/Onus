@@ -6,27 +6,56 @@
 }
 
 .workspaceList__container {
-  width: 100%
+  width: 100%;
 }
 
 .workspace-item-card {
   background: #f4f4f4;
   border-radius: 10px;
-  width: 362px;
-  height: 145px;
+  width: 322px;
+  height: 125px;
   margin: 15px;
-  vertical-align: middle;
-  display: inline-block;
-
+  padding: 20px;
 }
 
-.react-horizontal-scrolling-menu--arrow-left{
+.react-horizontal-scrolling-menu--arrow-left {
   display: flex;
   align-items: center;
-  
 }
 
-.react-horizontal-scrolling-menu--arrow-right{
+.react-horizontal-scrolling-menu--arrow-right {
   display: flex;
   align-items: center;
+}
+
+.workspace-list-view-arrow {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.workspace-item-card-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0px;
+}
+
+.workspace-item-card-description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 19px;
+}
+
+#style-2::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
 }
