@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SERVER_URL } from '../constants';
+import { settings } from './settings';
 
 const methods = {
   get: getMethod,
@@ -7,6 +7,8 @@ const methods = {
   put: putMethod,
   delete: deleteMethod,
 };
+
+const SERVER_URL = settings.SERVER_URL;
 
 function getMethod(url, config = {}) {
   return axios.get(`${SERVER_URL}/${url}`, config);

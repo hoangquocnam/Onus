@@ -5,6 +5,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
+import { logo, trello_board_mark } from "../../assets";
 
 const TopBarSeparator = () => {
   return <div className="topBar__separator"></div>;
@@ -17,7 +18,7 @@ export default function TopBar() {
         <div className="topBar__leftSpacing logo">
           <Link to={routes.home.path} className = "topBar__logo">
             <img
-              src={require("../../assets/logo_transparent.png")}
+              src={logo}
               alt="logo"
               className="topBar__logoImage"
             />
@@ -28,7 +29,7 @@ export default function TopBar() {
 
         <div className="topBar__leftSpacing topBar__boards">
           <img
-            src={require("../../assets/trello-mark-blue.png")}
+            src={trello_board_mark}
             alt="boards"
             className="topBar__boardsImage"
           />
