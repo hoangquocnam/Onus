@@ -3,7 +3,7 @@ import { AccountConsumer, AccountProvider } from "./stores/account";
 import { authenticate, getTokenFromStorage } from "./utils/common";
 
 const App = () => {
-  return (
+   return (
     <AccountProvider>
       <AccountConsumer>
         {(context) => {

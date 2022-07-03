@@ -1,0 +1,158 @@
+.user-profile__container {
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+}
+
+.profile-nav__container {
+    margin-left: 210px;
+}
+
+.profile-nav__title {
+    font-size: 32px;
+    color: #202142;
+    padding: 0;
+    margin-bottom: 50px;
+    margin-top: 90px;
+}
+
+.profile-nav__list{
+    list-style: none;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-nav__item {
+    margin-bottom: 35px;
+}
+
+.profile-nav__item > a:link, .profile-nav__item > a:visited {
+    color: #202142;
+
+}
+
+.profile-nav__item > a:hover, .profile-nav__item > a:focus {
+    color: #202142;
+}
+
+.public-profile__title {
+    margin-top: 150px;
+    font-size: 24px;
+}
+
+.public-profile__picture {
+    display: flex;
+    flex-direction: row;
+}
+
+.public-profile__image {
+    border: 15px solid #FFFFFF;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    height: 168px;
+    width: 168px;
+    -webkit-border-radius:50%;
+    box-shadow: 0px 16px 45px -15px rgba(2, 5, 132, 0.2);
+    margin-bottom: 75px;
+}
+
+.public-profile__btn {
+    padding: 0;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.public-profile__changeBtn {
+    margin-bottom: 20px;
+    background: #202142;
+    border-radius: 8px;
+    color: #FFFFFF;
+    width: 200px;
+    height: 55px;
+}
+
+.public-profile__deleteBtn {
+    border-radius: 8px;
+    height: 55px;
+    width: 200px;
+    background: #FFFFFF;
+    border: 1px solid #A4A4CB;
+    margin-bottom: 75px;
+}
+
+.public-profile__info{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 35px;
+}
+
+.public-profile__fullname {
+    display: flex;
+    flex-direction: column;
+}
+
+.public-profile__gender{
+    display: flex;
+    flex-direction: column; 
+    margin-left: 30px; 
+}
+
+.public-profile__username{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 35px;
+}
+
+.public-profile__email{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 35px;   
+}
+
+.public-profile__phone{
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 35px;     
+}
+
+.user__gender{
+    width: 275px;
+    height: 75px;
+    border-radius: 10px;
+    border-color: #C3C3E4;
+    border: 1px solid #C3C3E4;
+    box-sizing: border-box;
+    margin-top: 7px;
+    padding-left: 30px;
+}
+
+.input__Fullname{
+    border-radius: 10px;
+    border-color: #C3C3E4;
+    border: 1px solid #C3C3E4;
+    box-sizing: border-box;
+    width: 275px;
+    height : 75px;
+    font-size: 14px;
+    margin-top: 7px;
+    padding-left: 30px;
+}
+
+.input[type="text"]{
+    border-radius: 10px;
+    border-color: #C3C3E4;
+    border: 1px solid #C3C3E4;
+    box-sizing: border-box;
+    width: 580px;
+    height : 75px;
+    font-size: 14px;
+    margin-top: 7px;
+    padding-left: 30px;
+}
+
