@@ -6,17 +6,110 @@
 }
 
 .workspaceList__container {
-  display: flex;
-  flex-direction: row;
   width: 100%;
-  justify-content: space-between;
-  
 }
 
 .workspace-item-card {
-  width: 362px;
-  height: 144px;
-
-  background: #f4f4f4;
   border-radius: 10px;
+  width: 322px;
+  margin: 15px;
+  padding: 20px;
+}
+
+.react-horizontal-scrolling-menu--arrow-left {
+  display: flex;
+  align-items: center;
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+  display: flex;
+  align-items: center;
+}
+
+.workspace-list-view-arrow {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.workspace-list-view-arrow:hover {
+  cursor: pointer;
+  background-color: rgb(214, 211, 208);
+  border-radius: 50%;
+}
+
+.workspace-item-card-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0px;
+}
+
+.workspace-item-card-description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.workspace-item-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  position: relative;
+}
+
+.workspace-item-card-members {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  position: absolute;
+}
+
+.workspace-item-card-member {
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.workspace-item-card-arrow {
+  opacity: 0.5;
+  position: absolute;
+  right: 0;
+  top: 25.5%;
+  bottom: 72.83%;
+}
+
+.workspace-item-card-member :hover {
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(199, 197, 197);
+  z-index: 1;
+}
+
+
+.workspace-item-card:hover{
+  filter: brightness(85%);
+  cursor: pointer;
 }

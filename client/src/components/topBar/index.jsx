@@ -14,7 +14,7 @@ export default function TopBar() {
   return (
     <div className="topBar">
       <div className="topBar__left">
-        <div className="topBar__leftSpacing">
+        <div className="topBar__leftSpacing logo">
           <Link to={routes.home.path} className = "topBar__logo">
             <img
               src={require("../../assets/logo_transparent.png")}
