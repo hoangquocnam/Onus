@@ -15,7 +15,8 @@ const routes = {
     path: "/dashboard",
   },
   workspaces: {
-    path: "/workspaces/:id"
+    path: "/workspaces",
+    workspace: "/workspaces/:id"
   }
 };
 

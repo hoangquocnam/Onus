@@ -14,6 +14,7 @@ function WorkspaceItemCard(props) {
 
   function handleClickWorkSpace() {
     // TODO: navigate to workspace id
+    navigate(`${routes.workspaces.path}/${id}`);
   }
 
   return (
