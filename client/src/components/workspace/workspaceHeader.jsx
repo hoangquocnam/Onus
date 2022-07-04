@@ -3,12 +3,12 @@ import { GrStorage } from "react-icons/gr";
 import { MdOutlineSettings } from "react-icons/md";
 import "../../styles/components/workspaceHeader.css";
 
-function WorkspaceHeader() {
+function WorkspaceHeader({ title }) {
   return (
     <div className="workspace-header">
       <div className="workspace-header__wrapper">
         <div className="workspace-header__wrapper--left">
-          <h1 className="workspace-header__title">Brackets</h1>
+          <h1 className="workspace-header__title">{title}</h1>
 
           <div className="workspace-header__utility">
             <FaRegHeart size={25} className="workspace-header__bookmark" />
@@ -28,8 +28,9 @@ function WorkspaceHeader() {
 
         <div className="workspace-members">
           {Array.from(Array(Math.floor(Math.random() * 6 + 3)).keys()).map(
-            (i) => (
+            (i, index) => (
               <img
+                key={index}
                 src="https://picsum.photos/50"
                 alt="member"
                 className="task-info__members-avatar"

@@ -1,7 +1,7 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import routes from "../../routes";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Dashboard, TopBar, Workspace } from "../../components";
+import routes from "../../routes";
 import "../../styles/pages/homePage.css";
 
 export default function HomePage() {

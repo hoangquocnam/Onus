@@ -19,11 +19,15 @@ function Task({ task }) {
       )}
 
       <div className="workspace__task__label-wrapper">
-        {labels.map((label) => (
-          <div className="task__label" style={{ backgroundColor: label }}></div>
+        {labels.map((label, index) => (
+          <div
+            key={index}
+            className="task__label"
+            style={{ backgroundColor: label }}
+          ></div>
         ))}
       </div>
-      
+
       <div className="workspace-task__title">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ipsa
         facilis ex rerum, explicabo blanditiis aliquid ea sapiente adipisci
@@ -33,8 +37,9 @@ function Task({ task }) {
       <div className="workspace-task__info">
         <div className="task-info__members">
           {Array.from(Array(Math.floor(Math.random() * 4 + 1)).keys()).map(
-            (i) => (
+            (i, index) => (
               <img
+                key={index}
                 src="https://picsum.photos/50"
                 alt="member"
                 className="task-info__members-avatar"
