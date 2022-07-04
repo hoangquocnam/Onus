@@ -32,7 +32,7 @@ function UserProfile()
                     <div className="public-profile__info">
                         <div className="public-profile__fullname">
                             <label>Full name: </label>
-                            <input type="text" name="user__fullname" className="input__Fullname" placeholder="Fullname"/>
+                            <input type="text" name="user__fullname" className="input__Fullname" placeholder="Full name"/>
                         </div>
                         <div className="public-profile__gender">
                             <label>Gender: </label>
