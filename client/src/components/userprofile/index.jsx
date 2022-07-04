@@ -1,8 +1,3 @@
-import { createRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { methods, URL_Requests } from "../../APIs";
-import routes from "../../routes";
-import { AccountConsumer } from "../../stores/account";
 import "../../styles/pages/userprofile.css";
 
 function UserProfile()
@@ -23,6 +18,7 @@ function UserProfile()
                     </li>
                 </ul>
             </nav>
+            <h3 className="profile-nav__separator"></h3>
             <div className="public-profile__container">
                 <h2 className="public-profile__title">Public profile</h2>
                 <div className="public-profile__picture">
@@ -32,31 +28,29 @@ function UserProfile()
                         <button className="public-profile__deleteBtn">Delete picture</button>
                     </div>    
                 </div>
-                <div className="public-profile__info">
-                    <div className="public-profile__fullname">
-                        <label>Fullname: </label>
-                        <input type="text" name="user__fullname" className="input__Fullname" placeholder="Fullname"/>
+                <form className="public-profile__form">
+                    <div className="public-profile__info">
+                        <div className="public-profile__fullname">
+                            <label>Full name: </label>
+                            <input type="text" name="user__fullname" className="input__Fullname" placeholder="Fullname"/>
+                        </div>
+                        <div className="public-profile__gender">
+                            <label>Gender: </label>
+                            <select name="user_gender" className="user__gender">
+                                <option value="male" selected>Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="public-profile__gender">
-                        <label>Gender: </label>
-                        <select name="user_gender" className="user__gender">
-                            <option value="male" selected>Male</option>
-                            <option value="female">Female</option>
-                        </select>
+                    <div className="public-profile__username">
+                        <label>Username: </label>
+                        <input type="text" name="user__username" className="input" placeholder="Username"/>
                     </div>
-                </div>
-                <div className="public-profile__username">
-                    <label>Username: </label>
-                    <input type="text" name="user__username" className="input" placeholder="Username"/>
-                </div>
-                <div className="public-profile__email">
-                    <label>Email: </label>
-                    <input type="text" name="" className="input" placeholder="Email"/>
-                </div>
-                <div className="public-profile__phone">
-                    <label>Phone: </label>
-                    <input type="text" name="" className="input" placeholder="Phone"/>
-                </div>
+                    <div className="public-profile__email">
+                        <label>Email: </label>
+                        <input type="text" name="user__email" className="input" placeholder="Email"/>
+                    </div>
+                </form>
                 
             </div>        
         </div>
