@@ -1,0 +1,72 @@
+.workspace__task {
+  padding: 20px;
+  background-color: #f4f4f4;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.workspace-task__cover {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.workspace__task__label-wrapper {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.workspace__task__label-wrapper .task__label {
+  background-color: red;
+  width: 60px;
+  height: 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.workspace-task__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.task-info__members {
+  display: flex;
+  align-items: center;
+}
+
+.task-info__members-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.task-info__members-avatar:not(:first-child) {
+  margin-left: -15px;
+}
+
+.task-info__add-member-btn {
+  margin-left: -15px;
+}
+
+.task-info__details {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.task-info__details > div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 2px;
+  opacity: 0.2;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.task-info__details > div:hover {
+  opacity: 1;
+}

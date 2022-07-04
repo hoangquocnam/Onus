@@ -1,0 +1,21 @@
+.workspace-container {
+  background-color: #fff;
+  width: 100%;
+  min-height: 90vh;
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.workspace-body {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  overflow-x: auto;
+}
+
+.workspace-body__task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 362px;
+}

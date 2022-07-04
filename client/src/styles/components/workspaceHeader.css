@@ -1,0 +1,83 @@
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 100px;
+  margin-bottom: 15px;
+}
+
+.workspace-header__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.workspace-header__wrapper--left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workspace-header__title {
+  font-weight: 500;
+  font-size: 26px;
+  padding: 0;
+  margin: 0 4.5rem 0 0;
+  cursor: pointer;
+}
+
+.workspace-header__utility {
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  opacity: 0.3;
+  color: black;
+}
+
+.workspace-header__separator {
+  width: 2px;
+  height: 32px;
+  background: #000000;
+  border-radius: 0.5px;
+  margin: 0 1rem;
+}
+
+.workspace-header__visibility {
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.workspace-header__visibility > p {
+  margin: 0 0 0 5px;
+  padding: 0;
+}
+
+.workspace__settings-btn {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  align-items: center;
+  gap: 5px;
+  border-radius: 8px;
+  padding: 0px 12px;
+  transition: all 0.4s ease;
+}
+
+.workspace__settings-btn:hover,
+.workspace__settings-btn:focus {
+  background-color: #f4f4f4;
+}
+
+.workspace__settings-text {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.workspace-header__bookmark,
+.workspace-header__archive {
+  cursor: pointer;
+}

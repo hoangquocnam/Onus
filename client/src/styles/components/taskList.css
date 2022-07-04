@@ -1,0 +1,22 @@
+.task-list__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-list__add-new-card {
+  width: 362px;
+  height: 160px;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.task-list__add-new-card:hover {
+  border: 1px dashed rgb(0, 0, 0);
+}
