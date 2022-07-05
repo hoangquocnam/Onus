@@ -7,9 +7,10 @@ import "../../styles/pages/homePage.css";
 export default function HomePage() {
   return (
     <React.StrictMode>
-      <TopBar />
-      <div className="homePage__container">
-        <div className="homePage__body">
+      <div className="page-container">
+        <TopBar />
+
+        <div className="page-container__body">
           <Routes>
             <Route
               path={routes.home.path}

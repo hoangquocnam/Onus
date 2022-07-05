@@ -35,7 +35,7 @@
 }
 
 .topBar__leftSpacing {
-  margin: 20.8px 13px;
+  margin: 0px 13px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -44,7 +44,7 @@
   justify-items: baseline;
 }
 
-.topBar__logo{
+.topBar__logo {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,7 +89,7 @@
   border-radius: 50%;
   cursor: pointer;
   margin-top: 5px;
-  border: 1px solid #5C5C5C;
+  border: 1px solid #5c5c5c;
 }
 
 .topBar__searchBox {
@@ -99,4 +99,3 @@
   padding: 20px;
   box-sizing: border-box;
 }
-

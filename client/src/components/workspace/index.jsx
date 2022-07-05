@@ -23,34 +23,42 @@ function Workspace() {
     } else {
       navigate(routes.home.path);
     }
-  }, []);
+  }, [id, navigate]);
 
   return (
     <div className="workspace-container">
-      <WorkspaceHeader title={workspace?.title} />
+      <div className="workspace-wrapper">
+        <WorkspaceHeader title={workspace?.title} />
 
-      <div className="workspace-body">
-        <div className="workspace-body__task-list">
-          <TaskListStatus status="To Do" />
-          <TaskList />
-        </div>
+        <div className="workspace-body">
+          <div className="workspace-content">
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="To Do" />
+              <TaskList />
+            </div>
 
-        <div className="workspace-body__task-list">
-          <TaskListStatus status="In Progress" />
-          <TaskList />
-        </div>
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="In Progress" />
+              <TaskList />
+            </div>
 
-        <div className="workspace-body__task-list">
-          <TaskListStatus status="To Do" />
-          <TaskList />
-        </div>
-        <div className="workspace-body__task-list">
-          <TaskListStatus status="To Do" />
-          <TaskList />
-        </div>
-        <div className="workspace-body__task-list">
-          <TaskListStatus status="To Do" />
-          <TaskList />
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="Fixing" />
+              <TaskList />
+            </div>
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="Done" />
+              <TaskList />
+            </div>
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="Review" />
+              <TaskList />
+            </div>
+            <div className="workspace-content__task-list">
+              <TaskListStatus status="Merge" />
+              <TaskList />
+            </div>
+          </div>
         </div>
       </div>
     </div>

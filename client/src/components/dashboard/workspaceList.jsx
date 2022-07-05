@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
-import { matchPath, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routes from "../../routes";
 import "../../styles/components/workspaceListView.css";
 
@@ -13,7 +13,6 @@ function WorkspaceItemCard(props) {
   const navigate = useNavigate();
 
   function handleClickWorkSpace() {
-    // TODO: navigate to workspace id
     navigate(`${routes.workspaces.path}/${id}`);
   }
 
