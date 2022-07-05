@@ -1,5 +1,6 @@
 import { createRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { methods, URL_Requests } from "../../APIs";
 import routes from "../../routes";
 import { AccountConsumer } from "../../stores/account";
@@ -8,17 +9,16 @@ import { authenticate, setTokenToStorage } from "../../utils/common";
 import { validateEmail, validatePassword } from "../../utils/validate";
 
 function LogIn() {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState({
     email: "",
     password: "",
   });
 
-  const [message, setMessage] = useState({
+  const [error, setError] = useState({
     item: "",
     text: "",
-    type: "",
   });
 
   const inputRefs = {
@@ -32,10 +32,9 @@ function LogIn() {
       [e.target.name]: e.target.value,
     });
 
-    setMessage({
+    setError({
       item: "",
       text: "",
-      type: "",
     });
   }
 
@@ -51,11 +50,12 @@ function LogIn() {
       }
 
       if (errors[prop] !== "") {
-        setMessage({
+        setError({
           item: prop,
           text: errors[prop],
-          type: "error",
         });
+
+        toast.error(`${errors[prop]}`);
 
         inputRefs[prop].current.focus();
         inputRefs[prop].current.select();
@@ -75,22 +75,30 @@ function LogIn() {
     }
 
     try {
-      const responseToken = await methods.post(URL_Requests.login.url, data);
+      setIsLoading(true);
+
+      const responseToken = await toast.promise(
+        methods.post(URL_Requests.login.url, data),
+        {
+          pending: "Loading...",
+          success: {
+            render() {
+              return "Login successful";
+            },
+            autoClose: 1000,
+          },
+          error: "Login failed",
+        }
+      );
 
       const token = responseToken.data.token;
       setTokenToStorage(token);
 
       const responseUser = await authenticate(token);
-
       context.setAccount(responseUser.data);
-
-      navigate(routes.dashboard.path);
     } catch (error) {
-      setMessage({
-        item: "",
-        text: "Login failed",
-        type: "error",
-      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -107,7 +115,7 @@ function LogIn() {
                   <input
                     type="email"
                     className={`log-in__input ${
-                      message.item === "email" ? "log-in__input--error" : ""
+                      error.item === "email" ? "log-in__input--error" : ""
                     }`}
                     placeholder="Email"
                     onChange={handleInputChange}
@@ -115,12 +123,13 @@ function LogIn() {
                     value={data.email}
                     ref={inputRefs.email}
                     autoFocus={true}
+                    disabled={isLoading}
                   />
 
                   <input
                     type="password"
                     className={`log-in__input ${
-                      message.item === "password" ? "log-in__input--error" : ""
+                      error.item === "password" ? "log-in__input--error" : ""
                     }`}
                     placeholder="Password"
                     minLength={8}
@@ -129,15 +138,8 @@ function LogIn() {
                     name="password"
                     value={data.password}
                     ref={inputRefs.password}
+                    disabled={isLoading}
                   />
-
-                  {message.type && (
-                    <div
-                      className={`log-in__message log-in__message--${message.type}`}
-                    >
-                      {message.text}
-                    </div>
-                  )}
 
                   <input
                     type="submit"
@@ -146,6 +148,7 @@ function LogIn() {
                     onClick={(e) => {
                       handleFormSubmit(e, context);
                     }}
+                    disabled={isLoading}
                   />
                 </form>
 

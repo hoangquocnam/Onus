@@ -4,12 +4,7 @@
   --log-in-gray-color: #f8f8fb;
   --log-in-white-color: #ffffff;
   --log-in-black-color: #000000;
-  --log-in-error-text-color: #721c24;
-  --log-in-error-bg-color: #f8d7da;
-  --log-in-error-border-color: #f5c6cb;
-  --log-in-success-text-color: #155724;
-  --log-in-success-bg-color: #d4edda;
-  --log-in-success-border-color: #c3e6cb;
+  --log-in-error-border-color: #fb7478;
 }
 
 .log-in-page {
@@ -18,7 +13,7 @@
   justify-content: center;
   height: 100vh;
   background-color: var(--log-in-gray-color);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 18px;
 }
 
@@ -113,24 +108,4 @@
 .log-in__sign-up-link:hover,
 .log-in__sign-up-link:focus {
   text-decoration: underline;
-}
-
-.log-in__message {
-  font-size: 14px;
-  padding: 12px;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.log-in__message--error {
-  color: var(--log-in-error-text-color);
-  background-color: var(--log-in-error-bg-color);
-  border-color: var(--log-in-error-border-color);
-}
-
-.log-in__message--success {
-  color: var(--log-in-success-text-color);
-  background-color: var(--log-in-success-bg-color);
-  border-color: var(--log-in-success-border-color);
 }
