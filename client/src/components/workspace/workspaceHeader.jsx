@@ -41,20 +41,20 @@ function WorkspaceHeader({ title }) {
       </div>
 
       <div className="workspace-header__right">
-        <div className="workspace-header__btn">
+        <button type="button" className="workspace-header__btn">
           <FaUserPlus size={24} />
           <p>Invite</p>
-        </div>
+        </button>
 
-        <div className="workspace-header__btn">
+        <button type="button" className="workspace-header__btn">
           <FaFilter size={24} />
           <p>Filter</p>
-        </div>
+        </button>
 
-        <div className="workspace-header__btn">
+        <button type="button" className="workspace-header__btn">
           <FaBars size={24} />
           <p>Show Menu</p>
-        </div>
+        </button>
       </div>
     </div>
   );

@@ -9,6 +9,13 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+
+  /* disable select content */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* supported by Chrome and Opera */
 }
 
 .task-list__status-name {

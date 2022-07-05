@@ -11,11 +11,13 @@ function Task({ task }) {
   return (
     <div className="workspace__task">
       {Math.floor(Math.random() * 2) === 0 && (
-        <img
+        <div
           className="workspace-task__cover"
-          src="https://images.pexels.com/photos/1047540/pexels-photo-1047540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt="cover"
-        />
+          style={{
+            backgroundImage: `url("https://picsum.photos/310/170")`,
+            backgroundSize: "cover",
+          }}
+        ></div>
       )}
 
       <div className="workspace__task__label-wrapper">
@@ -46,12 +48,6 @@ function Task({ task }) {
               />
             )
           )}
-
-          {/* <FaPlusCircle
-            size={30}
-            color="#000"
-            className="task-info__add-member-btn"
-          /> */}
         </div>
 
         <div className="task-info__details">

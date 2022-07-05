@@ -5,6 +5,13 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid transparent;
+
+  /* disable select content */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* supported by Chrome and Opera */
 }
 
 .workspace__task:hover {
@@ -12,7 +19,8 @@
 }
 
 .workspace-task__cover {
-  width: 100%;
+  width: 310px;
+  height: 170px;
   border-radius: 8px;
 }
 
@@ -70,6 +78,6 @@
   align-items: center;
   flex-direction: row;
   gap: 2px;
-  opacity: 0.2;
+  opacity: 0.4;
   font-weight: 500;
 }

@@ -65,10 +65,11 @@
   padding: 10px 20px;
   background-color: #f4f4f4;
   box-sizing: border-box;
+  outline: none;
+  border: 0;
 }
 
-.workspace-header__btn:hover,
-.workspace-header__btn:focus {
+.workspace-header__btn:hover {
   background-color: #e6e6e6;
 }
 
