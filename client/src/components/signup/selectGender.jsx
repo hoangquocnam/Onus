@@ -5,6 +5,7 @@ function SelectGender({
   options: optionsProp,
   className: classNameProp,
   onChange: onChangeProp,
+  disabled: disabledProp,
 }) {
   const [option, setOption] = useState(
     optionsProp.length > 0 ? optionsProp[0] : null
@@ -36,7 +37,12 @@ function SelectGender({
   }
 
   return (
-    <select className={classNameProp} onChange={handleChange}>
+    <select
+      className={classNameProp}
+      onChange={handleChange}
+      disabled={disabledProp}
+      tabIndex={-1}
+    >
       {optionsProp.map((item) => (
         <option
           key={item.value}

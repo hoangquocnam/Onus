@@ -16,10 +16,7 @@ function LogIn() {
     password: "",
   });
 
-  const [error, setError] = useState({
-    item: "",
-    text: "",
-  });
+  const [errorItem, setErrorItem] = useState("");
 
   const inputRefs = {
     email: createRef(),
@@ -32,10 +29,7 @@ function LogIn() {
       [e.target.name]: e.target.value,
     });
 
-    setError({
-      item: "",
-      text: "",
-    });
+    setErrorItem("");
   }
 
   function validate() {
@@ -50,11 +44,7 @@ function LogIn() {
       }
 
       if (errors[prop] !== "") {
-        setError({
-          item: prop,
-          text: errors[prop],
-        });
-
+        setErrorItem(prop);
         toast.error(`${errors[prop]}`);
 
         inputRefs[prop].current.focus();
@@ -115,7 +105,7 @@ function LogIn() {
                   <input
                     type="email"
                     className={`log-in__input ${
-                      error.item === "email" ? "log-in__input--error" : ""
+                      errorItem === "email" ? "log-in__input--error" : ""
                     }`}
                     placeholder="Email"
                     onChange={handleInputChange}
@@ -129,7 +119,7 @@ function LogIn() {
                   <input
                     type="password"
                     className={`log-in__input ${
-                      error.item === "password" ? "log-in__input--error" : ""
+                      errorItem === "password" ? "log-in__input--error" : ""
                     }`}
                     placeholder="Password"
                     minLength={8}

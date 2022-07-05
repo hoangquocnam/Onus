@@ -1,5 +1,7 @@
 import { createRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { methods, URL_Requests } from "../../APIs";
 import routes from "../../routes";
 import "../../styles/pages/signup.css";
 import {
@@ -10,10 +12,11 @@ import {
   validateUsername,
 } from "../../utils/validate";
 import SelectGender from "./selectGender";
-import { URL_Requests, methods } from "../../APIs";
 
 function SignUp() {
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const genderOptions = [
     { label: "Male", value: "male" },
@@ -29,11 +32,7 @@ function SignUp() {
     confirmPassword: "",
   });
 
-  const [message, setMessage] = useState({
-    item: "",
-    text: "",
-    type: "",
-  });
+  const [errorItem, setErrorItem] = useState("");
 
   const inputRefs = {
     fullName: createRef(),
@@ -49,11 +48,7 @@ function SignUp() {
       [e.target.name]: e.target.value,
     });
 
-    setMessage({
-      item: "",
-      text: "",
-      type: "",
-    });
+    setErrorItem("");
   }
 
   function handleGenderChange(selected) {
@@ -81,11 +76,8 @@ function SignUp() {
       }
 
       if (errors[prop] !== "") {
-        setMessage({
-          item: prop,
-          text: errors[prop],
-          type: "error",
-        });
+        setErrorItem(prop);
+        toast.error(`${errors[prop]}`);
 
         inputRefs[prop].current.focus();
         inputRefs[prop].current.select();
@@ -105,21 +97,32 @@ function SignUp() {
     }
 
     try {
-      await methods.post(URL_Requests.signUp.url, {
-        fullname: data.fullName,
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        gender: data.gender,
-      });
+      setIsLoading(true);
+
+      await toast.promise(
+        methods.post(URL_Requests.signUp.url, {
+          fullname: data.fullName,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          gender: data.gender,
+        }),
+        {
+          pending: "Loading...",
+          success: {
+            render() {
+              return "Sign up successful";
+            },
+            autoClose: 1000,
+          },
+          error: "Sign up failed",
+        }
+      );
 
       navigate(routes.login.path);
     } catch (error) {
-      setMessage({
-        item: "",
-        text: "Sign up failed. Please try again.",
-        type: "error",
-      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -133,7 +136,7 @@ function SignUp() {
             <input
               type="text"
               className={`sign-up__input ${
-                message.item === "fullName" ? "sign-up__input--error" : ""
+                errorItem === "fullName" ? "sign-up__input--error" : ""
               }`}
               placeholder="Full name"
               onChange={handleInputChange}
@@ -141,44 +144,48 @@ function SignUp() {
               value={data.fullName}
               ref={inputRefs.fullName}
               autoFocus={true}
+              disabled={isLoading}
             />
 
             <div className="sign-up__input-group">
               <input
                 type="text"
                 className={`sign-up__input ${
-                  message.item === "username" ? "sign-up__input--error" : ""
+                  errorItem === "username" ? "sign-up__input--error" : ""
                 }`}
                 placeholder="Username"
                 onChange={handleInputChange}
                 name="username"
                 value={data.username}
                 ref={inputRefs.username}
+                disabled={isLoading}
               />
 
               <SelectGender
                 options={genderOptions}
                 onChange={handleGenderChange}
-                className="sign-up_select-gender"
+                className="sign-up__select-gender"
+                disabled={isLoading}
               />
             </div>
 
             <input
               type="email"
               className={`sign-up__input ${
-                message.item === "email" ? "sign-up__input--error" : ""
+                errorItem === "email" ? "sign-up__input--error" : ""
               }`}
               placeholder="Email"
               onChange={handleInputChange}
               name="email"
               value={data.email}
               ref={inputRefs.email}
+              disabled={isLoading}
             />
 
             <input
               type="password"
               className={`sign-up__input ${
-                message.item === "password" ? "sign-up__input--error" : ""
+                errorItem === "password" ? "sign-up__input--error" : ""
               }`}
               placeholder="Password"
               minLength={8}
@@ -187,14 +194,13 @@ function SignUp() {
               name="password"
               value={data.password}
               ref={inputRefs.password}
+              disabled={isLoading}
             />
 
             <input
               type="password"
               className={`sign-up__input ${
-                message.item === "confirmPassword"
-                  ? "sign-up__input--error"
-                  : ""
+                errorItem === "confirmPassword" ? "sign-up__input--error" : ""
               }`}
               placeholder="Confirm password"
               minLength={8}
@@ -203,21 +209,15 @@ function SignUp() {
               name="confirmPassword"
               value={data.confirmPassword}
               ref={inputRefs.confirmPassword}
+              disabled={isLoading}
             />
-
-            {message.type && (
-              <div
-                className={`sign-up__message sign-up__message--${message.type}`}
-              >
-                {message.text}
-              </div>
-            )}
 
             <input
               type="submit"
               className="sign-up__submit-btn"
               value="Create new account"
               onClick={handleFormSubmit}
+              disabled={isLoading}
             />
           </form>
 
