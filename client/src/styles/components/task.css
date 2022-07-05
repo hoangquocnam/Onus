@@ -3,6 +3,12 @@
   background-color: #f4f4f4;
   box-sizing: border-box;
   border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.workspace__task:hover {
+  border: 1px solid #ccc;
 }
 
 .workspace-task__cover {
@@ -40,13 +46,15 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
+  border: 0.5px solid #aaa;
+  box-sizing: border-box;
+}
+
+.task-info__members-avatar:hover {
+  filter: brightness(1.2);
 }
 
 .task-info__members-avatar:not(:first-child) {
-  margin-left: -15px;
-}
-
-.task-info__add-member-btn {
   margin-left: -15px;
 }
 
@@ -64,9 +72,4 @@
   gap: 2px;
   opacity: 0.2;
   font-weight: 500;
-  cursor: pointer;
-}
-
-.task-info__details > div:hover {
-  opacity: 1;
 }
