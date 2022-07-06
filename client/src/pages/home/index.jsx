@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Dashboard, TopBar, Workspace } from "../../components";
+import { Dashboard, TopBar, Workspace, UserProfile } from "../../components";
 import routes from "../../routes";
 import "../../styles/pages/homePage.css";
 
@@ -24,7 +24,8 @@ export default function HomePage() {
 
             <Route path={routes.dashboard.path} element={<Dashboard />}></Route>
 
-            <Route path={routes.workspace.path} element={<Workspace />}></Route>
+            <Route path={routes.workspaces.path} element={<Workspace />}></Route>
+            <Route path={routes.workspaces.workspace} element={<Workspace />}></Route>
 
             <Route path={routes.account.path} element={<UserProfile />}></Route>
 
