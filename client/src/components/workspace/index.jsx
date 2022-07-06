@@ -5,11 +5,13 @@ import routes from "../../routes";
 import "../../styles/pages/workspace.css";
 import TaskList from "./taskList";
 import WorkspaceHeader from "./workspaceHeader";
+import WorkspaceMenuTab from "./workspaceMenuTab";
 
 function Workspace() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [workspace, setWorkspace] = useState();
+  const [isShowMenu, setIsShowMenu] = useState(false);
 
   useEffect(() => {
     const workspaces = require("../../data/workspaces.json");
@@ -25,41 +27,52 @@ function Workspace() {
     }
   }, [id, navigate]);
 
+  function toggleMenuTab() {
+    setIsShowMenu(!isShowMenu);
+  }
+
   return (
     <div className="workspace-container">
       <div className="workspace-wrapper">
-        <WorkspaceHeader title={workspace?.title} />
+        <div className="workspace-main">
+          <WorkspaceHeader title={workspace?.title} showMenu={toggleMenuTab} />
 
-        <div className="workspace-body">
-          <div className="workspace-content">
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="To Do" />
-              <TaskList />
-            </div>
+          <div className="workspace-body">
+            <div className="workspace-content">
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="To Do" />
+                <TaskList />
+              </div>
 
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="In Progress" />
-              <TaskList />
-            </div>
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="In Progress" />
+                <TaskList />
+              </div>
 
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="Fixing" />
-              <TaskList />
-            </div>
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="Done" />
-              <TaskList />
-            </div>
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="Review" />
-              <TaskList />
-            </div>
-            <div className="workspace-content__task-list">
-              <TaskListStatus status="Merge" />
-              <TaskList />
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="Fixing" />
+                <TaskList />
+              </div>
+
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="Done" />
+                <TaskList />
+              </div>
+
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="Review" />
+                <TaskList />
+              </div>
+
+              <div className="workspace-content__task-list">
+                <TaskListStatus status="Merge" />
+                <TaskList />
+              </div>
             </div>
           </div>
         </div>
+
+        <WorkspaceMenuTab isShow={isShowMenu} />
       </div>
     </div>
   );

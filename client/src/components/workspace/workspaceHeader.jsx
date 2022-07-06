@@ -7,7 +7,9 @@ import {
 } from "react-icons/fa";
 import "../../styles/components/workspaceHeader.css";
 
-function WorkspaceHeader({ title }) {
+function WorkspaceHeader(item) {
+  const { title, showMenu } = item;
+
   return (
     <div className="workspace-header">
       <div className="workspace-header__left">
@@ -51,9 +53,13 @@ function WorkspaceHeader({ title }) {
           <p>Filter</p>
         </button>
 
-        <button type="button" className="workspace-header__btn">
+        <button
+          type="button"
+          className="workspace-header__btn"
+          onClick={showMenu}
+        >
           <FaBars size={24} />
-          <p>Show Menu</p>
+          <p>Menu</p>
         </button>
       </div>
     </div>

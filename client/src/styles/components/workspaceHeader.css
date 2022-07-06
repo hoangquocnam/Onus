@@ -1,14 +1,15 @@
 .workspace-header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: -10px;
+  flex-wrap: wrap;
 }
 
 .workspace-header__left {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .workspace-header__title {
