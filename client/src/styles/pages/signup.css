@@ -4,12 +4,7 @@
   --sign-up-gray-color: #f8f8fb;
   --sign-up-white-color: #ffffff;
   --sign-up-black-color: #000000;
-  --sign-up-error-text-color: #721c24;
-  --sign-up-error-bg-color: #f8d7da;
-  --sign-up-error-border-color: #f5c6cb;
-  --sign-up-success-text-color: #155724;
-  --sign-up-success-bg-color: #d4edda;
-  --sign-up-success-border-color: #c3e6cb;
+  --sign-up-error-border-color: #fb7478;
 }
 
 .sign-up-page {
@@ -84,7 +79,7 @@
   gap: 12px;
 }
 
-.sign-up_select-gender {
+.sign-up__select-gender {
   box-sizing: border-box;
   border-radius: 4px;
   border: 1px solid var(--sign-up-secondary-color);
@@ -95,6 +90,11 @@
   text-align: center;
   outline: none;
   color: var(--sign-up-primary-color);
+  font-weight: 500;
+}
+
+.sign-up__select-gender:disabled {
+  opacity: 1;
 }
 
 .sign-up__input-group > input {
@@ -140,24 +140,4 @@
 .sign-up__log-in-link:hover,
 .sign-up__log-in-link:focus {
   text-decoration: underline;
-}
-
-.sign-up__message {
-  font-size: 14px;
-  padding: 12px;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.sign-up__message--error {
-  color: var(--sign-up-error-text-color);
-  background-color: var(--sign-up-error-bg-color);
-  border-color: var(--sign-up-error-border-color);
-}
-
-.sign-up__message--success {
-  color: var(--sign-up-success-text-color);
-  background-color: var(--sign-up-success-bg-color);
-  border-color: var(--sign-up-success-border-color);
 }
