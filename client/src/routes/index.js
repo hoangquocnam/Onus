@@ -14,6 +14,10 @@ const routes = {
   dashboard: {
     path: "/dashboard",
   },
+  workspaces: {
+    path: "/workspaces",
+    workspace: "/workspaces/:id"
+  }
 };
 
 export default routes;

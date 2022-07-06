@@ -1,0 +1,83 @@
+.workspace__task {
+  padding: 20px;
+  background-color: #f4f4f4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  /* disable select content */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* supported by Chrome and Opera */
+}
+
+.workspace__task:hover {
+  border: 1px solid #ccc;
+}
+
+.workspace-task__cover {
+  width: 310px;
+  height: 170px;
+  border-radius: 8px;
+}
+
+.workspace__task__label-wrapper {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.workspace__task__label-wrapper .task__label {
+  background-color: red;
+  width: 60px;
+  height: 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.workspace-task__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.task-info__members {
+  display: flex;
+  align-items: center;
+}
+
+.task-info__members-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: 0.5px solid #aaa;
+  box-sizing: border-box;
+}
+
+.task-info__members-avatar:hover {
+  filter: brightness(1.2);
+}
+
+.task-info__members-avatar:not(:first-child) {
+  margin-left: -15px;
+}
+
+.task-info__details {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.task-info__details > div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 2px;
+  opacity: 0.4;
+  font-weight: 500;
+}

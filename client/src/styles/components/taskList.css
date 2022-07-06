@@ -1,0 +1,30 @@
+.task-list__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  overflow-x: auto;
+}
+
+.task-list__add-new-card {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 70px 0;
+}
+
+.task-list__add-new-card:hover {
+  border: 1px dashed rgb(0, 0, 0);
+
+  /* disable select content */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* supported by Chrome and Opera */
+}

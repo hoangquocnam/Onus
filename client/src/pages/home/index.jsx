@@ -1,15 +1,16 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Dashboard, TopBar, Workspace, UserProfile } from "../../components";
 import routes from "../../routes";
-import { Dashboard, TopBar, UserProfile } from "../../components";
 import "../../styles/pages/homePage.css";
 
 export default function HomePage() {
   return (
     <React.StrictMode>
-      <TopBar />
-      <div className="homePage__container">
-        <div className="homePage__body">
+      <div className="page-container">
+        <TopBar />
+
+        <div className="page-container__body">
           <Routes>
             <Route
               path={routes.home.path}
@@ -22,6 +23,9 @@ export default function HomePage() {
             ></Route>
 
             <Route path={routes.dashboard.path} element={<Dashboard />}></Route>
+
+            <Route path={routes.workspaces.path} element={<Workspace />}></Route>
+            <Route path={routes.workspaces.workspace} element={<Workspace />}></Route>
 
             <Route path={routes.account.path} element={<UserProfile />}></Route>
 

@@ -1,20 +1,31 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
-import { BsArrowRight } from "react-icons/bs";
 import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { BsArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import routes from "../../routes";
 import "../../styles/components/workspaceListView.css";
 
 function WorkspaceItemCard(props) {
-  const { title, description, members } = props;
-
+  const { itemId: id, title, description, members } = props;
   const randomColor = ["#EEF7FB", "#f4f4f4", "#F8F1FF", "#FEF7EF"];
+  const navigate = useNavigate();
+
+  function handleClickWorkSpace() {
+    navigate(`${routes.workspaces.path}/${id}`);
+  }
 
   return (
-    <div className="workspace-item-card" tabIndex={0} style = {{
-      backgroundColor: randomColor[Math.floor(Math.random() * randomColor.length)]
-    }}>
+    <div
+      className="workspace-item-card"
+      onClick={handleClickWorkSpace}
+      tabIndex={0}
+      style={{
+        backgroundColor:
+          randomColor[Math.floor(Math.random() * randomColor.length)],
+      }}
+    >
       <p className="workspace-item-card-title">{title}</p>
       <p className="workspace-item-card-description">{description}</p>
 
@@ -104,7 +115,6 @@ export function WorkspaceListView() {
                 members={workspace.members}
               />
             ))}
-            
           </ScrollMenu>
         </div>
       </div>
