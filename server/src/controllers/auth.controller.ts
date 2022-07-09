@@ -23,10 +23,7 @@ import {
   UserServiceBindings,
 } from '../keys';
 import {Users} from '../models';
-import {
-  Credentials,
-  UsersRepository,
-} from '../repositories';
+import {Credentials, UsersRepository} from '../repositories';
 import {validateCredentials} from '../services';
 import {BcryptHasher} from '../services/hash.password';
 import {JWTService} from '../services/jwt-service';
@@ -36,8 +33,7 @@ import {authRoutes} from './routes.helper';
 import {authorize} from '@loopback/authorization';
 import {basicAuthorization} from '../services/basic.authorizor';
 import {CredentialsRequestBody} from '../types/credential-schema';
-import axios from 'axios';
-import {resolve} from 'dns';
+
 
 export class AuthController {
   constructor(
@@ -50,7 +46,8 @@ export class AuthController {
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: JWTService,
   ) {}
-
+  
+  // Sign up a new user
   @post(authRoutes.signup, {
     responses: {
       '200': {
@@ -81,6 +78,7 @@ export class AuthController {
     return _.omit(savedUser, 'password');
   }
 
+  //Login 
   @post(authRoutes.login, {
     responses: {
       '200': {
@@ -104,11 +102,12 @@ export class AuthController {
     @requestBody(CredentialsRequestBody) credentials: Credentials,
   ): Promise<{token: string}> {
     const user = await this.userService.verifyCredentials(credentials);
-    const userProfile = await this.userService.convertToUserProfile(user);
+    const userProfile = this.userService.convertToUserProfile(user);
     const token = await this.jwtService.generateToken(userProfile);
     return Promise.resolve({token});
   }
 
+  // authenticate - [Authorization] - [Basic Authorization]
   @authenticate('jwt')
   @authorize({allowedRoles: ['user'], voters: [basicAuthorization]})
   @get(authRoutes.getMe, {

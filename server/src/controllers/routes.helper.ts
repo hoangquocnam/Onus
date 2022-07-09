@@ -1,15 +1,13 @@
 export const authRoutes: {
-  signup: string,
-  login: string,
-  getMe: string,
+  signup: string;
+  login: string;
+  getMe: string;
 } = {
   signup: '/signup',
   login: '/login',
-  getMe: '/auth/me'
-}
+  getMe: '/auth/me',
+};
 
-export const userRoute: {
-  
-} = {
-  
-}
+export const userRoute: {} = {};
+
+export const workspaceRoute: {} = {};

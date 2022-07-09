@@ -26,11 +26,11 @@ export class MyUserService implements UserService<Users, Credentials>{
       }
     });
     if (!foundUser) {
-      throw new HttpErrors.NotFound('user not found');
+      throw new HttpErrors.NotFound('User not found');
     }
     const passwordMatched = await this.hasher.comparePassword(credentials.password, foundUser.password)
     if (!passwordMatched) {
-      throw new HttpErrors.Unauthorized('password is not valid');
+      throw new HttpErrors.Unauthorized('Password is not valid');
     }
     return foundUser;
   }
