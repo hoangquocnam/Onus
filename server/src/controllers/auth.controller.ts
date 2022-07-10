@@ -22,7 +22,7 @@ import {
   TokenServiceBindings,
   UserServiceBindings,
 } from '../keys';
-import {Users} from '../models';
+import {User} from '../models';
 import {Credentials, UsersRepository} from '../repositories';
 import {validateCredentials} from '../services';
 import {BcryptHasher} from '../services/hash.password';
@@ -52,7 +52,7 @@ export class AuthController {
     responses: {
       '200': {
         description: 'Sign up a new user',
-        content: {'application/json': {schema: getModelSchemaRef(Users)}},
+        content: {'application/json': {schema: getModelSchemaRef(User)}},
       },
     },
   })
@@ -60,14 +60,14 @@ export class AuthController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Users, {
+          schema: getModelSchemaRef(User, {
             title: 'NewUser',
             exclude: ['id'],
           }),
         },
       },
     })
-    userData: Omit<Users, 'id'>,
+    userData: Omit<User, 'id'>,
   ) {
     await validateCredentials(
       _.pick(userData, ['email', 'password']),
@@ -117,7 +117,7 @@ export class AuthController {
         description: 'The current user profile',
         content: {
           'application/json': {
-            schema: getJsonSchemaRef(Users),
+            schema: getJsonSchemaRef(User),
           },
         },
       },
@@ -126,7 +126,7 @@ export class AuthController {
   async me(
     @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
-  ): Promise<Omit<Users, 'password'>> {
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.userRepository.findById(currentUser.id);
     return _.omit(user, 'password');
   }
