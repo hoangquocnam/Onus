@@ -18,7 +18,7 @@ const App = () => {
                     if (response.status === 200) {
                       context.setAccount(response.data);
                     } else {
-                      window.location.removeItem("token");
+                      window.localStorage.removeItem("token");
                       window.sessionStorage.removeItem("token");
                     }
                   })

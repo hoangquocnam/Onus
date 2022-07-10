@@ -1,27 +1,62 @@
-import React from "react";
-import "../../styles/components/topBar.css";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle, AiOutlineSearch } from "react-icons/ai";
 import { FiAlertCircle } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
-import routes from "../../routes";
+import { Link, useNavigate } from "react-router-dom";
 import { logo, trello_board_mark } from "../../assets";
+import routes from "../../routes";
+import { AccountConsumer } from "../../stores/account";
+import "../../styles/components/topBar.css";
+import { clearTokenFromStorage } from "../../utils/common";
 
 const TopBarSeparator = () => {
   return <div className="topBar__separator"></div>;
 };
 
+function useOutsideAlerter(ref, callback) {
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback(event.target);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, callback]);
+}
+
 export default function TopBar() {
+  const navigate = useNavigate();
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+  const accountMenuRef = useRef(null);
+
+  useOutsideAlerter(accountMenuRef, (target) => {
+    if (isAccountMenuOpen) {
+      if (target.classList.contains("account-avatar")) {
+        return;
+      }
+
+      setIsAccountMenuOpen(false);
+    }
+  });
+
+  function logout(accountContext) {
+    const { setAccount } = accountContext;
+
+    clearTokenFromStorage();
+    setAccount(undefined);
+    navigate(routes.login.path);
+  }
+
   return (
     <div className="topBar">
       <div className="topBar__left">
         <div className="topBar__leftSpacing logo">
-          <Link to={routes.home.path} className = "topBar__logo">
-            <img
-              src={logo}
-              alt="logo"
-              className="topBar__logoImage"
-            />
+          <Link to={routes.home.path} className="topBar__logo">
+            <img src={logo} alt="logo" className="topBar__logoImage" />
           </Link>
         </div>
 
@@ -39,8 +74,12 @@ export default function TopBar() {
         <TopBarSeparator />
 
         <div className="topBar__leftSpacing topBar__searchBox">
-          <input type="search" className="searchField__topBar" />
-          <AiOutlineSearch size={20}/>
+          <input
+            type="search"
+            className="searchField__topBar"
+            placeholder="Search"
+          />
+          <AiOutlineSearch size={20} />
         </div>
       </div>
 
@@ -58,14 +97,45 @@ export default function TopBar() {
         </div>
 
         <div className="topBar__rightSpacing topBar__accountAvatar">
-          <div className="topBar__avatar ">
-            <Link to={routes.account.path}>
-              <img
-                src="https://api.minimalavatars.com/avatar/random/png"
-                alt="avt"
-                className="account-avatar"
-              />
-            </Link>
+          <div className="topBar__avatar">
+            <img
+              src="https://api.minimalavatars.com/avatar/random/png"
+              alt="avt"
+              className="account-avatar"
+              onClick={() => {
+                setIsAccountMenuOpen(!isAccountMenuOpen);
+              }}
+            />
+
+            {isAccountMenuOpen && (
+              <AccountConsumer>
+                {(accountContext) => (
+                  <div ref={accountMenuRef} className="top-bar__dropdown-menu">
+                    <h3 className="top-bar__dropdown-menu-title">Account</h3>
+                    <ul className="top-bar__dropdown-menu-list">
+                      <li className="top-bar__dropdown-item-separator"></li>
+                      <li
+                        className="top-bar__dropdown-item"
+                        onClick={() => {
+                          setIsAccountMenuOpen(false);
+                          navigate(routes.account.path);
+                        }}
+                      >
+                        Profile
+                      </li>
+                      <li className="top-bar__dropdown-item">Settings</li>
+                      <li className="top-bar__dropdown-item-separator"></li>
+                      <li
+                        className="top-bar__dropdown-item"
+                        onClick={() => logout(accountContext)}
+                      >
+                        Log out
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </AccountConsumer>
+            )}
           </div>
         </div>
       </div>

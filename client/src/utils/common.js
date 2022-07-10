@@ -14,6 +14,11 @@ export function setTokenToStorage(token) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
+export function clearTokenFromStorage() {
+  localStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(TOKEN_KEY);
+}
+
 export function authenticate(token) {
   const config = {
     headers: {

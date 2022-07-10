@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
-const { Provider, Consumer } = createContext();
+const { Consumer, Provider } = createContext();
 
 function AccountProvider(props) {
   const [account, setAccount] = useState(undefined);
