@@ -22,11 +22,8 @@ import {
   TokenServiceBindings,
   UserServiceBindings,
 } from '../keys';
-import {Users} from '../models';
-import {
-  Credentials,
-  UsersRepository,
-} from '../repositories';
+import {User} from '../models';
+import {Credentials, UserRepository} from '../repositories';
 import {validateCredentials} from '../services';
 import {BcryptHasher} from '../services/hash.password';
 import {JWTService} from '../services/jwt-service';
@@ -36,13 +33,12 @@ import {authRoutes} from './routes.helper';
 import {authorize} from '@loopback/authorization';
 import {basicAuthorization} from '../services/basic.authorizor';
 import {CredentialsRequestBody} from '../types/credential-schema';
-import axios from 'axios';
-import {resolve} from 'dns';
+
 
 export class AuthController {
   constructor(
-    @repository(UsersRepository)
-    public userRepository: UsersRepository,
+    @repository(UserRepository)
+    public userRepository: UserRepository,
     @inject(PasswordHasherBindings.PASSWORD_HASHER)
     public hasher: BcryptHasher,
     @inject(UserServiceBindings.USER_SERVICE)
@@ -50,12 +46,13 @@ export class AuthController {
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: JWTService,
   ) {}
-
+  
+  // Sign up a new user
   @post(authRoutes.signup, {
     responses: {
       '200': {
         description: 'Sign up a new user',
-        content: {'application/json': {schema: getModelSchemaRef(Users)}},
+        content: {'application/json': {schema: getModelSchemaRef(User)}},
       },
     },
   })
@@ -63,14 +60,14 @@ export class AuthController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Users, {
+          schema: getModelSchemaRef(User, {
             title: 'NewUser',
             exclude: ['id'],
           }),
         },
       },
     })
-    userData: Omit<Users, 'id'>,
+    userData: Omit<User, 'id'>,
   ) {
     await validateCredentials(
       _.pick(userData, ['email', 'password']),
@@ -81,6 +78,7 @@ export class AuthController {
     return _.omit(savedUser, 'password');
   }
 
+  //Login 
   @post(authRoutes.login, {
     responses: {
       '200': {
@@ -104,11 +102,12 @@ export class AuthController {
     @requestBody(CredentialsRequestBody) credentials: Credentials,
   ): Promise<{token: string}> {
     const user = await this.userService.verifyCredentials(credentials);
-    const userProfile = await this.userService.convertToUserProfile(user);
+    const userProfile = this.userService.convertToUserProfile(user);
     const token = await this.jwtService.generateToken(userProfile);
     return Promise.resolve({token});
   }
 
+  // authenticate - [Authorization] - [Basic Authorization]
   @authenticate('jwt')
   @authorize({allowedRoles: ['user'], voters: [basicAuthorization]})
   @get(authRoutes.getMe, {
@@ -118,7 +117,7 @@ export class AuthController {
         description: 'The current user profile',
         content: {
           'application/json': {
-            schema: getJsonSchemaRef(Users),
+            schema: getJsonSchemaRef(User),
           },
         },
       },
@@ -127,7 +126,7 @@ export class AuthController {
   async me(
     @inject(AuthenticationBindings.CURRENT_USER)
     currentUser: UserProfile,
-  ): Promise<Omit<Users, 'password'>> {
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.userRepository.findById(currentUser.id);
     return _.omit(user, 'password');
   }

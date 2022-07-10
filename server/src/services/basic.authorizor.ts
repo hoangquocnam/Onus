@@ -8,7 +8,7 @@ import {
   AuthorizationDecision,
   AuthorizationMetadata,
 } from '@loopback/authorization';
-import { securityId, UserProfile } from '@loopback/security';
+import {securityId, UserProfile} from '@loopback/security';
 import _ from 'lodash';
 
 // Instance level authorizer
@@ -19,11 +19,8 @@ export async function basicAuthorization(
 ): Promise<AuthorizationDecision> {
   let currentUser: UserProfile;
   if (authorizationCtx.principals.length > 0) {
-    const user = _.pick(authorizationCtx.principals[0], [
-      'id',
-      'name',
-    ]);
-    currentUser = { [securityId]: user.id, name: user.name };
+    const user = _.pick(authorizationCtx.principals[0], ['id', 'name']);
+    currentUser = {[securityId]: user.id, name: user.name};
   } else {
     return AuthorizationDecision.DENY;
   }

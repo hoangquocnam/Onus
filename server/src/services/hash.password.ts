@@ -4,12 +4,12 @@ import {PasswordHasherBindings} from '../keys';
 
 export interface PasswordHasher<T = string> {
   hashPassword(password: T): Promise<T>;
-  comparePassword(provdedPass: T, storedPass: T): Promise<boolean>
+  comparePassword(providedPass: T, storedPass: T): Promise<boolean>
 }
 
 export class BcryptHasher implements PasswordHasher<string> {
-  async comparePassword(provdedPass: string, storedPass: string): Promise<boolean> {
-    const passwordMatches = await compare(provdedPass, storedPass);
+  async comparePassword(providedPass: string, storedPass: string): Promise<boolean> {
+    const passwordMatches = await compare(providedPass, storedPass);
     return passwordMatches;
   }
 
