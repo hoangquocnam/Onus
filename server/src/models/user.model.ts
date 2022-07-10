@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
+import {Workspace} from './workspace.model';
 
 @model({settings: {strict: true}})
 export class User extends Entity {
@@ -33,14 +34,15 @@ export class User extends Entity {
   })
   password: string;
 
-
   @property({
     type: 'string',
     required: true,
     default: 'male',
   })
   gender: string;
-  
+
+  @hasMany(() => Workspace, {keyTo: 'ownerId'})
+  workspaces?: Workspace[];
 
   // Define well-known properties here
 

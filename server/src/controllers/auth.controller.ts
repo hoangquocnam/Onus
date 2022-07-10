@@ -23,7 +23,7 @@ import {
   UserServiceBindings,
 } from '../keys';
 import {User} from '../models';
-import {Credentials, UsersRepository} from '../repositories';
+import {Credentials, UserRepository} from '../repositories';
 import {validateCredentials} from '../services';
 import {BcryptHasher} from '../services/hash.password';
 import {JWTService} from '../services/jwt-service';
@@ -37,8 +37,8 @@ import {CredentialsRequestBody} from '../types/credential-schema';
 
 export class AuthController {
   constructor(
-    @repository(UsersRepository)
-    public userRepository: UsersRepository,
+    @repository(UserRepository)
+    public userRepository: UserRepository,
     @inject(PasswordHasherBindings.PASSWORD_HASHER)
     public hasher: BcryptHasher,
     @inject(UserServiceBindings.USER_SERVICE)

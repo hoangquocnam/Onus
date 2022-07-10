@@ -1,7 +1,7 @@
 import {TokenService, UserService} from '@loopback/authentication';
 import {BindingKey} from '@loopback/core';
 import {User} from './models';
-import {Credentials} from './repositories/users.repository';
+import {Credentials} from './repositories/user.repository';
 import {PasswordHasher} from './services/hash.password';
 require('dotenv').config();
 

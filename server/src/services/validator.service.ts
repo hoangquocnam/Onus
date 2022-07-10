@@ -1,11 +1,11 @@
 import {HttpErrors} from '@loopback/rest';
 import * as isEmail from 'isemail';
-import {Credentials} from '../repositories/users.repository';
-import {UsersRepository} from '../repositories/users.repository';
+import {Credentials} from '../repositories/user.repository';
+import {UserRepository} from '../repositories/user.repository';
 
 export async function validateCredentials(
   credentials: Credentials,
-  userRepository: UsersRepository,
+  userRepository: UserRepository,
 ) {
   if (!isEmail.validate(credentials.email)) {
     throw new HttpErrors.UnprocessableEntity('Invalid Email');

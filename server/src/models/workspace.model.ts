@@ -23,10 +23,9 @@ export class Workspace extends Entity {
   })
   description: string;
 
-  @belongsTo(() => User)
+  @belongsTo(() => User, {name: 'user'})
   ownerId: string;
 
-  
 
 
 
