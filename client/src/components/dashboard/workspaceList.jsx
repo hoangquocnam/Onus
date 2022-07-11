@@ -19,14 +19,22 @@ import routes from '../../routes';
 import '../../styles/components/workspaceListView.scss';
 import { methods, URL_Requests } from '../../APIs';
 
+import {
+	MdOutlineAddReaction,
+	MdAttachFile,
+	MdPersonAdd,
+} from 'react-icons/md';
+import routes from '../../routes';
+import '../../styles/components/workspaceListView.scss';
+
 function WorkspaceItemCard(props) {
   const { itemId: id, title, description, members } = props;
   const randomColor = ['#EEF7FB', '#f4f4f4', '#F8F1FF', '#FEF7EF'];
   const navigate = useNavigate();
 
-  function handleClickWorkSpace() {
-    navigate(`${routes.workspaces.path}/${id}`);
-  }
+	function handleClickWorkSpace() {
+		navigate(`${routes.workspaces.path}/${id}`);
+	}
 
   return (
     <div
@@ -75,8 +83,8 @@ function WorkspaceItemCard(props) {
 }
 
 function LeftArrow() {
-  const { isFirstItemVisible, scrollPrev } =
-    React.useContext(VisibilityContext);
+	const { isFirstItemVisible, scrollPrev } =
+		React.useContext(VisibilityContext);
 
   return (
     <button
@@ -90,7 +98,7 @@ function LeftArrow() {
 }
 
 function RightArrow() {
-  const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
+	const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
 
   return (
     <button
