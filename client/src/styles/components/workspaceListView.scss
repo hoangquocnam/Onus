@@ -1,0 +1,239 @@
+.workspaceList__title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 39px;
+}
+
+.workspaceList__container {
+  width: 100%;
+}
+
+.workspace-item-card {
+  border-radius: 10px;
+  width: 322px;
+  margin: 15px;
+  padding: 20px;
+}
+
+.workspace-item-card {
+  &--add-new-workspace {
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 322px;
+    height: 173px;
+    margin: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      cursor: pointer;
+      background-color: #e6e6e6;
+      filter: brightness(90%);
+    }
+
+    &-heading {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 39px;
+    }
+  }
+
+}
+
+.workspaceListView {
+  position: relative;
+}
+
+.workspace-item {
+  &__add-new-workspace-form {
+    box-sizing: border;
+    position: absolute;
+    width: 348px;
+    border-radius: 8px;
+    background-color: #e4d8d8;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      align-self: flex-start;
+      margin-left: 11px;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+    }
+
+
+    &-description,
+    &-name {
+      height: 121px;
+      width: 302px;
+      padding: 10px;
+      resize: none;
+      border-radius: 8px;
+      border: none;
+
+      &:focus {
+        outline: 0.8px solid #2F80ED;
+      }
+    }
+
+    &-name {
+      height: unset;
+      margin-bottom: 20px;
+    }
+
+    &-description {
+      margin-bottom: 20px;
+    }
+
+    .ulities-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+
+      .left {
+        margin-left: 12px;
+
+        >*:not(:first-child) {
+          margin-left: 11px;
+          cursor: pointer;
+        }
+      }
+
+      .right {
+        margin-right: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__create-task-btn {
+    border: none;
+    outline: none;
+    background: #2F80ED;
+    width: calc(302px + 18px);
+
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+  }
+}
+
+
+
+.react-horizontal-scrolling-menu--arrow-left {
+  display: flex;
+  align-items: center;
+}
+
+.react-horizontal-scrolling-menu--arrow-right {
+  display: flex;
+  align-items: center;
+}
+
+.workspace-list-view-arrow {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.workspace-list-view-arrow:hover {
+  cursor: pointer;
+  background-color: rgb(214, 211, 208);
+  border-radius: 50%;
+}
+
+.workspace-item-card-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0px;
+}
+
+.workspace-item-card-description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.workspace-item-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  position: relative;
+}
+
+.workspace-item-card-members {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  position: absolute;
+}
+
+.workspace-item-card-member {
+  border-radius: 50%;
+  border: 0.5px solid rgb(223, 222, 222);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.workspace-item-card-arrow {
+  opacity: 0.5;
+  position: absolute;
+  right: 0;
+  top: 25.5%;
+  bottom: 72.83%;
+}
+
+.workspace-item-card-member :hover {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EEF0F2;
+  z-index: 1;
+}
+
+
+.workspace-item-card:hover {
+  filter: brightness(90%);
+  cursor: pointer;
+}
