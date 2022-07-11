@@ -16,8 +16,10 @@ const routes = {
   },
   workspaces: {
     path: "/workspaces",
-    workspace: "/workspaces/:id"
-  }
+    workspace: {
+      path: "/workspaces/:id",
+    },
+  },
 };
 
 export default routes;

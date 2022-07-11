@@ -1,37 +1,43 @@
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { HomePage, LoginPage } from "./pages";
-import { AccountConsumer, AccountProvider } from "./stores/account";
-import { authenticate, getTokenFromStorage } from "./utils/common";
+import {
+  Dashboard,
+  ProtectedRoutes,
+  PublicRoutes,
+  UserProfile,
+  Workspace,
+} from "./components";
+import { HomePage, LogInPage, SignUpPage } from "./pages";
+import routes from "./routes";
+import { AccountProvider } from "./stores/account";
 
 const App = () => {
   return (
     <>
       <AccountProvider>
-        <AccountConsumer>
-          {(context) => {
-            const token = getTokenFromStorage();
-            if (token && token != null) {
-              if (!context.account) {
-                authenticate(token)
-                  .then((response) => {
-                    if (response.status === 200) {
-                      context.setAccount(response.data);
-                    } else {
-                      window.localStorage.removeItem("token");
-                      window.sessionStorage.removeItem("token");
-                    }
-                  })
-                  .catch((error) => {
-                    // handleLogout(context);
-                  });
-              }
-              return <HomePage></HomePage>;
-            } else {
-              return <LoginPage />;
-            }
-          }}
-        </AccountConsumer>
+        <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <Route path={routes.home.path} element={<HomePage />}>
+              <Route
+                path={routes.home.path}
+                element={<Navigate to={routes.dashboard.path} replace />}
+              />
+              <Route path={routes.dashboard.path} element={<Dashboard />} />
+              <Route path={routes.account.path} element={<UserProfile />} />
+              <Route path={routes.workspaces.path} element={<Workspace />} />
+              <Route
+                path={routes.workspaces.workspace.path}
+                element={<Workspace />}
+              />
+            </Route>
+          </Route>
+
+          <Route element={<PublicRoutes />}>
+            <Route path={routes.login.path} element={<LogInPage />} />
+            <Route path={routes.signUp.path} element={<SignUpPage />} />
+          </Route>
+        </Routes>
       </AccountProvider>
 
       <ToastContainer

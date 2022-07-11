@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../../components/spinner";
 import TaskListStatus from "../../components/workspace/taskListStatus";
 import routes from "../../routes";
 import "../../styles/pages/workspace.css";
@@ -29,6 +30,10 @@ function Workspace() {
 
   function toggleMenuTab() {
     setIsShowMenu(!isShowMenu);
+  }
+
+  if (!workspace) {
+    return <Spinner />;
   }
 
   return (
