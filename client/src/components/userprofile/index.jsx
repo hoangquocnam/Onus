@@ -13,9 +13,6 @@ function UserProfile()
                     <li className="profile-nav__item">
                         <a href="">Account Settings</a>
                     </li>
-                    <li className="profile-nav__item">
-                        <a href="">Notifications</a>
-                    </li>
                 </ul>
             </nav>
             <h3 className="profile-nav__separator"></h3>
@@ -32,11 +29,11 @@ function UserProfile()
                     <div className="public-profile__info">
                         <div className="public-profile__fullname">
                             <label>Full name: </label>
-                            <input type="text" name="user__fullname" className="input__Fullname" placeholder="Full name"/>
+                            <input type="text" name="user__fullname" className="input__Fullname" placeholder="Full name" disabled/>
                         </div>
                         <div className="public-profile__gender">
                             <label>Gender: </label>
-                            <select name="user_gender" className="user__gender">
+                            <select name="user_gender" className="user__gender" disabled > 
                                 <option value="male" selected>Male</option>
                                 <option value="female">Female</option>
                             </select>
@@ -44,11 +41,11 @@ function UserProfile()
                     </div>
                     <div className="public-profile__username">
                         <label>Username: </label>
-                        <input type="text" name="user__username" className="input" placeholder="Username"/>
+                        <input type="text" name="user__username" className="input" placeholder="Username" disabled/>
                     </div>
                     <div className="public-profile__email">
                         <label>Email: </label>
-                        <input type="text" name="user__email" className="input" placeholder="Email"/>
+                        <input type="text" name="user__email" className="input" placeholder="Email" disabled/>
                     </div>
                 </form>
                 
