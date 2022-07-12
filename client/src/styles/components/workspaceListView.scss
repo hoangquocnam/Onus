@@ -42,7 +42,6 @@
       line-height: 39px;
     }
   }
-
 }
 
 .workspaceListView {
@@ -80,7 +79,6 @@
       cursor: pointer;
     }
 
-
     &-description,
     &-name {
       height: 121px;
@@ -91,7 +89,7 @@
       border: none;
 
       &:focus {
-        outline: 0.8px solid #2F80ED;
+        outline: 0.8px solid #2f80ed;
       }
     }
 
@@ -113,7 +111,7 @@
       .left {
         margin-left: 12px;
 
-        >*:not(:first-child) {
+        > *:not(:first-child) {
           margin-left: 11px;
           cursor: pointer;
         }
@@ -129,7 +127,7 @@
   &__create-task-btn {
     border: none;
     outline: none;
-    background: #2F80ED;
+    background: #2f80ed;
     width: calc(302px + 18px);
 
     height: 50px;
@@ -138,8 +136,6 @@
     color: white;
   }
 }
-
-
 
 .react-horizontal-scrolling-menu--arrow-left {
   display: flex;
@@ -228,10 +224,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #EEF0F2;
+  background-color: #eef0f2;
   z-index: 1;
 }
-
 
 .workspace-item-card:hover {
   filter: brightness(90%);
