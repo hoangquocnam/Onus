@@ -13,7 +13,7 @@ import {
 } from "../../utils/validate";
 import SelectGender from "./selectGender";
 
-function SignUp() {
+function SignUpPage() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -234,4 +234,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpPage;
