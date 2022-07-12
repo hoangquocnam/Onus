@@ -119,6 +119,18 @@ function LogInPage() {
               disabled={isLoading}
             />
 
+            <div className="log-in_remember-box">
+              <input
+                type="checkbox"
+                className="remember-box_checkbox"
+                id="remember-box_ID"
+                value="Remember"
+              />
+              <label htmlFor="remember-box_ID" className="remember-box_title">
+                Remember Me
+              </label>
+            </div>
+
             <input
               type="submit"
               className="log-in__submit-btn"
