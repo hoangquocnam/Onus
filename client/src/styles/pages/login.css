@@ -92,6 +92,25 @@
   display: block;
 }
 
+.log-in_remember-box{
+  white-space: nowrap;
+  width: 12px;
+  align-self: start;
+}
+
+.remember-box_checkbox{
+  width: 12px;
+  height: 12px;
+}
+
+.remember-box_title{
+  font-size: 16px;
+  color: var(--log-in-primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 5px;
+}
+
 .log-in__submit-btn:hover,
 .log-in__submit-btn:focus {
   cursor: pointer;
