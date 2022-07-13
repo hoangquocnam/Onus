@@ -1,78 +1,40 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Spinner from "../../components/spinner";
-import TaskListStatus from "../../components/workspace/taskListStatus";
-import routes from "../../routes";
 import "../../styles/pages/workspace.css";
 import TaskList from "./taskList";
 import WorkspaceHeader from "./workspaceHeader";
 import WorkspaceMenuTab from "./workspaceMenuTab";
 
 function Workspace() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [workspace, setWorkspace] = useState();
+  const [workspace, setWorkspace] = useState(null);
+  const [taskLists, setTaskLists] = useState(null);
   const [isShowMenu, setIsShowMenu] = useState(false);
 
   useEffect(() => {
-    const workspaces = require("../../data/workspaces.json");
+    const data = require("../../data/workspace.json");
 
-    const foundWorkspace = workspaces.find(
-      (workspace) => workspace.id.toString() === id
-    );
-
-    if (foundWorkspace) {
-      setWorkspace(foundWorkspace);
-    } else {
-      navigate(routes.home.path);
-    }
-  }, [id, navigate]);
+    setWorkspace(data);
+    setTaskLists(data.lists);
+  }, []);
 
   function toggleMenuTab() {
     setIsShowMenu(!isShowMenu);
   }
 
   if (!workspace) {
-    return <Spinner />;
+    return null;
   }
 
   return (
     <div className="workspace-container">
       <div className="workspace-wrapper">
         <div className="workspace-main">
-          <WorkspaceHeader title={workspace?.title} showMenu={toggleMenuTab} />
+          <WorkspaceHeader showMenu={toggleMenuTab} workspace={workspace} />
 
           <div className="workspace-body">
             <div className="workspace-content">
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="To Do" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="In Progress" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Fixing" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Done" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Review" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Merge" />
-                <TaskList />
-              </div>
+              {taskLists?.map((taskList) => (
+                <TaskList key={taskList.id} taskList={taskList} />
+              ))}
             </div>
           </div>
         </div>

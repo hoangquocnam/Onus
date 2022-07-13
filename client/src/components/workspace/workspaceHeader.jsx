@@ -9,17 +9,10 @@ import "../../styles/components/workspaceHeader.css";
 import MemberAvatarList from "../memberAvatarList";
 
 function WorkspaceHeader(props) {
-  const members = new Array(Math.floor(Math.random() * 20 + 1))
-    .fill()
-    .map((member, index) => ({
-      avatar: `https://api.minimalavatars.com/avatar/${index}/png`,
-      name: "member",
-    }));
-
   return (
     <div className="workspace-header">
       <div className="workspace-header__left">
-        <h1 className="workspace-header__title">{props.title}</h1>
+        <h1 className="workspace-header__title">{props.workspace.title}</h1>
 
         <div className="workspace-header__utility">
           <FaRegStar size={25} className="workspace-header__bookmark" />
@@ -34,7 +27,7 @@ function WorkspaceHeader(props) {
           <div className="workspace-header__separator"></div>
         </div>
 
-        <MemberAvatarList members={members} />
+        <MemberAvatarList members={props.workspace.members} />
       </div>
 
       <div className="workspace-header__right">

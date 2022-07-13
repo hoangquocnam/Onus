@@ -10,7 +10,7 @@ function MemberAvatarList(props) {
         <div key={index} className="member-avatar__item">
           <img
             src={member.avatar}
-            alt={member.name}
+            alt="avatar"
             onMouseDown={(e) => e.preventDefault()}
           />
         </div>
