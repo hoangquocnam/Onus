@@ -9,6 +9,7 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid transparent;
+  margin-bottom: 10px;
 }
 
 .workspace-task__cover {
@@ -57,7 +58,7 @@
   align-items: center;
   flex-direction: row;
   gap: 2px;
-  opacity: 0.4;
-  font-weight: 400;
+  opacity: 0.3;
+  font-weight: 500;
   font-size: 14px;
 }

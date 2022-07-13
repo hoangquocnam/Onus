@@ -48,15 +48,35 @@
   bottom: 0;
   width: 100%;
   overflow-y: hidden;
+
+  display: flex;
 }
 
-.workspace-content > div > div:not(:last-child) {
+.workspace-new-task-list {
+  flex: 0 0 280px;
+}
+
+.workspace-new-task-list-btn {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+.workspace-new-task-list-btn:active {
+  border: 1px dashed rgb(0, 0, 0);
+}
+
+.workspace-content > div > div {
   padding-right: 30px;
 }
 
 .task-list-drop-preview {
-  background-color: rgba(150, 150, 200, 0.1);
   border: 1px dashed #abc;
-  margin: 5px 45px 5px 5px;
+  margin-right: 30px;
   border-radius: 10px;
 }

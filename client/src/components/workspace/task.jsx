@@ -28,9 +28,9 @@ function Task(props) {
         </div>
 
         <div className="workspace-task__title">
-          {props.task.title.length <= 30
+          {props.task.title.length <= 40
             ? props.task.title
-            : props.task.title.substring(0, 30) + "..."}
+            : props.task.title.substring(0, 40) + "..."}
         </div>
 
         <div className="workspace-task__description">
@@ -44,15 +44,15 @@ function Task(props) {
 
           <div className="task-info__details">
             <div className="task-info__comment">
-              {Math.floor(Math.random() * 101)}
+              0
               <FaRegCommentDots />
             </div>
             <div className="task-info__like">
-              {Math.floor(Math.random() * 101)}
+              0
               <FaRegHeart />
             </div>
             <div className="task-info__attachment">
-              {Math.floor(Math.random() * 101)}
+              0
               <FaPaperclip />
             </div>
           </div>

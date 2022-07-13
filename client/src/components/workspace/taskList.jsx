@@ -4,8 +4,6 @@ import "../../styles/components/workspaceTaskList.css";
 import Task from "./task";
 
 function TaskList(props) {
-  function onTaskDrop(result) {}
-
   return (
     <Draggable>
       <div className="task-list">
@@ -20,7 +18,8 @@ function TaskList(props) {
           <Container
             orientation="vertical"
             groupName="column"
-            onDrop={onTaskDrop}
+            onDrop={(result) => props.onTaskDrop(props.taskList.id, result)}
+            getChildPayload={(index) => props.taskList.tasks[index]}
             dragClass="task-list__task-drag"
             dropClass="task-list__task-drop"
             dropPlaceholder={{

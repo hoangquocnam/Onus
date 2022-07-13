@@ -25,7 +25,34 @@ function Workspace() {
     return null;
   }
 
-  function onColumnDrop(result) {}
+  function onTaskListDrop(result) {
+    let newTaskLists = [...taskLists];
+    const [removed] = newTaskLists.splice(result.removedIndex, 1);
+    newTaskLists.splice(result.addedIndex, 0, removed);
+    setTaskLists(newTaskLists);
+  }
+
+  function onTaskDrop(taskListID, result) {
+    if (result.removedIndex === null && result.addedIndex === null) {
+      return;
+    }
+
+    const index = taskLists.findIndex((taskList) => taskList.id === taskListID);
+    const newTaskList = { ...taskLists[index] };
+
+    if (result.removedIndex !== null) {
+      newTaskList.tasks.splice(result.removedIndex, 1);
+    }
+
+    if (result.addedIndex !== null) {
+      newTaskList.tasks.splice(result.addedIndex, 0, result.payload);
+    }
+
+    const newTaskLists = [...taskLists];
+    newTaskLists[index] = newTaskList;
+
+    setTaskLists(newTaskLists);
+  }
 
   return (
     <div className="workspace-container">
@@ -36,7 +63,7 @@ function Workspace() {
           <div className="workspace-content">
             <Container
               orientation="horizontal"
-              onDrop={onColumnDrop}
+              onDrop={onTaskListDrop}
               dragHandleSelector=".task-list-draggable-handle"
               dropPlaceholder={{
                 animationDuration: 150,
@@ -45,9 +72,19 @@ function Workspace() {
               }}
             >
               {taskLists?.map((taskList) => (
-                <TaskList key={taskList.id} taskList={taskList} />
+                <TaskList
+                  key={taskList.id}
+                  taskList={taskList}
+                  onTaskDrop={onTaskDrop}
+                />
               ))}
             </Container>
+
+            <div className="workspace-new-task-list">
+              <div className="workspace-new-task-list-btn disable-user-select">
+                + Add new list
+              </div>
+            </div>
           </div>
         </div>
       </div>
