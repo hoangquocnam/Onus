@@ -1,61 +1,64 @@
 import { FaPaperclip, FaRegCommentDots, FaRegHeart } from "react-icons/fa";
+import { Draggable } from "react-smooth-dnd";
 import "../../styles/components/workspaceTask.css";
 import MemberAvatarList from "../memberAvatarList";
 
 function Task(props) {
   return (
-    <div className="workspace__task disable-user-select">
-      {props.task.cover && (
-        <div
-          className="workspace-task__cover"
-          style={{
-            backgroundImage: `url(${props.task.cover})`,
-            backgroundSize: "cover",
-          }}
-        ></div>
-      )}
-
-      <div className="workspace__task__label-wrapper">
-        {props.task.labels.map((label, index) => (
+    <Draggable>
+      <div className="workspace__task disable-user-select">
+        {props.task.cover && (
           <div
-            key={index}
-            className="task__label"
-            style={{ backgroundColor: label.color }}
+            className="workspace-task__cover"
+            style={{
+              backgroundImage: `url(${props.task.cover})`,
+              backgroundSize: "cover",
+            }}
           ></div>
-        ))}
-      </div>
+        )}
 
-      <div className="workspace-task__title">
-        {props.task.title.length <= 40
-          ? props.task.title
-          : props.task.title.substring(0, 40) + "..."}
-      </div>
+        <div className="workspace-task__label-wrapper">
+          {props.task.labels.map((label, index) => (
+            <div
+              key={index}
+              className="workspace-task__label"
+              style={{ backgroundColor: label.color }}
+            ></div>
+          ))}
+        </div>
 
-      <div className="workspace-task__description">
-        {props.task.description.length <= 100
-          ? props.task.description
-          : props.task.description.substring(0, 100) + "..."}
-      </div>
+        <div className="workspace-task__title">
+          {props.task.title.length <= 30
+            ? props.task.title
+            : props.task.title.substring(0, 30) + "..."}
+        </div>
 
-      <div className="workspace-task__info">
-        <MemberAvatarList members={props.task.members} />
+        <div className="workspace-task__description">
+          {props.task.description.length <= 60
+            ? props.task.description
+            : props.task.description.substring(0, 60) + "..."}
+        </div>
 
-        <div className="task-info__details">
-          <div className="task-info__comment">
-            0
-            <FaRegCommentDots />
-          </div>
-          <div className="task-info__like">
-            0
-            <FaRegHeart />
-          </div>
-          <div className="task-info__attachment">
-            0
-            <FaPaperclip />
+        <div className="workspace-task__info">
+          <MemberAvatarList members={props.task.members} />
+
+          <div className="task-info__details">
+            <div className="task-info__comment">
+              {Math.floor(Math.random() * 101)}
+              <FaRegCommentDots />
+            </div>
+            <div className="task-info__like">
+              {Math.floor(Math.random() * 101)}
+              <FaRegHeart />
+            </div>
+            <div className="task-info__attachment">
+              {Math.floor(Math.random() * 101)}
+              <FaPaperclip />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Draggable>
   );
 }
 

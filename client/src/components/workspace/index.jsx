@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container } from "react-smooth-dnd";
 import "../../styles/pages/workspace.css";
 import TaskList from "./taskList";
 import WorkspaceHeader from "./workspaceHeader";
@@ -24,23 +25,34 @@ function Workspace() {
     return null;
   }
 
+  function onColumnDrop(result) {}
+
   return (
     <div className="workspace-container">
-      <div className="workspace-wrapper">
-        <div className="workspace-main">
-          <WorkspaceHeader showMenu={toggleMenuTab} workspace={workspace} />
+      <div className="workspace-main">
+        <WorkspaceHeader showMenu={toggleMenuTab} workspace={workspace} />
 
-          <div className="workspace-body">
-            <div className="workspace-content">
+        <div className="workspace-body">
+          <div className="workspace-content">
+            <Container
+              orientation="horizontal"
+              onDrop={onColumnDrop}
+              dragHandleSelector=".task-list-draggable-handle"
+              dropPlaceholder={{
+                animationDuration: 150,
+                showOnTop: true,
+                className: "task-list-drop-preview",
+              }}
+            >
               {taskLists?.map((taskList) => (
                 <TaskList key={taskList.id} taskList={taskList} />
               ))}
-            </div>
+            </Container>
           </div>
         </div>
-
-        <WorkspaceMenuTab isShow={isShowMenu} />
       </div>
+
+      <WorkspaceMenuTab isShow={isShowMenu} />
     </div>
   );
 }

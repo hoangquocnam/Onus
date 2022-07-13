@@ -1,19 +1,19 @@
+:root {
+  --task-bg-color: #efefef;
+}
+
 .workspace__task {
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: var(--task-bg-color);
   box-sizing: border-box;
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
-.workspace__task:hover {
-  border: 1px solid #ccc;
-}
-
 .workspace-task__cover {
   width: 100%;
-  height: 150px;
+  height: 100px;
   border-radius: 8px;
 }
 
@@ -33,7 +33,6 @@
 }
 
 .workspace-task__label {
-  background-color: red;
   width: 60px;
   height: 8px;
   border-radius: 10px;
@@ -50,8 +49,7 @@
 .task-info__details {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  align-items: center;
+  gap: 10px;
 }
 
 .task-info__details > div {
@@ -60,5 +58,6 @@
   flex-direction: row;
   gap: 2px;
   opacity: 0.4;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 14px;
 }
