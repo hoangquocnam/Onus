@@ -133,70 +133,39 @@ export function WorkspaceListView() {
     fetchWorkspaceList();
   }, []);
 
-  return (
-    <React.StrictMode>
-      <div className='workspaceListView'>
-        <p className='workspaceList__title'>Workspaces</p>
-
-        <div className='workspaceList__container'>
-          <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {workspaces.map(workspace => (
-              <WorkspaceItemCard
-                key={workspace.id}
-                title={workspace.title}
-                description={workspace.description}
-                itemId={workspace.id}
-                members={workspace.members}
-              />
-            ))}
-            <div
-              className='workspace-item-card--add-new-workspace'
-              onClick={() => setShowCreateWorkspace(true)}
-            >
-              <p className='workspace-item-card--add-new-workspace-heading'>
-                + Add new workspace
-              </p>
-            </div>
-          </ScrollMenu>
-        </div>
-        {showCreateWorkspace && addNewWorkspace()}
-      </div>
-    </React.StrictMode>
-  );
-
-  function addNewWorkspace() {
-    return (
-      <form className='workspace-item__add-new-workspace-form'>
-        <AiOutlineClose
-          className='close-btn'
-          size={20}
-          onClick={handleCreateWorkspace}
-        />
-        <h3>Create New Workspace</h3>
-        <input
-          type='text'
-          placeholder='Workspace name'
-          className='workspace-item__add-new-workspace-form-name'
-        />
-        <textarea
-          type='text'
-          placeholder='Workspace description'
-          className='workspace-item__add-new-workspace-form-description'
-        />
-        <div className='ulities-container'>
-          <div className='left'>
-            <IoTextOutline size={20} />
-            <MdOutlineAddReaction size={20} />
-            <MdAttachFile size={20} />
-          </div>
-          <div className='right'>
-            <MdPersonAdd size={20} />
-          </div>
-        </div>
-        <button className='workspace-item__create-task-btn'>
-          Create Workspace
-        </button>
-      </form>
-    );
-  }
+	function addNewWorkspace() {
+		return (
+			<form className='workspace-item__add-new-workspace-form'>
+				<AiOutlineClose
+					className='close-btn'
+					size={20}
+					onClick={handleCreateWorkspace}
+				/>
+				<h3>Create New Workspace</h3>
+				<input
+					type='text'
+					placeholder='Workspace name'
+					className='workspace-item__add-new-workspace-form-name'
+				/>
+				<textarea
+					type='text'
+					placeholder='Workspace description'
+					className='workspace-item__add-new-workspace-form-description'
+				/>
+				<div className='ulities-container'>
+					<div className='left'>
+						<IoTextOutline size={20} />
+						<MdOutlineAddReaction size={20} />
+						<MdAttachFile size={20} />
+					</div>
+					<div className='right'>
+						<MdPersonAdd size={20} />
+					</div>
+				</div>
+				<button className='workspace-item__create-task-btn'>
+					Create Workspace
+				</button>
+			</form>
+		);
+	}
 }
