@@ -81,30 +81,6 @@
   margin: 0;
 }
 
-.workspace-header__members {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.workspace-header__member-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 0.5px solid #aaa;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.workspace-header__member-avatar:hover {
-  filter: brightness(1.2);
-}
-
-.workspace-header__member-avatar:not(:first-child) {
-  margin-left: -16px;
-}
-
 .workspace-header__bookmark,
 .workspace-header__visibility {
   opacity: 0.6;

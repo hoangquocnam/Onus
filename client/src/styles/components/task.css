@@ -5,22 +5,19 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid transparent;
-
-  /* disable select content */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  -moz-user-select: none; /* Firefox */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -webkit-user-select: none; /* Safari */
-  user-select: none; /* supported by Chrome and Opera */
 }
 
 .workspace__task:hover {
   border: 1px solid #ccc;
 }
 
+.workspace-task__title {
+  font-size: 14px;
+}
+
 .workspace-task__cover {
-  width: 310px;
-  height: 170px;
+  width: 100%;
+  height: 150px;
   border-radius: 8px;
 }
 
@@ -43,27 +40,6 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-}
-
-.task-info__members {
-  display: flex;
-  align-items: center;
-}
-
-.task-info__members-avatar {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  border: 0.5px solid #aaa;
-  box-sizing: border-box;
-}
-
-.task-info__members-avatar:hover {
-  filter: brightness(1.2);
-}
-
-.task-info__members-avatar:not(:first-child) {
-  margin-left: -15px;
 }
 
 .task-info__details {

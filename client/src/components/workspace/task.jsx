@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { FaPaperclip, FaRegCommentDots, FaRegHeart } from "react-icons/fa";
 import "../../styles/components/task.css";
+import MemberAvatarList from "../memberAvatarList";
 
 function Task({ task }) {
   const labels = _.shuffle(["#4339F2", "#FF3838", "#891BE8", "#1AD698"]).slice(
@@ -8,8 +9,18 @@ function Task({ task }) {
     Math.floor(Math.random() * 4 + 1)
   );
 
+  const title =
+    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi repellendus commodi hic et. Aspernatur possimus amet mollitia accusamus odit ex?";
+
+  const members = new Array(Math.floor(Math.random() * 20 + 1))
+    .fill()
+    .map((member, index) => ({
+      avatar: `https://api.minimalavatars.com/avatar/${index}/png`,
+      name: "member",
+    }));
+
   return (
-    <div className="workspace__task">
+    <div className="workspace__task disable-user-select">
       {Math.floor(Math.random() * 2) === 0 && (
         <div
           className="workspace-task__cover"
@@ -31,24 +42,11 @@ function Task({ task }) {
       </div>
 
       <div className="workspace-task__title">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ipsa
-        facilis ex rerum, explicabo blanditiis aliquid ea sapiente adipisci
-        neque..
+        {title.length <= 20 ? title : title.substring(0, 100) + "..."}
       </div>
 
       <div className="workspace-task__info">
-        <div className="task-info__members">
-          {Array.from(Array(Math.floor(Math.random() * 4 + 1)).keys()).map(
-            (i, index) => (
-              <img
-                key={index}
-                src="https://picsum.photos/50"
-                alt="member"
-                className="task-info__members-avatar"
-              />
-            )
-          )}
-        </div>
+        <MemberAvatarList members={members} />
 
         <div className="task-info__details">
           <div className="task-info__comment">

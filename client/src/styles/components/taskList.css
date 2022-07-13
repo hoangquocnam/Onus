@@ -20,11 +20,4 @@
 
 .task-list__add-new-card:hover {
   border: 1px dashed rgb(0, 0, 0);
-
-  /* disable select content */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  -moz-user-select: none; /* Firefox */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -webkit-user-select: none; /* Safari */
-  user-select: none; /* supported by Chrome and Opera */
 }

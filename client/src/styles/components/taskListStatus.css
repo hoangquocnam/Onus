@@ -2,20 +2,13 @@
   background-color: #f4f4f4;
   width: 100%;
   border-radius: 10px;
-  padding: 12px 20px;
+  padding: 8px 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-
-  /* disable select content */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  -moz-user-select: none; /* Firefox */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -webkit-user-select: none; /* Safari */
-  user-select: none; /* supported by Chrome and Opera */
 }
 
 .task-list__status-name {
@@ -30,9 +23,4 @@
   display: flex;
   border-radius: 4px;
   box-sizing: border-box;
-  padding: 2px;
-}
-
-.task-list__status-options:hover {
-  background-color: #e6e6e6;
 }
