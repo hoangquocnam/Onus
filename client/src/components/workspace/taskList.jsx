@@ -2,6 +2,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Container, Draggable } from "react-smooth-dnd";
 import "../../styles/components/workspaceTaskList.css";
 import Task from "./task";
+import { FaTimes } from "react-icons/fa";
 
 function TaskList(props) {
   return (
@@ -33,9 +34,25 @@ function TaskList(props) {
             ))}
           </Container>
         </div>
-
+        <div className="task-list__add-new-card-container">
+            <textarea
+              type="text"
+              className="task-list__add-new-card-board"
+              rows="1"
+              maxlength="40"
+              placeholder="Enter a title for this card..."
+            ></textarea>
+            <div className="task-list__group-btn">
+              <button type="submit" className="task-list__add-new-card-btn">
+                Add card
+              </button>
+              <div className="task-list__add-new-card-cancel">
+                <FaTimes />
+              </div>
+            </div>
+          </div>
         <div className="task-list__add-new-card disable-user-select">
-          + Add new card
+              + Add new card
         </div>
       </div>
     </Draggable>
