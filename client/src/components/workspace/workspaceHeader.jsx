@@ -6,14 +6,13 @@ import {
   FaUserPlus,
 } from "react-icons/fa";
 import "../../styles/components/workspaceHeader.css";
+import MemberAvatarList from "../memberAvatarList";
 
-function WorkspaceHeader(item) {
-  const { title, showMenu } = item;
-
+function WorkspaceHeader(props) {
   return (
     <div className="workspace-header">
       <div className="workspace-header__left">
-        <h1 className="workspace-header__title">{title}</h1>
+        <h1 className="workspace-header__title">{props.workspace.title}</h1>
 
         <div className="workspace-header__utility">
           <FaRegStar size={25} className="workspace-header__bookmark" />
@@ -28,18 +27,7 @@ function WorkspaceHeader(item) {
           <div className="workspace-header__separator"></div>
         </div>
 
-        <div className="workspace-header__members">
-          {Array.from(Array(Math.floor(Math.random() * 6 + 3)).keys()).map(
-            (i, index) => (
-              <img
-                key={index}
-                src="https://picsum.photos/50"
-                alt="member"
-                className="workspace-header__member-avatar"
-              />
-            )
-          )}
-        </div>
+        <MemberAvatarList members={props.workspace.members} />
       </div>
 
       <div className="workspace-header__right">
@@ -56,7 +44,7 @@ function WorkspaceHeader(item) {
         <button
           type="button"
           className="workspace-header__btn"
-          onClick={showMenu}
+          onClick={props.showMenu}
         >
           <FaBars size={24} />
           <p>Menu</p>

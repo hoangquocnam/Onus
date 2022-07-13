@@ -1,5 +1,9 @@
+:root {
+  --top-bar-height: 58px;
+}
+
 .topBar {
-  height: 58px;
+  height: var(--top-bar-height);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -7,6 +11,7 @@
   align-items: center;
   border-bottom: 1px solid rgb(210, 208, 208);
   position: relative;
+  box-sizing: border-box;
 }
 
 .topBar__left {

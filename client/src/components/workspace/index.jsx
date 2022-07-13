@@ -1,84 +1,95 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Spinner from "../../components/spinner";
-import TaskListStatus from "../../components/workspace/taskListStatus";
-import routes from "../../routes";
+import { Container } from "react-smooth-dnd";
 import "../../styles/pages/workspace.css";
 import TaskList from "./taskList";
 import WorkspaceHeader from "./workspaceHeader";
 import WorkspaceMenuTab from "./workspaceMenuTab";
 
 function Workspace() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [workspace, setWorkspace] = useState();
+  const [workspace, setWorkspace] = useState(null);
+  const [taskLists, setTaskLists] = useState(null);
   const [isShowMenu, setIsShowMenu] = useState(false);
 
   useEffect(() => {
-    const workspaces = require("../../data/workspaces.json");
+    const data = require("../../data/workspace.json");
 
-    const foundWorkspace = workspaces.find(
-      (workspace) => workspace.id.toString() === id
-    );
-
-    if (foundWorkspace) {
-      setWorkspace(foundWorkspace);
-    } else {
-      navigate(routes.home.path);
-    }
-  }, [id, navigate]);
+    setWorkspace(data);
+    setTaskLists(data.lists);
+  }, []);
 
   function toggleMenuTab() {
     setIsShowMenu(!isShowMenu);
   }
 
   if (!workspace) {
-    return <Spinner />;
+    return null;
+  }
+
+  function onTaskListDrop(result) {
+    let newTaskLists = [...taskLists];
+    const [removed] = newTaskLists.splice(result.removedIndex, 1);
+    newTaskLists.splice(result.addedIndex, 0, removed);
+    setTaskLists(newTaskLists);
+  }
+
+  function onTaskDrop(taskListID, result) {
+    if (result.removedIndex === null && result.addedIndex === null) {
+      return;
+    }
+
+    const index = taskLists.findIndex((taskList) => taskList.id === taskListID);
+    const newTaskList = { ...taskLists[index] };
+
+    if (result.removedIndex !== null) {
+      newTaskList.tasks.splice(result.removedIndex, 1);
+    }
+
+    if (result.addedIndex !== null) {
+      newTaskList.tasks.splice(result.addedIndex, 0, result.payload);
+    }
+
+    const newTaskLists = [...taskLists];
+    newTaskLists[index] = newTaskList;
+
+    setTaskLists(newTaskLists);
   }
 
   return (
     <div className="workspace-container">
-      <div className="workspace-wrapper">
-        <div className="workspace-main">
-          <WorkspaceHeader title={workspace?.title} showMenu={toggleMenuTab} />
+      <div className="workspace-main">
+        <WorkspaceHeader showMenu={toggleMenuTab} workspace={workspace} />
 
-          <div className="workspace-body">
-            <div className="workspace-content">
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="To Do" />
-                <TaskList />
-              </div>
+        <div className="workspace-body">
+          <div className="workspace-content">
+            <Container
+              orientation="horizontal"
+              onDrop={onTaskListDrop}
+              dragHandleSelector=".task-list-draggable-handle"
+              dropPlaceholder={{
+                animationDuration: 150,
+                showOnTop: true,
+                className: "task-list-drop-preview",
+              }}
+            >
+              {taskLists?.map((taskList) => (
+                <TaskList
+                  key={taskList.id}
+                  taskList={taskList}
+                  onTaskDrop={onTaskDrop}
+                />
+              ))}
+            </Container>
 
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="In Progress" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Fixing" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Done" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Review" />
-                <TaskList />
-              </div>
-
-              <div className="workspace-content__task-list">
-                <TaskListStatus status="Merge" />
-                <TaskList />
+            <div className="workspace-new-task-list">
+              <div className="workspace-new-task-list-btn disable-user-select">
+                + Add new list
               </div>
             </div>
           </div>
         </div>
-
-        <WorkspaceMenuTab isShow={isShowMenu} />
       </div>
+
+      <WorkspaceMenuTab isShow={isShowMenu} />
     </div>
   );
 }

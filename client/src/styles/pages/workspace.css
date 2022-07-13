@@ -1,15 +1,22 @@
-.workspace-container {
-  background-color: #fff;
-  height: 100%;
-  position: relative;
+:root {
+  --workspace-container-height: calc(100vh - var(--top-bar-height));
+
+  --workspace-main-padding-top: 20px;
+  --workspace-main-padding-right: 30px;
+  --workspace-main-padding-bottom: 5px;
+  --workspace-main-padding-left: 30px;
+  --workspace-main-gap: 15px;
+
+  --workspace-body-height: calc(
+    var(--workspace-container-height) - var(--workspace-header-height) -
+      var(--workspace-main-padding-top) - var(--workspace-main-padding-bottom) -
+      var(--workspace-main-gap)
+  );
 }
 
-.workspace-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.workspace-container {
+  background-color: #fff;
+  height: var(--workspace-container-height);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -18,16 +25,19 @@
 .workspace-main {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: var(--workspace-main-gap);
   width: 100%;
   height: 100%;
-  padding: 30px 30px 5px 30px;
   box-sizing: border-box;
+  padding-top: var(--workspace-main-padding-top);
+  padding-right: var(--workspace-main-padding-right);
+  padding-bottom: var(--workspace-main-padding-bottom);
+  padding-left: var(--workspace-main-padding-left);
 }
 
 .workspace-body {
+  height: var(--workspace-body-height);
   position: relative;
-  flex-grow: 1;
 }
 
 .workspace-content {
@@ -37,15 +47,36 @@
   right: 0;
   bottom: 0;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
   overflow-y: hidden;
+
+  display: flex;
 }
 
-.workspace-content__task-list {
+.workspace-new-task-list {
+  flex: 0 0 280px;
+}
+
+.workspace-new-task-list-btn {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 0 0 362px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+.workspace-new-task-list-btn:active {
+  border: 1px dashed rgb(0, 0, 0);
+}
+
+.workspace-content > div > div {
+  padding-right: 30px;
+}
+
+.task-list-drop-preview {
+  border: 1px dashed #abc;
+  margin-right: 30px;
+  border-radius: 10px;
 }

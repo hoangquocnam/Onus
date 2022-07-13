@@ -1,10 +1,14 @@
+:root {
+  --workspace-header-height: 44px;
+}
+
 .workspace-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
   flex-wrap: wrap;
+  height: var(--workspace-header-height);
 }
 
 .workspace-header__left {
@@ -79,30 +83,6 @@
   align-items: center;
   font-size: 18px;
   margin: 0;
-}
-
-.workspace-header__members {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.workspace-header__member-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 0.5px solid #aaa;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.workspace-header__member-avatar:hover {
-  filter: brightness(1.2);
-}
-
-.workspace-header__member-avatar:not(:first-child) {
-  margin-left: -16px;
 }
 
 .workspace-header__bookmark,

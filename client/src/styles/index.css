@@ -44,3 +44,10 @@ textarea {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 25px;
 }
+
+.disable-user-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
