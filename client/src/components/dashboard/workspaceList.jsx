@@ -132,25 +132,72 @@ export function WorkspaceListView() {
   useEffect(() => {
     fetchWorkspaceList();
   }, []);
+				<div className='workspaceList__container'>
+					<ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+						{workspaces.map((workspace) => (
+							<WorkspaceItemCard
+								key={workspace.id}
+								title={workspace.title}
+								description={workspace.description}
+								itemId={workspace.id}
+								members={workspace.members}
+							/>
+						))}
+						<div
+							className='workspace-item-card--add-new-workspace'
+							onClick={() => setShowCreateWorkspace(true)}
+						>
+							<p className='workspace-item-card--add-new-workspace-heading'>
+								+ Add new workspace
+							</p>
+						</div>
+					</ScrollMenu>
+				</div>
+				{showCreateWorkspace && (
+					<NewWorkspaceModal addNewWorkspace={addNewWorkspace} />
+				)}
+			</div>
+		</React.StrictMode>
+	);
 
-	function addNewWorkspace() {
+	function NewWorkspaceModal({ addNewWorkspace }) {
+		if (!addNewWorkspace) {
+			console.error(' AddNewWorkspace is Null');
+		}
+
+		const [workspaceTitle, setWorkspaceTitle] = useState('');
+		const [workspaceDescription, setWorkspaceDescription] = useState('');
+
+		function handleOnCreateWorkspace(e) {
+			e.preventDefault();
+			// TODO: validate input
+			addNewWorkspace({
+				id: '100',
+				title: workspaceTitle,
+				description: workspaceDescription,
+				members: [],
+			});
+		}
+
 		return (
 			<form className='workspace-item__add-new-workspace-form'>
 				<AiOutlineClose
 					className='close-btn'
 					size={20}
-					onClick={handleCreateWorkspace}
+					onClick={addNewWorkspace}
 				/>
 				<h3>Create New Workspace</h3>
 				<input
 					type='text'
 					placeholder='Workspace name'
 					className='workspace-item__add-new-workspace-form-name'
+					onChange={(e) => setWorkspaceTitle(e.target.value)}
 				/>
 				<textarea
 					type='text'
 					placeholder='Workspace description'
 					className='workspace-item__add-new-workspace-form-description'
+					onChange={(e) => setWorkspaceDescription(e.target.value)}
 				/>
 				<div className='ulities-container'>
 					<div className='left'>
@@ -162,7 +209,11 @@ export function WorkspaceListView() {
 						<MdPersonAdd size={20} />
 					</div>
 				</div>
-				<button className='workspace-item__create-task-btn'>
+				<button
+					type='submit'
+					className='workspace-item__create-task-btn'
+					onClick={handleOnCreateWorkspace}
+				>
 					Create Workspace
 				</button>
 			</form>
