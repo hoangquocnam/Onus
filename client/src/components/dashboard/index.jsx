@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/pages/dashboard.css";
-import { WorkspaceListView } from "./workspaceList";
+import { WorkspaceListView, TasksListView } from "./workspaceList";
 
 
 export default function Dashboard() {
@@ -8,9 +8,7 @@ export default function Dashboard() {
     <React.StrictMode>
       <div className="dashboard">
         <WorkspaceListView />
-        <div>Tasks</div>
-        <div>New</div>
-        <div>Completed</div>
+        <TasksListView />
       </div>
     </React.StrictMode>
   );
