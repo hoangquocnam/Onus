@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/pages/dashboard.css";
-import { WorkspaceListView, TasksListView } from "./workspaceList";
+import { WorkspaceListView } from "./workspaceList";
+import { TasksListView } from "./tasklistView";
 
 
 export default function Dashboard() {

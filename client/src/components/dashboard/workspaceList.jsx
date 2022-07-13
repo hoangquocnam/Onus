@@ -20,8 +20,6 @@ import '../../styles/components/workspaceListView.scss';
 import { methods, URL_Requests } from '../../APIs';
 import { toast } from 'react-toastify';
 
-import TaskListView from "../workspace/taskListView";
-
 function WorkspaceItemCard(props) {
   const { itemId: id, title, description, members } = props;
   const randomColor = ['#EEF7FB', '#f4f4f4', '#F8F1FF', '#FEF7EF'];
