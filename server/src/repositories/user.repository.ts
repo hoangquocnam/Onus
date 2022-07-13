@@ -19,20 +19,9 @@ export class UserRepository extends DefaultCrudRepository<
   typeof User.prototype.id,
   UserRelations
 > {
-  public readonly workspaces: HasManyRepositoryFactory<
-    Workspace,
-    typeof User.prototype.id
-  >;
-
   constructor(
     @inject('datasources.Onus') dataSource: OnusDataSource,
-    @repository.getter('WorkspaceRepository')
-    protected workspaceRepositoryGetter: Getter<WorkspaceRepository>,
   ) {
     super(User, dataSource);
-    this.workspaces = this.createHasManyRepositoryFactoryFor(
-      'workspaces',
-      workspaceRepositoryGetter,
-    );
   }
 }

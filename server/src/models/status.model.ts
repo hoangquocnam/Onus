@@ -1,12 +1,11 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Status extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: false,
-    required: true,
   })
   id: string;
 
@@ -28,11 +27,11 @@ export class Status extends Entity {
   })
   description: string;
 
-  // Define well-known properties here
-
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+  @property({
+    type: 'string',
+    required: true,
+  })
+  workspaceId: string;
 
   constructor(data?: Partial<Status>) {
     super(data);

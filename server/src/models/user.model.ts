@@ -41,8 +41,13 @@ export class User extends Entity {
   })
   gender: string;
 
-  @hasMany(() => Workspace, {keyTo: 'ownerId'})
-  workspaces?: Workspace[];
+  @property({
+    type: "array",
+    itemType : "string",
+    default: []
+  })
+  workspaceIdList: string[]
+
 
   // Define well-known properties here
 

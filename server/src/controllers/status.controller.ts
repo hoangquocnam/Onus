@@ -18,12 +18,15 @@ import {
   response,
 } from '@loopback/rest';
 import {Status} from '../models';
-import {StatusRepository} from '../repositories';
+import {StatusRepository, WorkspaceRepository} from '../repositories';
+import _ from 'lodash';
 
 export class StatusController {
   constructor(
     @repository(StatusRepository)
-    public statusRepository : StatusRepository,
+    public statusRepository: StatusRepository,
+    @repository(WorkspaceRepository)
+    public workspaceRepository: WorkspaceRepository,
   ) {}
 
   @post('/statuses')
@@ -44,7 +47,16 @@ export class StatusController {
     })
     status: Omit<Status, 'id'>,
   ): Promise<Status> {
-    return this.statusRepository.create(status);
+    const newStatus = await this.statusRepository.create(status);
+    let workspace = await this.workspaceRepository.findById(status.workspaceId);
+    if (_.isArray(workspace.statusListId)) {
+      if (workspace.statusListId.indexOf(newStatus.id) === -1) {
+        workspace.statusListId.push(newStatus.id);
+      }
+    } else {
+      workspace.statusListId = [newStatus.id];
+    }
+    return newStatus;
   }
 
   @get('/statuses/count')
@@ -52,9 +64,7 @@ export class StatusController {
     description: 'Status model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
-    @param.where(Status) where?: Where<Status>,
-  ): Promise<Count> {
+  async count(@param.where(Status) where?: Where<Status>): Promise<Count> {
     return this.statusRepository.count(where);
   }
 
@@ -70,9 +80,7 @@ export class StatusController {
       },
     },
   })
-  async find(
-    @param.filter(Status) filter?: Filter<Status>,
-  ): Promise<Status[]> {
+  async find(@param.filter(Status) filter?: Filter<Status>): Promise<Status[]> {
     return this.statusRepository.find(filter);
   }
 
@@ -106,7 +114,8 @@ export class StatusController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Status, {exclude: 'where'}) filter?: FilterExcludingWhere<Status>
+    @param.filter(Status, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Status>,
   ): Promise<Status> {
     return this.statusRepository.findById(id, filter);
   }
