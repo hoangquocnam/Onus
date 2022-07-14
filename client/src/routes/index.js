@@ -10,6 +10,10 @@ const routes = {
   },
   account: {
     path: "/account",
+    profile: {
+      publicProfile: "/account/profile",
+      accountSettings: "/account/settings"
+    }
   },
   dashboard: {
     path: "/dashboard",

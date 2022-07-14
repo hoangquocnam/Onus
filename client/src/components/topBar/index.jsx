@@ -113,7 +113,7 @@ export default function TopBar() {
                     className="top-bar__dropdown-item"
                     onClick={() => {
                       setIsAccountMenuOpen(false);
-                      navigate(routes.account.path);
+                      navigate(routes.account.profile.publicProfile);
                     }}
                   >
                     Profile
