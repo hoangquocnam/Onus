@@ -6,37 +6,83 @@ import { toast } from "react-toastify";
 import "../../styles/components/workspaceTaskList.css";
 import Task from "./task";
 
-function TaskList(props) {
-  const [showNewTask, setShowNewTask] = useState(false);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-  const newTaskTitleRef = useRef(null);
+function NewTask(props) {
+  const [isActive, setIsActive] = useState(false);
+  const [title, setTitle] = useState("");
+  const inputTitleRef = useRef(null);
 
   function handleCreateNewTask(e) {
     e.preventDefault();
 
-    if (newTaskTitle.length === 0) {
-      newTaskTitleRef.current.focus();
+    if (title.length === 0) {
+      inputTitleRef.current.focus();
       toast.error("Task title is required");
       return;
     }
 
     props.addNewTask(props.index, {
       id: Math.floor(Math.random() * 10000),
-      title: newTaskTitle,
+      title,
       description: "",
       members: [],
       labels: [],
       order: props.taskList.tasks.length,
     });
 
-    setNewTaskTitle("");
-    setShowNewTask(false);
+    setTitle("");
+    setIsActive(false);
   }
 
-  function handleNewTaskInputChange(e) {
-    setNewTaskTitle(e.target.value);
+  function handleOnTitleChange(e) {
+    setTitle(e.target.value);
   }
 
+  function handleInactive() {
+    setIsActive(false);
+    setTitle("");
+  }
+
+  if (!isActive) {
+    return (
+      <div
+        className="task-list__add-new-card disable-user-select"
+        onClick={() => setIsActive(true)}
+      >
+        + Add new card
+      </div>
+    );
+  }
+
+  return (
+    <div className="task-list__add-new-card-container">
+      <form onSubmit={handleCreateNewTask}>
+        <input
+          type="text"
+          className="task-list__add-new-card-board"
+          placeholder="Enter a title for this card..."
+          autoFocus={true}
+          value={title}
+          onChange={handleOnTitleChange}
+          ref={inputTitleRef}
+        />
+
+        <div className="task-list__group-btn">
+          <button type="submit" className="task-list__add-new-card-btn">
+            Add card
+          </button>
+          <div
+            className="task-list__add-new-card-cancel"
+            onClick={handleInactive}
+          >
+            <FaTimes />
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function TaskList(props) {
   return (
     <Draggable>
       <div className="task-list">
@@ -67,45 +113,11 @@ function TaskList(props) {
           </Container>
         </div>
 
-        {showNewTask && (
-          <div className="task-list__add-new-card-container">
-            <form onSubmit={handleCreateNewTask}>
-              <input
-                type="text"
-                className="task-list__add-new-card-board"
-                placeholder="Enter a title for this card..."
-                autoFocus={true}
-                value={newTaskTitle}
-                onChange={handleNewTaskInputChange}
-                ref={newTaskTitleRef}
-              />
-
-              <div className="task-list__group-btn">
-                <button type="submit" className="task-list__add-new-card-btn">
-                  Add card
-                </button>
-                <div
-                  className="task-list__add-new-card-cancel"
-                  onClick={() => {
-                    setShowNewTask(false);
-                    setNewTaskTitle("");
-                  }}
-                >
-                  <FaTimes />
-                </div>
-              </div>
-            </form>
-          </div>
-        )}
-
-        {!showNewTask && (
-          <div
-            className="task-list__add-new-card disable-user-select"
-            onClick={() => setShowNewTask(true)}
-          >
-            + Add new card
-          </div>
-        )}
+        <NewTask
+          index={props.index}
+          taskList={props.taskList}
+          addNewTask={props.addNewTask}
+        />
       </div>
     </Draggable>
   );
