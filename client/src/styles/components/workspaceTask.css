@@ -9,6 +9,7 @@
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid transparent;
+
   margin-bottom: 10px;
 }
 
@@ -20,11 +21,16 @@
 
 .workspace-task__title {
   font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  word-wrap: break-word;
 }
 
 .workspace-task__description {
   font-size: 14px;
   opacity: 0.8;
+  margin: 0;
+  word-wrap: break-word;
 }
 
 .workspace-task__label-wrapper {

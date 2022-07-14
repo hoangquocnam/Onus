@@ -21,8 +21,14 @@ function Workspace() {
     setIsShowMenu(!isShowMenu);
   }
 
-  if (!workspace) {
-    return null;
+  function addNewTask(taskListIndex, task) {
+    const newTaskList = [...taskLists];
+    newTaskList[taskListIndex].tasks = [
+      ...newTaskList[taskListIndex].tasks,
+      task,
+    ];
+
+    setTaskLists(newTaskList);
   }
 
   function onTaskListDrop(result) {
@@ -54,6 +60,10 @@ function Workspace() {
     setTaskLists(newTaskLists);
   }
 
+  if (!workspace) {
+    return null;
+  }
+
   return (
     <div className="workspace-container">
       <div className="workspace-main">
@@ -71,11 +81,13 @@ function Workspace() {
                 className: "task-list-drop-preview",
               }}
             >
-              {taskLists?.map((taskList) => (
+              {taskLists?.map((taskList, index) => (
                 <TaskList
                   key={taskList.id}
                   taskList={taskList}
                   onTaskDrop={onTaskDrop}
+                  addNewTask={addNewTask}
+                  index={index}
                 />
               ))}
             </Container>

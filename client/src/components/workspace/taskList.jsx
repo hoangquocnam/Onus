@@ -1,10 +1,42 @@
+import { useRef, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
 import { Container, Draggable } from "react-smooth-dnd";
+import { toast } from "react-toastify";
 import "../../styles/components/workspaceTaskList.css";
 import Task from "./task";
-import { FaTimes } from "react-icons/fa";
 
 function TaskList(props) {
+  const [showNewTask, setShowNewTask] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const newTaskTitleRef = useRef(null);
+
+  function handleCreateNewTask(e) {
+    e.preventDefault();
+
+    if (newTaskTitle.length === 0) {
+      newTaskTitleRef.current.focus();
+      toast.error("Task title is required");
+      return;
+    }
+
+    props.addNewTask(props.index, {
+      id: Math.floor(Math.random() * 10000),
+      title: newTaskTitle,
+      description: "",
+      members: [],
+      labels: [],
+      order: props.taskList.tasks.length,
+    });
+
+    setNewTaskTitle("");
+    setShowNewTask(false);
+  }
+
+  function handleNewTaskInputChange(e) {
+    setNewTaskTitle(e.target.value);
+  }
+
   return (
     <Draggable>
       <div className="task-list">
@@ -34,26 +66,46 @@ function TaskList(props) {
             ))}
           </Container>
         </div>
-        <div className="task-list__add-new-card-container">
-            <textarea
-              type="text"
-              className="task-list__add-new-card-board"
-              rows="1"
-              maxlength="40"
-              placeholder="Enter a title for this card..."
-            ></textarea>
-            <div className="task-list__group-btn">
-              <button type="submit" className="task-list__add-new-card-btn">
-                Add card
-              </button>
-              <div className="task-list__add-new-card-cancel">
-                <FaTimes />
+
+        {showNewTask && (
+          <div className="task-list__add-new-card-container">
+            <form onSubmit={handleCreateNewTask}>
+              <input
+                type="text"
+                className="task-list__add-new-card-board"
+                placeholder="Enter a title for this card..."
+                autoFocus={true}
+                value={newTaskTitle}
+                onChange={handleNewTaskInputChange}
+                ref={newTaskTitleRef}
+              />
+
+              <div className="task-list__group-btn">
+                <button type="submit" className="task-list__add-new-card-btn">
+                  Add card
+                </button>
+                <div
+                  className="task-list__add-new-card-cancel"
+                  onClick={() => {
+                    setShowNewTask(false);
+                    setNewTaskTitle("");
+                  }}
+                >
+                  <FaTimes />
+                </div>
               </div>
-            </div>
+            </form>
           </div>
-        <div className="task-list__add-new-card disable-user-select">
-              + Add new card
-        </div>
+        )}
+
+        {!showNewTask && (
+          <div
+            className="task-list__add-new-card disable-user-select"
+            onClick={() => setShowNewTask(true)}
+          >
+            + Add new card
+          </div>
+        )}
       </div>
     </Draggable>
   );
