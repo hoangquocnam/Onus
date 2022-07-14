@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
-import { Container } from "react-smooth-dnd";
-import "../../styles/pages/workspace.css";
-import TaskList from "./taskList";
-import WorkspaceHeader from "./workspaceHeader";
-import WorkspaceMenuTab from "./workspaceMenuTab";
+import { useEffect, useRef, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
+import { Container } from 'react-smooth-dnd';
+import { toast } from 'react-toastify';
+import { useOutsideAlerter } from '../../hooks';
+import '../../styles/pages/workspace.css';
+import WorkspaceHeader from './workspaceHeader';
+import WorkspaceMenuTab from './workspaceMenuTab';
+import TaskList from './workspaceTaskList';
 
 function Workspace() {
   const [workspace, setWorkspace] = useState(null);
   const [taskLists, setTaskLists] = useState(null);
   const [isShowMenu, setIsShowMenu] = useState(false);
+  const [recentAddedTaskTaskListIndex, setRecentUpdatedTaskListIndex] =
+    useState(null);
 
   useEffect(() => {
-    const data = require("../../data/workspace.json");
+    const data = require('../../data/workspace.json');
 
     setWorkspace(data);
     setTaskLists(data.lists);
@@ -21,14 +26,34 @@ function Workspace() {
     setIsShowMenu(!isShowMenu);
   }
 
-  function addNewTask(taskListIndex, task) {
-    const newTaskList = [...taskLists];
-    newTaskList[taskListIndex].tasks = [
-      ...newTaskList[taskListIndex].tasks,
-      task,
-    ];
+  function addNewTaskList(title) {
+    setTaskLists([
+      ...taskLists,
+      {
+        id: Date.now(),
+        title,
+        tasks: [],
+        order: taskLists.length,
+      },
+    ]);
+  }
 
-    setTaskLists(newTaskList);
+  function addNewTask(taskListIndex, title) {
+    const newTaskLists = [...taskLists];
+
+    newTaskLists[taskListIndex].tasks.push({
+      id: Date.now(),
+      title,
+      description: '',
+      cover: null,
+      labels: [],
+      members: [],
+      order: newTaskLists[taskListIndex].tasks.length,
+    });
+
+    setRecentUpdatedTaskListIndex(taskListIndex);
+
+    setTaskLists(newTaskLists);
   }
 
   function onTaskListDrop(result) {
@@ -43,7 +68,7 @@ function Workspace() {
       return;
     }
 
-    const index = taskLists.findIndex((taskList) => taskList.id === taskListID);
+    const index = taskLists.findIndex(taskList => taskList.id === taskListID);
     const newTaskList = { ...taskLists[index] };
 
     if (result.removedIndex !== null) {
@@ -65,20 +90,20 @@ function Workspace() {
   }
 
   return (
-    <div className="workspace-container">
-      <div className="workspace-main">
+    <div className='workspace-container'>
+      <div className='workspace-main'>
         <WorkspaceHeader showMenu={toggleMenuTab} workspace={workspace} />
 
-        <div className="workspace-body">
-          <div className="workspace-content">
+        <div className='workspace-body'>
+          <div className='workspace-content'>
             <Container
-              orientation="horizontal"
+              orientation='horizontal'
               onDrop={onTaskListDrop}
-              dragHandleSelector=".task-list-draggable-handle"
+              dragHandleSelector='.workspace-list-draggable-handle'
               dropPlaceholder={{
                 animationDuration: 150,
                 showOnTop: true,
-                className: "task-list-drop-preview",
+                className: 'workspace-list-drop-preview',
               }}
             >
               {taskLists?.map((taskList, index) => (
@@ -88,20 +113,92 @@ function Workspace() {
                   onTaskDrop={onTaskDrop}
                   addNewTask={addNewTask}
                   index={index}
+                  recentAddedTask={recentAddedTaskTaskListIndex === index}
                 />
               ))}
             </Container>
 
-            <div className="workspace-new-task-list">
-              <div className="workspace-new-task-list-btn disable-user-select">
-                + Add new list
-              </div>
+            <div className='workspace-new-list-container'>
+              <NewTaskList onCreate={addNewTaskList} />
             </div>
           </div>
         </div>
       </div>
 
       <WorkspaceMenuTab isShow={isShowMenu} />
+    </div>
+  );
+}
+
+function NewTaskList(props) {
+  const [isActive, setIsActive] = useState(false);
+  const [title, setTitle] = useState('');
+  const inputTitleRef = useRef(null);
+
+  const ref = useRef(null);
+  useOutsideAlerter(ref, () => setIsActive(false));
+
+  function handleCreateNewTask(e) {
+    e.preventDefault();
+
+    if (title.length === 0) {
+      inputTitleRef.current.focus();
+      toast.error('Title is required');
+      return;
+    }
+
+    props.onCreate(title);
+
+    setTitle('');
+    setIsActive(false);
+  }
+
+  function handleOnTitleChange(e) {
+    setTitle(e.target.value);
+  }
+
+  function handleInactive() {
+    setIsActive(false);
+    setTitle('');
+  }
+
+  if (!isActive) {
+    return (
+      <div
+        className='workspace__new-list--inactive disable-user-select'
+        onClick={() => setIsActive(true)}
+      >
+        + Add new list
+      </div>
+    );
+  }
+
+  return (
+    <div ref={ref} className='workspace__new-list--active'>
+      <form onSubmit={handleCreateNewTask}>
+        <input
+          type='text'
+          className='workspace-new-list__input-title'
+          placeholder='Enter a title for this list...'
+          autoFocus={true}
+          value={title}
+          onChange={handleOnTitleChange}
+          ref={inputTitleRef}
+          maxLength={50}
+        />
+
+        <div className='workspace-new-list__group-btn'>
+          <button type='submit' className='workspace-new-list__btn-add'>
+            Add list
+          </button>
+          <div
+            className='workspace-new-list__btn-cancel'
+            onClick={handleInactive}
+          >
+            <FaTimes />
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

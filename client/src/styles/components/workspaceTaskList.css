@@ -4,7 +4,7 @@
   --task-list-width: 280px;
 }
 
-.task-list {
+.workspace-list {
   display: flex;
   flex-direction: column;
   margin-bottom: 5px;
@@ -13,7 +13,7 @@
   gap: 10px;
 }
 
-.task-list__header {
+.workspace-list__header {
   background-color: var(--task-list-header-bg-color);
   width: 100%;
   border-radius: 10px;
@@ -24,16 +24,18 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
-.task-list__title {
+.workspace-list__title {
   font-weight: 500;
-  width: 100%;
+  max-width: 200px;
   padding: 0;
   margin: 0;
 }
 
-.task-list__options {
+.workspace-list__options {
+  flex: 0 0 auto;
   cursor: pointer;
   display: flex;
   border-radius: 4px;
@@ -41,25 +43,25 @@
   padding: 1px;
 }
 
-.task-list__options:hover {
+.workspace-list__options:hover {
   background-color: #e6e6e6;
 }
 
-.task-list__tasks {
+.workspace-list__tasks {
   overflow-y: auto;
   border-radius: 10px;
 }
 
-.task-list__tasks::-webkit-scrollbar {
+.workspace-list__tasks::-webkit-scrollbar {
   width: 5px;
 }
 
-.task-list__tasks::-webkit-scrollbar-track {
+.workspace-list__tasks::-webkit-scrollbar-track {
   background-color: transparent;
   margin-bottom: 10px;
 }
 
-.task-list__add-new-card {
+.workspace-list__new-task--inactive {
   border: 1px dashed rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   display: flex;
@@ -68,41 +70,37 @@
   cursor: pointer;
   box-sizing: border-box;
   padding: 16px 0;
-  /* margin-top: 10px; */
+  height: 48px;
 }
 
-.task-list__add-new-card:active {
+.workspace-list__new-task--inactive:active {
   border: 1px dashed rgb(0, 0, 0);
 }
 
-.task-list__tasks > div {
-  min-height: 40px;
-}
-
-/* .task-list__task-drag {
+/* .workspace-list__task-drag {
   transition: transform 0.18s ease;
   transform: rotateZ(4deg);
 }
 
-.task-list__task-drop {
+.workspace-list__task-drop {
   transition: transform 0.18s ease-in-out;
   transform: rotateZ(0deg);
 } */
 
-.task-drop-preview {
+.workspace-list__task-drop-preview {
   border: 1px dashed #abc;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-.task-list__add-new-card-container {
+.workspace-list__new-task--active {
   box-sizing: border-box;
   padding: 10px;
   background: #efefef;
   border-radius: 8px;
 }
 
-.task-list__add-new-card-board {
+.workspace-list-new-task__input-title {
   width: 100%;
   height: 60px;
   padding: 5px 20px 15px 20px;
@@ -115,14 +113,14 @@
   border-radius: 8px;
 }
 
-.task-list__group-btn {
+.workspace-list-new-task__group-btn {
   display: flex;
   align-items: center;
   text-align: center;
   padding-top: 10px;
 }
 
-.task-list__add-new-card-btn {
+.workspace-list-new-task__add-btn {
   padding: 0;
   width: 110px;
   height: 36px;
@@ -135,7 +133,7 @@
   cursor: pointer;
 }
 
-.task-list__add-new-card-cancel {
+.workspace-list-new-task__cancel-btn {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -143,6 +141,6 @@
   opacity: 0.8;
 }
 
-.task-list__add-new-card-cancel:hover {
+.workspace-list-new-task__cancel-btn:hover {
   opacity: 1;
 }
