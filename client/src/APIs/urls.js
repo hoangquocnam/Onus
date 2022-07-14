@@ -7,7 +7,12 @@ const URL_Requests = {
   },
   me: {
     url: "auth/me",
+  },
+  users: {
+    url: "users",
+    editUser: (id) => `users/${id}`,
   }
+
 };
 
 export { URL_Requests };

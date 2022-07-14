@@ -1,14 +1,15 @@
 import "../../styles/pages/userprofile.css";
 import {useAccount} from "../../hooks";
-import {CgProfile} from "react-icons/cg";
+import {CgPathCrop, CgProfile} from "react-icons/cg";
 import {TbSettings} from "react-icons/tb";
 import {useState} from "react";
+import { toast } from 'react-toastify'
 
 function UserProfile() {
 
   const [isEditing, setEditing] = useState(false);
 
-  const { account, setAccount } = useAccount();
+  const { account, updateProfile } = useAccount();
 
   const genderOptions = [
     { label: "Male", value: "male" },
@@ -17,7 +18,6 @@ function UserProfile() {
 
   
   const [data, setData] = useState({
-    id: account.id,
     fullname: account.fullname,
     gender: account.gender,
     username: account.username,
@@ -31,10 +31,19 @@ function UserProfile() {
     });
   }
 
-  function updateProfile() {
+  function handleUpdateProfile() {
     if(isEditing) {
-      setAccount(data);
-    }
+      toast.promise(updateProfile(data), {
+      pending: "Loading...",
+      success: {
+        render() {
+          return "Update profile successfully";
+        },
+        autoClose: 1000,
+      },
+      error: "Update profile failed",
+    })}
+
     setEditing(!isEditing);
   }
 
@@ -68,7 +77,7 @@ function UserProfile() {
               <button className="public-profile__changeBtn">
                 Change picture
               </button>
-              <button className="public-profile__editBtn" onClick={updateProfile}>
+              <button className="public-profile__editBtn" onClick={handleUpdateProfile}>
                 {isEditing? 'Confirm' : 'Edit profile' }
               </button>
             </div>

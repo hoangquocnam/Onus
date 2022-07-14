@@ -46,6 +46,22 @@ export function AccountProvider(props) {
     });
   }
 
+  function updateProfile(data) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await methods.patch(URL_Requests.users.editUser(account.id), data);
+
+        setAccount({
+          id: account.id,
+          ...data,
+        });
+        resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    })
+  }
+
   function auth(token) {
     return new Promise(async (resolve, reject) => {
       setIsAuthenticating(true);
@@ -71,7 +87,7 @@ export function AccountProvider(props) {
 
   return (
     <AccountContext.Provider
-      value={{ account, login, logout, signup, setAccount, isAuthenticating }}
+      value={{ account, login, logout, signup, setAccount, isAuthenticating, updateProfile }}
     >
       {props.children}
     </AccountContext.Provider>
