@@ -71,7 +71,7 @@ export function AccountProvider(props) {
 
   return (
     <AccountContext.Provider
-      value={{ account, login, logout, signup, isAuthenticating }}
+      value={{ account, login, logout, signup, setAccount, isAuthenticating }}
     >
       {props.children}
     </AccountContext.Provider>
