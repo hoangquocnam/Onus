@@ -9,59 +9,58 @@ function TaskListView({ task }) {
   );
 
   return (
-    <div className="workspace__taskListView">
-      {Math.floor(Math.random() * 2) === 0 && (
-        <div
-          className="workspace-taskListView__cover"
-          style={{
-            backgroundImage: `url("https://picsum.photos/310/170")`,
-            backgroundSize: "cover",
-          }}
-        ></div>
-      )}
-
-      <div className="workspace__taskListView__label-wrapper">
-        {labels.map((label, index) => (
+    <div className="dashboard__taskListView">
+      <div className="dashboard-taskListView__container">
+        {Math.floor(Math.random() * 2) === 0 && (
           <div
-            key={index}
-            className="taskListView__label"
-            style={{ backgroundColor: label }}
+            className="dashboard-taskListView__cover"
+            style={{
+              backgroundImage: `url("https://picsum.photos/310/170")`,
+              backgroundSize: "cover",
+            }}
           ></div>
-        ))}
-      </div>
+        )}
 
-      <div className="workspace-taskListView__title">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ipsa
-        facilis ex rerum, explicabo blanditiis aliquid ea sapiente adipisci
-        neque..
-      </div>
-
-      <div className="workspace-taskListView__info">
-        <div className="taskListView-info__members">
-          {Array.from(Array(Math.floor(Math.random() * 4 + 1)).keys()).map(
-            (i, index) => (
-              <img
-                key={index}
-                src="https://picsum.photos/50"
-                alt="member"
-                className="taskListView-info__members-avatar"
-              />
-            )
-          )}
+        <div className="dashboard__taskListView__label-wrapper">
+          {labels.map((label, index) => (
+            <div
+              key={index}
+              className="taskListView__label"
+              style={{ backgroundColor: label }}
+            ></div>
+          ))}
         </div>
 
-        <div className="taskListView-info__details">
-          <div className="taskListView-info__comment">
-            {Math.floor(Math.random() * 101)}
-            <FaRegCommentDots />
+        <div className="dashboard-taskListView__title">Task title</div>
+        <div className="dashboard-taskListView__description">
+          Lorem ipsum dolor sit amet consectetur Lorem. Lorem ipsum dolor sit
+        </div>
+        <div className="dashboard-taskListView__info">
+          <div className="taskListView-info__members">
+            {Array.from(Array(Math.floor(Math.random() * 4 + 1)).keys()).map(
+              (i, index) => (
+                <img
+                  key={index}
+                  src="https://picsum.photos/50"
+                  alt="member"
+                  className="taskListView-info__members-avatar"
+                />
+              )
+            )}
           </div>
-          <div className="taskListView-info__like">
-            {Math.floor(Math.random() * 101)}
-            <FaRegHeart />
-          </div>
-          <div className="taskListView-info__attachment">
-            {Math.floor(Math.random() * 101)}
-            <FaPaperclip />
+          <div className="taskListView-info__details">
+            <div className="taskListView-info__comment">
+              {Math.floor(Math.random() * 101)}
+              <FaRegCommentDots />
+            </div>
+            <div className="taskListView-info__like">
+              {Math.floor(Math.random() * 101)}
+              <FaRegHeart />
+            </div>
+            <div className="taskListView-info__attachment">
+              {Math.floor(Math.random() * 101)}
+              <FaPaperclip />
+            </div>
           </div>
         </div>
       </div>
