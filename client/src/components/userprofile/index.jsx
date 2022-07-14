@@ -1,6 +1,10 @@
 import "../../styles/pages/userprofile.css";
+import {useAccount} from "../../hooks";
 
 function UserProfile() {
+
+  const { account } = useAccount();
+
   return (
     <div className="user-profile__page">
       <div className="user-profile__settings">
@@ -42,6 +46,7 @@ function UserProfile() {
                 <input
                   type="text"
                   name="user__fullname"
+                  value={account.fullname}
                   className="input__Fullname"
                   placeholder="Full name"
                   disabled
@@ -53,10 +58,9 @@ function UserProfile() {
                   name="user_gender"
                   className="user__gender"
                   disabled
-                  defaultValue={"Male"}
+                  defaultValue={"male"}
                 >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="gender">{account.gender}</option>
                 </select>
               </div>
             </div>
@@ -65,6 +69,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="user__username"
+                value={account.username}
                 className="input"
                 placeholder="Username"
                 disabled
@@ -75,6 +80,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="user__email"
+                value={account.email}
                 className="input"
                 placeholder="Email"
                 disabled
