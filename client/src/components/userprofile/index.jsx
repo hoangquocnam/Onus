@@ -1,5 +1,7 @@
 import "../../styles/pages/userprofile.css";
 import {useAccount} from "../../hooks";
+import {CgProfile} from "react-icons/cg"
+import {TbSettings} from "react-icons/tb"
 
 function UserProfile() {
 
@@ -14,14 +16,15 @@ function UserProfile() {
         <nav className="profile-nav__container">
           <ul className="profile-nav__list">
             <li className="profile-nav__item profile-nav__item--active">
+              <CgProfile className="public-profile__icon"/>
               <a href="#">Public profile</a>
             </li>
             <li className="profile-nav__item">
+              <TbSettings className="public-profile__icon"/>
               <a href="#">Account Settings</a>
             </li>
           </ul>
         </nav>
-        <div className="profile-nav__separator"></div>
         <div className="public-profile__container">
           <h2 className="public-profile__title">Public profile</h2>
           <div className="public-profile__picture">
