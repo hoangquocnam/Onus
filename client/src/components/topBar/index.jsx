@@ -4,28 +4,13 @@ import { FiAlertCircle } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { logo, trello_board_mark } from "../../assets";
-import { useAccount } from "../../hooks";
+import { useAccount, useOutsideAlerter } from "../../hooks";
 import routes from "../../routes";
 import "../../styles/components/topBar.css";
 
 const TopBarSeparator = () => {
   return <div className="topBar__separator"></div>;
 };
-
-function useOutsideAlerter(ref, callback) {
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback(event.target);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref, callback]);
-}
 
 export default function TopBar() {
   const navigate = useNavigate();

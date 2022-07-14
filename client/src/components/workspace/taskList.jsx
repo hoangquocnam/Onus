@@ -3,13 +3,58 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import { Container, Draggable } from "react-smooth-dnd";
 import { toast } from "react-toastify";
+import { useOutsideAlerter } from "../../hooks";
 import "../../styles/components/workspaceTaskList.css";
 import Task from "./task";
+
+function TaskList(props) {
+  return (
+    <Draggable>
+      <div className="task-list">
+        <div className="task-list__header disable-user-select task-list-draggable-handle">
+          <h4 className="task-list__title">{props.taskList.title}</h4>
+          <div className="task-list__options">
+            <BsThreeDots size={30} fill="#CDCCCA" />
+          </div>
+        </div>
+
+        <div className="task-list__tasks">
+          <Container
+            orientation="vertical"
+            groupName="column"
+            onDrop={(result) => props.onTaskDrop(props.taskList.id, result)}
+            getChildPayload={(index) => props.taskList.tasks[index]}
+            dragClass="task-list__task-drag"
+            dropClass="task-list__task-drop"
+            dropPlaceholder={{
+              animationDuration: 150,
+              showOnTop: true,
+              className: "task-drop-preview",
+            }}
+          >
+            {props.taskList.tasks.map((task) => (
+              <Task key={task.id} task={task} />
+            ))}
+          </Container>
+        </div>
+
+        <NewTask
+          index={props.index}
+          taskList={props.taskList}
+          addNewTask={props.addNewTask}
+        />
+      </div>
+    </Draggable>
+  );
+}
 
 function NewTask(props) {
   const [isActive, setIsActive] = useState(false);
   const [title, setTitle] = useState("");
   const inputTitleRef = useRef(null);
+
+  const ref = useRef(null);
+  useOutsideAlerter(ref, () => setIsActive(false));
 
   function handleCreateNewTask(e) {
     e.preventDefault();
@@ -54,7 +99,7 @@ function NewTask(props) {
   }
 
   return (
-    <div className="task-list__add-new-card-container">
+    <div ref={ref} className="task-list__add-new-card-container">
       <form onSubmit={handleCreateNewTask}>
         <input
           type="text"
@@ -79,47 +124,6 @@ function NewTask(props) {
         </div>
       </form>
     </div>
-  );
-}
-
-function TaskList(props) {
-  return (
-    <Draggable>
-      <div className="task-list">
-        <div className="task-list__header disable-user-select task-list-draggable-handle">
-          <h4 className="task-list__title">{props.taskList.title}</h4>
-          <div className="task-list__options">
-            <BsThreeDots size={30} fill="#CDCCCA" />
-          </div>
-        </div>
-
-        <div className="task-list__tasks">
-          <Container
-            orientation="vertical"
-            groupName="column"
-            onDrop={(result) => props.onTaskDrop(props.taskList.id, result)}
-            getChildPayload={(index) => props.taskList.tasks[index]}
-            dragClass="task-list__task-drag"
-            dropClass="task-list__task-drop"
-            dropPlaceholder={{
-              animationDuration: 150,
-              showOnTop: true,
-              className: "task-drop-preview",
-            }}
-          >
-            {props.taskList.tasks.map((task) => (
-              <Task key={task.id} task={task} />
-            ))}
-          </Container>
-        </div>
-
-        <NewTask
-          index={props.index}
-          taskList={props.taskList}
-          addNewTask={props.addNewTask}
-        />
-      </div>
-    </Draggable>
   );
 }
 
