@@ -60,7 +60,7 @@
 }
 
 .topBar__rightSpacing {
-  margin: 30px 13px;
+  margin: 0px 13px;
 }
 
 .topBar__logoImage {
@@ -105,6 +105,15 @@
   height: 30px;
   padding: 20px;
   box-sizing: border-box;
+}
+
+.topBar__searchBtn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  padding: 0;
 }
 
 .top-bar__dropdown-menu {
@@ -152,4 +161,18 @@
   background: #e6e6e6;
   margin: 0px 10px;
   list-style-type: none;
+}
+
+.topBar__plus,
+.topBar__warning,
+.topBar__notifications {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.topBar__plus:hover,
+.topBar__warning:hover,
+.topBar__notifications:hover {
+  transform: scale(1.4);
 }

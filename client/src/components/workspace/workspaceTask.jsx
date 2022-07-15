@@ -17,27 +17,29 @@ function Task(props) {
           ></div>
         )}
 
-        <div className="workspace-task__label-wrapper">
-          {props.task.labels.map((label, index) => (
-            <div
-              key={index}
-              className="workspace-task__label"
-              style={{ backgroundColor: label.color }}
-            ></div>
-          ))}
-        </div>
+        {props.task.labels.length > 0 && (
+          <div className="workspace-task__label-wrapper">
+            {props.task.labels.map((label, index) => (
+              <div
+                key={index}
+                className="workspace-task__label"
+                style={{ backgroundColor: label.color }}
+              ></div>
+            ))}
+          </div>
+        )}
 
-        <div className="workspace-task__title">
+        <h3 className="workspace-task__title">
           {props.task.title.length <= 40
             ? props.task.title
             : props.task.title.substring(0, 40) + "..."}
-        </div>
+        </h3>
 
-        <div className="workspace-task__description">
+        <p className="workspace-task__description">
           {props.task.description.length <= 60
             ? props.task.description
             : props.task.description.substring(0, 60) + "..."}
-        </div>
+        </p>
 
         <div className="workspace-task__info">
           <MemberAvatarList members={props.task.members} />
