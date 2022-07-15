@@ -6,7 +6,7 @@ export class Task extends Entity {
     type: 'string',
     id: true,
     generated: false,
-    required: true,
+    required: false,
   })
   id: string;
 
@@ -38,6 +38,20 @@ export class Task extends Entity {
     required: true,
   })
   statusId: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  workspaceId: string;
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  memberIdList: string[];
+
 
  
 

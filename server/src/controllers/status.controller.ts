@@ -29,6 +29,7 @@ export class StatusController {
     public workspaceRepository: WorkspaceRepository,
   ) {}
 
+  //TODO: add status to workspace
   @post('/statuses')
   @response(200, {
     description: 'Status model instance',
@@ -60,50 +61,7 @@ export class StatusController {
     return newStatus;
   }
 
-  @get('/statuses/count')
-  @response(200, {
-    description: 'Status model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(@param.where(Status) where?: Where<Status>): Promise<Count> {
-    return this.statusRepository.count(where);
-  }
-
-  @get('/statuses')
-  @response(200, {
-    description: 'Array of Status model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(Status, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async find(@param.filter(Status) filter?: Filter<Status>): Promise<Status[]> {
-    return this.statusRepository.find(filter);
-  }
-
-  @patch('/statuses')
-  @response(200, {
-    description: 'Status PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Status, {partial: true}),
-        },
-      },
-    })
-    status: Status,
-    @param.where(Status) where?: Where<Status>,
-  ): Promise<Count> {
-    return this.statusRepository.updateAll(status, where);
-  }
-
+  //TODO: Get status by id
   @get('/statuses/{id}')
   @response(200, {
     description: 'Status model instance',
@@ -121,40 +79,64 @@ export class StatusController {
     return this.statusRepository.findById(id, filter);
   }
 
-  @patch('/statuses/{id}')
-  @response(204, {
-    description: 'Status PATCH success',
-  })
-  async updateById(
-    @param.path.string('id') id: string,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Status, {partial: true}),
-        },
-      },
-    })
-    status: Status,
-  ): Promise<void> {
-    await this.statusRepository.updateById(id, status);
-  }
+  //TODO: Edit status
+  // @patch('/statuses/{id}')
+  // @response(204, {
+  //   description: 'Status PATCH success',
+  // })
+  // async updateById(
+  //   @param.path.string('id') id: string,
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: getModelSchemaRef(Status, {partial: true}),
+  //       },
+  //     },
+  //   })
+  //   status: Status,
+  // ): Promise<void> {
+  //   await this.statusRepository.updateById(id, status);
+  // }
 
-  @put('/statuses/{id}')
-  @response(204, {
-    description: 'Status PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() status: Status,
-  ): Promise<void> {
-    await this.statusRepository.replaceById(id, status);
-  }
+  //TODO: Patch method to update all statuses of a workspace
+  // @patch('/statuses')
+  // @response(200, {
+  //   description: 'Status PATCH success count',
+  //   content: {'application/json': {schema: CountSchema}},
+  // })
+  // async updateAll(
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: getModelSchemaRef(Status, {partial: true}),
+  //       },
+  //     },
+  //   })
+  //   status: Status,
+  //   @param.where(Status) where?: Where<Status>,
+  // ): Promise<Count> {
+  //   return this.statusRepository.updateAll(status, where);
+  // }
 
-  @del('/statuses/{id}')
-  @response(204, {
-    description: 'Status DELETE success',
-  })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.statusRepository.deleteById(id);
-  }
+
+  //TODO: PUT method to update all statuses of a workspace
+  // @put('/statuses/{id}')
+  // @response(204, {
+  //   description: 'Status PUT success',
+  // })
+  // async replaceById(
+  //   @param.path.string('id') id: string,
+  //   @requestBody() status: Status,
+  // ): Promise<void> {
+  //   await this.statusRepository.replaceById(id, status);
+  // }
+
+  // TODO: Delete status by id
+  // @del('/statuses/{id}')
+  // @response(204, {
+  //   description: 'Status DELETE success',
+  // })
+  // async deleteById(@param.path.string('id') id: string): Promise<void> {
+  //   await this.statusRepository.deleteById(id);
+  // }
 }

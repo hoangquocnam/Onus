@@ -35,6 +35,13 @@ export class Workspace extends Entity {
     default: [],
   })
   statusListId: string[];
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  memberIdList: string[];
   
 
   constructor(data?: Partial<Workspace>) {
