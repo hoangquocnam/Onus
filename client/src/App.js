@@ -24,7 +24,7 @@ const App = () => {
                 element={<Navigate to={routes.dashboard.path} replace />}
               />
               <Route path={routes.dashboard.path} element={<Dashboard />} />
-              <Route path={routes.account.path} element={<UserProfile />} />
+              <Route path={routes.account.profile.publicProfile} element={<UserProfile />} />
               <Route path={routes.workspaces.path} element={<Workspace />} />
               <Route
                 path={routes.workspaces.workspace.path}

@@ -6,6 +6,7 @@ const methods = {
   post: postMethod,
   put: putMethod,
   delete: deleteMethod,
+  patch: patchMethod,
 };
 
 const SERVER_URL = settings.SERVER_URL;
@@ -24,6 +25,10 @@ function putMethod(url, data, config = {}) {
 
 function deleteMethod(url, config = {}) {
   return axios.delete(`${SERVER_URL}/${url}`, config);
+}
+
+function patchMethod(url, config = {}) {
+  return axios.patch(`${SERVER_URL}/${url}`, config);
 }
 
 export { methods };

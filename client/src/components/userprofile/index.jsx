@@ -1,83 +1,144 @@
 import "../../styles/pages/userprofile.css";
+import {useAccount} from "../../hooks";
+import {CgPathCrop, CgProfile} from "react-icons/cg";
+import {TbSettings} from "react-icons/tb";
+import {useState} from "react";
+import { toast } from 'react-toastify'
 
 function UserProfile() {
+
+  const [isEditing, setEditing] = useState(false);
+
+  const { account, updateProfile } = useAccount();
+
+  const genderOptions = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+  ];
+
+  
+  const [data, setData] = useState({
+    fullname: account.fullname,
+    gender: account.gender,
+    username: account.username,
+    email: account.email
+  });
+
+  function handleInputChange(e) {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleUpdateProfile() {
+    if(isEditing) {
+      toast.promise(updateProfile(data), {
+      pending: "Loading...",
+      success: {
+        render() {
+          return "Update profile successfully";
+        },
+        autoClose: 1000,
+      },
+      error: "Update profile failed",
+    })}
+
+    setEditing(!isEditing);
+  }
+
   return (
-    <div className="user-profile__container">
-      <nav className="profile-nav__container">
-        <h2 className="profile-nav__title">Settings</h2>
-        <ul className="profile-nav__list">
-          <li className="profile-nav__item">
-            <a href="">Public profile</a>
-          </li>
-          <li className="profile-nav__item">
-            <a href="">Account Settings</a>
-          </li>
-        </ul>
-      </nav>
-      <h3 className="profile-nav__separator"></h3>
-      <div className="public-profile__container">
-        <h2 className="public-profile__title">Public profile</h2>
-        <div className="public-profile__picture">
-          <img
-            src="https://scontent.fvca1-3.fna.fbcdn.net/v/t39.30808-1/273526479_2155819074579262_6694043433107174519_n.jpg?stp=dst-jpg_s200x200&_nc_cat=110&ccb=1-7&_nc_sclassName=7206a8&_nc_ohc=55de4snbLwMAX_CULES&_nc_ht=scontent.fvca1-3.fna&oh=00_AT8DeJ3ihKCuewa0lzSv7-djZrekYG2zG35i_euJBvT--g&oe=62C622C0"
-            alt=""
-            className="public-profile__image"
-          />
-          <div className="public-profile__btn">
-            <button className="public-profile__changeBtn">
-              Change picture
-            </button>
-            <button className="public-profile__deleteBtn">
-              Delete picture
-            </button>
-          </div>
-        </div>
-        <form className="public-profile__form">
-          <div className="public-profile__info">
-            <div className="public-profile__fullname">
-              <label>Full name: </label>
+    <div className="user-profile__page">
+      <div className="user-profile__settings">
+        <h2 className="user-profile__title">Settings</h2>
+      </div>
+      <div className="user-profile__container">
+        <nav className="profile-nav__container">
+          <ul className="profile-nav__list">
+            <li className="profile-nav__item profile-nav__item--active">
+              <CgProfile className="public-profile__icon"/>
+              <a href="#">Public profile</a>
+            </li>
+            <li className="profile-nav__item">
+              <TbSettings className="public-profile__icon"/>
+              <a href="#">Account Settings</a>
+            </li>
+          </ul>
+        </nav>
+        <div className="public-profile__container">
+          <h2 className="public-profile__title">Public profile</h2>
+          <div className="public-profile__picture">
+            <img
+              src="https://api.minimalavatars.com/avatar/random/png"
+              alt="Avatar"
+              className="public-profile__image"
+            />
+            <div className="public-profile__btn">
+              <button className="public-profile__changeBtn">
+                Change picture
+              </button>
+              <button className="public-profile__editBtn" onClick={handleUpdateProfile}>
+                {isEditing? 'Confirm' : 'Edit profile' }
+              </button>
+            </div>
+          </div>  
+          <form className="public-profile__form">
+            <div className="public-profile__info">
+              <div className="public-profile__fullname">
+                <label>Full name: </label>
+                <input
+                  type="text"
+                  name="fullname"
+                  onChange = {handleInputChange}
+                  value= {data.fullname}
+                  placeholder="Full name"
+                  disabled = {!isEditing}
+                />
+              </div>
+              <div className="public-profile__gender">
+                <label>Gender: </label>
+                <select
+                  name="gender"
+                  disabled = {!isEditing}
+                  onChange={handleInputChange}
+                  defaultValue={data.gender}
+                >
+                  {genderOptions.map((item) => (
+                    <option
+                      key={item.value}
+                      value={item.value}
+                      defaultValue={item.value === data.gender}
+                    >
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="public-profile__username">
+              <label>Username: </label>
               <input
                 type="text"
-                name="user__fullname"
-                className="input__Fullname"
-                placeholder="Full name"
-                disabled
+                name="username"
+                onChange={handleInputChange}
+                value= {data.username}
+                placeholder="Username"
+                disabled = {!isEditing}
               />
             </div>
-            <div className="public-profile__gender">
-              <label>Gender: </label>
-              <select
-                name="user_gender"
-                className="user__gender"
-                disabled
-                defaultValue={"Male"}
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
+            <div className="public-profile__email">
+              <label>Email: </label>
+              <input
+                type="email"
+                name="email"
+                onChange={handleInputChange}
+                value= {data.email}
+                placeholder="Email"
+                disabled = {!isEditing}
+              />
             </div>
-          </div>
-          <div className="public-profile__username">
-            <label>Username: </label>
-            <input
-              type="text"
-              name="user__username"
-              className="input"
-              placeholder="Username"
-              disabled
-            />
-          </div>
-          <div className="public-profile__email">
-            <label>Email: </label>
-            <input
-              type="text"
-              name="user__email"
-              className="input"
-              placeholder="Email"
-              disabled
-            />
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
