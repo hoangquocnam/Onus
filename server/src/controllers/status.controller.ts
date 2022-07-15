@@ -47,8 +47,8 @@ export class StatusController {
     })
     status: Omit<Status, 'id'>,
   ): Promise<Status> {
-    const newStatus = await this.statusRepository.create(status);
     let workspace = await this.workspaceRepository.findById(status.workspaceId);
+    const newStatus = await this.statusRepository.create(status);
     if (_.isArray(workspace.statusListId)) {
       if (workspace.statusListId.indexOf(newStatus.id) === -1) {
         workspace.statusListId.push(newStatus.id);
@@ -56,6 +56,7 @@ export class StatusController {
     } else {
       workspace.statusListId = [newStatus.id];
     }
+    await this.workspaceRepository.updateById(workspace.id, workspace);
     return newStatus;
   }
 

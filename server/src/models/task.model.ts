@@ -39,6 +39,8 @@ export class Task extends Entity {
   })
   statusId: string;
 
+ 
+
   constructor(data?: Partial<Task>) {
     super(data);
   }

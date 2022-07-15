@@ -48,7 +48,7 @@ export class WorkspaceController {
     })
     workspace: Omit<Workspace, 'id'>,
   ): Promise<Workspace> {
-    let user = await this.userRepository.findById(workspace.userId);
+    let user = await this.userRepository.findById(workspace.ownerId);
     const newWorkspace = await this.workspaceRepository.create(workspace);
     if (_.isArray(user.workspaceIdList)) {
       if (user.workspaceIdList.indexOf(newWorkspace.id) === -1) {

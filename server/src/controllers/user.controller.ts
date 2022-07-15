@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -11,6 +12,7 @@ import {
   param,
   get,
   getModelSchemaRef,
+  getJsonSchemaRef,
   patch,
   put,
   del,
@@ -27,6 +29,7 @@ export class UserController {
   ) {}
 
   //TODO: GET all users
+  @authenticate('jwt')
   @get('/users')
   @response(200, {
     description: 'Array of Users model instances',
@@ -44,12 +47,17 @@ export class UserController {
   }
 
   //TODO: GET user by id
-  @get('/users/{id}')
-  @response(200, {
-    description: 'Users model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(User, {includeRelations: true}),
+  @authenticate('jwt')
+  @get('/users/{id}', {
+    // security: OPERATION_SECURITY_SPEC,
+    responses: {
+      '200': {
+        description: 'The current user profile',
+        content: {
+          'application/json': {
+            schema: getJsonSchemaRef(User),
+          },
+        },
       },
     },
   })
@@ -57,7 +65,7 @@ export class UserController {
     @param.path.string('id') id: string,
     @param.filter(User, {exclude: 'where'})
     filter?: FilterExcludingWhere<User>,
-  ): Promise<User> {
+  ): Promise<Omit<User, 'password'>> {
     return this.usersRepository.findById(id, filter);
   }
 
@@ -81,25 +89,25 @@ export class UserController {
   //   return this.usersRepository.updateAll(users, where);
   // }
 
-
-//TODO: PATCH method by id
-  // @patch('/users/{id}')
-  // @response(204, {
-  //   description: 'Users PATCH success',
-  // })
-  // async updateById(
-  //   @param.path.string('id') id: string,
-  //   @requestBody({
-  //     content: {
-  //       'application/json': {
-  //         schema: getModelSchemaRef(User, {partial: true}),
-  //       },
-  //     },
-  //   })
-  //   users: User,
-  // ): Promise<void> {
-  //   await this.usersRepository.updateById(id, users);
-  // }
+  //TODO: PATCH method by id
+  @authenticate('jwt')
+  @patch('/users/{id}')
+  @response(204, {
+    description: 'Users PATCH success',
+  })
+  async updateById(
+    @param.path.string('id') id: string,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(User, {partial: true}),
+        },
+      },
+    })
+    users: User,
+  ): Promise<void> {
+    await this.usersRepository.updateById(id, users);
+  }
 
   //TODO: PUT method by id
   // @put('/users/{id}')

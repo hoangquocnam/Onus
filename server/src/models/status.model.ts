@@ -21,17 +21,19 @@ export class Status extends Entity {
   })
   title: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  description: string;
 
   @property({
     type: 'string',
     required: true,
   })
   workspaceId: string;
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  taskIdList: string[];
 
   constructor(data?: Partial<Status>) {
     super(data);

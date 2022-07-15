@@ -27,7 +27,7 @@ export class Workspace extends Entity {
     type: 'string',
     required: true,
   })
-  userId: string;
+  ownerId: string;
 
   @property({
     type: 'array',
@@ -35,6 +35,7 @@ export class Workspace extends Entity {
     default: [],
   })
   statusListId: string[];
+  
 
   constructor(data?: Partial<Workspace>) {
     super(data);
