@@ -29,7 +29,7 @@ import {BcryptHasher} from '../services/hash.password';
 import {JWTService} from '../services/jwt-service';
 import {MyUserService} from '../services/user-service';
 import {OPERATION_SECURITY_SPEC} from '../utils/security-spec';
-import {authRoutes} from './routes.helper';
+import {authRoutes} from '../routers/routes.helper';
 import {authorize} from '@loopback/authorization';
 import {basicAuthorization} from '../services/basic.authorizor';
 import {CredentialsRequestBody} from '../types/credential-schema';

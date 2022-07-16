@@ -80,7 +80,6 @@ export class WorkspaceController {
     return this.workspaceRepository.find(filter);
   }
 
-
   //TODO: GET a workspace by id
   @get('/workspaces/{id}')
   @response(200, {
@@ -97,6 +96,34 @@ export class WorkspaceController {
     filter?: FilterExcludingWhere<Workspace>,
   ): Promise<Workspace> {
     return this.workspaceRepository.findById(id, filter);
+  }
+
+  //TODO: Get all workspaces for a user
+  @get('/users/{id}/workspaces')
+  @response(200, {
+    description: 'Array of Workspace model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Workspace, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findWorkspacesByUserId(
+    @param.path.string('id') id: string,
+  ): Promise<Workspace[]> {
+    let user = await this.userRepository.findById(id);
+    let workspaceIdList = user.workspaceIdList;
+    let workspaceList = [];
+    for (let i = 0; i < workspaceIdList.length; i++) {
+      let workspace = await this.workspaceRepository.findById(
+        workspaceIdList[i],
+      );
+      workspaceList.push(workspace);
+    }
+    return workspaceList;
   }
 
   //TODO: PATCH method all

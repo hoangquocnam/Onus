@@ -1,18 +1,18 @@
 const URL_Requests = {
   login: {
-    url: "login",
+    url: 'login',
   },
   signUp: {
-    url: "signup",
+    url: 'signup',
   },
   me: {
-    url: "auth/me",
+    url: 'auth/me',
   },
   users: {
-    url: "users",
-    editUser: (id) => `users/${id}`,
-  }
-
+    url: 'users',
+    editUser: id => `users/${id}`,
+    workspaces: id => `users/${id}/workspaces`,
+  },
 };
 
 export { URL_Requests };

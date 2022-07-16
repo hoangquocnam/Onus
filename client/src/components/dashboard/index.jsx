@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/pages/dashboard.css";
 import { WorkspaceListView } from "./workspaceList";
 
+
 export default function Dashboard() {
   return (
     <React.StrictMode>
