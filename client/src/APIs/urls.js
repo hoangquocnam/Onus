@@ -15,6 +15,7 @@ const URL_Requests = {
   },
   workspaces: {
     url: 'workspaces',
+    workspace: id => `workspaces/${id}`,
   },
 };
 
