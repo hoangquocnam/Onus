@@ -18,6 +18,7 @@ import {
 import routes from '../../routes';
 import '../../styles/components/workspaceListView.scss';
 import { methods, URL_Requests } from '../../APIs';
+import { toast } from 'react-toastify';
 
 function WorkspaceItemCard(props) {
   const { itemId: id, title, description, members } = props;
@@ -107,7 +108,13 @@ export function WorkspaceListView() {
   const [workspaces, setWorkspaces] = useState([]);
   const { account } = useAccount();
   const [showCreateWorkspace, setShowCreateWorkspace] = useState(false);
-  const handleCreateWorkspace = e => {
+
+  const handleCreateWorkspace = async data => {
+    setWorkspaces(prev => [...prev, data]);
+    setShowCreateWorkspace(false);
+  };
+
+  const handleCancel = e => {
     e.preventDefault();
     setShowCreateWorkspace(false);
   };
@@ -116,7 +123,6 @@ export function WorkspaceListView() {
     const response = await methods.get(
       URL_Requests.users.workspaces(account.id),
     );
-    console.log(response.data);
     setWorkspaces(response.data);
     return response.data;
   };
@@ -151,44 +157,86 @@ export function WorkspaceListView() {
             </div>
           </ScrollMenu>
         </div>
-        {showCreateWorkspace && addNewWorkspace()}
+        {showCreateWorkspace && (
+          <BoardNewWorkspace
+            handleCreateWorkspace={handleCreateWorkspace}
+            handleCancel={handleCancel}
+          />
+        )}
       </div>
     </React.StrictMode>
   );
+}
 
-  function addNewWorkspace() {
-    return (
-      <form className='workspace-item__add-new-workspace-form'>
-        <AiOutlineClose
-          className='close-btn'
-          size={20}
-          onClick={handleCreateWorkspace}
-        />
-        <h3>Create New Workspace</h3>
-        <input
-          type='text'
-          placeholder='Workspace name'
-          className='workspace-item__add-new-workspace-form-name'
-        />
-        <textarea
-          type='text'
-          placeholder='Workspace description'
-          className='workspace-item__add-new-workspace-form-description'
-        />
-        <div className='ulities-container'>
-          <div className='left'>
-            <IoTextOutline size={20} />
-            <MdOutlineAddReaction size={20} />
-            <MdAttachFile size={20} />
-          </div>
-          <div className='right'>
-            <MdPersonAdd size={20} />
-          </div>
+function BoardNewWorkspace({ handleCreateWorkspace, handleCancel }) {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const { account } = useAccount();
+
+  const onSubmit = async e => {
+    e.preventDefault();
+    try {
+      const response = await methods.post(URL_Requests.workspaces.url, {
+        title,
+        description,
+        ownerId: account.id,
+      });
+      console.log(response.data);
+      handleCreateWorkspace(response.data);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    toast.promise(onSubmit(e), {
+      pending: 'Loading...',
+      success: {
+        render() {
+          return 'Created workspace successfully';
+        },
+        autoClose: 1000,
+      },
+      error: 'Create workspace failed',
+    });
+  };
+
+  return (
+    <form className='workspace-item__add-new-workspace-form'>
+      <AiOutlineClose className='close-btn' size={20} onClick={handleCancel} />
+      <h3>Create New Workspace</h3>
+      <input
+        type='text'
+        placeholder='Workspace name'
+        className='workspace-item__add-new-workspace-form-name'
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+      />
+      <textarea
+        type='text'
+        placeholder='Workspace description'
+        className='workspace-item__add-new-workspace-form-description'
+        value={description}
+        onChange={e => setDescription(e.target.value)}
+      />
+      <div className='ulities-container'>
+        <div className='left'>
+          <IoTextOutline size={20} />
+          <MdOutlineAddReaction size={20} />
+          <MdAttachFile size={20} />
         </div>
-        <button className='workspace-item__create-task-btn'>
-          Create Workspace
-        </button>
-      </form>
-    );
-  }
+        <div className='right'>
+          <MdPersonAdd size={20} />
+        </div>
+      </div>
+      <button
+        className='workspace-item__create-task-btn'
+        onClick={handleSubmit}
+      >
+        Create Workspace
+      </button>
+    </form>
+  );
 }

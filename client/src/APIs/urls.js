@@ -13,6 +13,9 @@ const URL_Requests = {
     editUser: id => `users/${id}`,
     workspaces: id => `users/${id}/workspaces`,
   },
+  workspaces: {
+    url: 'workspaces',
+  },
 };
 
 export { URL_Requests };
