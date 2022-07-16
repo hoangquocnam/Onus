@@ -18,10 +18,7 @@
     "react-smooth-dnd": "^0.11.1",
     "react-toastify": "^9.0.5",
     "sass": "^1.53.0",
-<<<<<<< refs/remotes/origin/main
-=======
     "scss": "^0.2.4",
->>>>>>> [OS-39] Add function create new workspace
     "web-vitals": "^2.1.4"
   },
   "scripts": {
