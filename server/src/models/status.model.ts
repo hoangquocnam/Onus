@@ -1,12 +1,11 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({settings: {strict: false}})
+@model({settings: {strict: true}})
 export class Status extends Entity {
   @property({
     type: 'string',
     id: true,
     generated: false,
-    required: true,
   })
   id: string;
 
@@ -22,17 +21,19 @@ export class Status extends Entity {
   })
   title: string;
 
+
   @property({
     type: 'string',
     required: true,
   })
-  description: string;
+  workspaceId: string;
 
-  // Define well-known properties here
-
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  taskIdList: string[];
 
   constructor(data?: Partial<Status>) {
     super(data);

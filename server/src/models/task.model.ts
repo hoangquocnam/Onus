@@ -6,7 +6,7 @@ export class Task extends Entity {
     type: 'string',
     id: true,
     generated: false,
-    required: true,
+    required: false,
   })
   id: string;
 
@@ -33,11 +33,27 @@ export class Task extends Entity {
   })
   cover?: string;
 
-  // Define well-known properties here
+  @property({
+    type: 'string',
+    required: true,
+  })
+  statusId: string;
 
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
+  @property({
+    type: 'string',
+    required: true,
+  })
+  workspaceId: string;
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  memberIdList: string[];
+
+
+ 
 
   constructor(data?: Partial<Task>) {
     super(data);

@@ -18,14 +18,18 @@ import {
   response,
 } from '@loopback/rest';
 import {Workspace} from '../models';
-import {WorkspaceRepository} from '../repositories';
+import {UserRepository, WorkspaceRepository} from '../repositories';
+import _ from 'lodash';
 
 export class WorkspaceController {
   constructor(
     @repository(WorkspaceRepository)
-    public workspaceRepository : WorkspaceRepository,
+    public workspaceRepository: WorkspaceRepository,
+    @repository(UserRepository)
+    public userRepository: UserRepository,
   ) {}
 
+  //TODO: Create a new workspace for the user
   @post('/workspaces')
   @response(200, {
     description: 'Workspace model instance',
@@ -44,20 +48,20 @@ export class WorkspaceController {
     })
     workspace: Omit<Workspace, 'id'>,
   ): Promise<Workspace> {
-    return this.workspaceRepository.create(workspace);
+    let user = await this.userRepository.findById(workspace.ownerId);
+    const newWorkspace = await this.workspaceRepository.create(workspace);
+    if (_.isArray(user.workspaceIdList)) {
+      if (user.workspaceIdList.indexOf(newWorkspace.id) === -1) {
+        user.workspaceIdList.push(newWorkspace.id);
+      }
+    } else {
+      user.workspaceIdList = [newWorkspace.id];
+    }
+    await this.userRepository.updateById(user.id, user);
+    return newWorkspace;
   }
 
-  @get('/workspaces/count')
-  @response(200, {
-    description: 'Workspace model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(Workspace) where?: Where<Workspace>,
-  ): Promise<Count> {
-    return this.workspaceRepository.count(where);
-  }
-
+  //TODO: Get all workspaces for a user
   @get('/workspaces')
   @response(200, {
     description: 'Array of Workspace model instances',
@@ -76,25 +80,8 @@ export class WorkspaceController {
     return this.workspaceRepository.find(filter);
   }
 
-  @patch('/workspaces')
-  @response(200, {
-    description: 'Workspace PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Workspace, {partial: true}),
-        },
-      },
-    })
-    workspace: Workspace,
-    @param.where(Workspace) where?: Where<Workspace>,
-  ): Promise<Count> {
-    return this.workspaceRepository.updateAll(workspace, where);
-  }
 
+  //TODO: GET a workspace by id
   @get('/workspaces/{id}')
   @response(200, {
     description: 'Workspace model instance',
@@ -106,45 +93,69 @@ export class WorkspaceController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Workspace, {exclude: 'where'}) filter?: FilterExcludingWhere<Workspace>
+    @param.filter(Workspace, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Workspace>,
   ): Promise<Workspace> {
     return this.workspaceRepository.findById(id, filter);
   }
 
-  @patch('/workspaces/{id}')
-  @response(204, {
-    description: 'Workspace PATCH success',
-  })
-  async updateById(
-    @param.path.string('id') id: string,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Workspace, {partial: true}),
-        },
-      },
-    })
-    workspace: Workspace,
-  ): Promise<void> {
-    await this.workspaceRepository.updateById(id, workspace);
-  }
+  //TODO: PATCH method all
+  // @patch('/workspaces')
+  // @response(200, {
+  //   description: 'Workspace PATCH success count',
+  //   content: {'application/json': {schema: CountSchema}},
+  // })
+  // async updateAll(
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: getModelSchemaRef(Workspace, {partial: true}),
+  //       },
+  //     },
+  //   })
+  //   workspace: Workspace,
+  //   @param.where(Workspace) where?: Where<Workspace>,
+  // ): Promise<Count> {
+  //   return this.workspaceRepository.updateAll(workspace, where);
+  // }
 
-  @put('/workspaces/{id}')
-  @response(204, {
-    description: 'Workspace PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() workspace: Workspace,
-  ): Promise<void> {
-    await this.workspaceRepository.replaceById(id, workspace);
-  }
+  //TODO: PATCH method by id
+  // @patch('/workspaces/{id}')
+  // @response(204, {
+  //   description: 'Workspace PATCH success',
+  // })
+  // async updateById(
+  //   @param.path.string('id') id: string,
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: getModelSchemaRef(Workspace, {partial: true}),
+  //       },
+  //     },
+  //   })
+  //   workspace: Workspace,
+  // ): Promise<void> {
+  //   await this.workspaceRepository.updateById(id, workspace);
+  // }
 
-  @del('/workspaces/{id}')
-  @response(204, {
-    description: 'Workspace DELETE success',
-  })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.workspaceRepository.deleteById(id);
-  }
+  //TODO: PUT method by id
+  // @put('/workspaces/{id}')
+  // @response(204, {
+  //   description: 'Workspace PUT success',
+  // })
+  // async replaceById(
+  //   @param.path.string('id') id: string,
+  //   @requestBody() workspace: Workspace,
+  // ): Promise<void> {
+  //   await this.workspaceRepository.replaceById(id, workspace);
+  // }
+
+  //TODO: Delete method by id
+  // @del('/workspaces/{id}')
+  // @response(204, {
+  //   description: 'Workspace DELETE success',
+  // })
+  // async deleteById(@param.path.string('id') id: string): Promise<void> {
+  //   await this.workspaceRepository.deleteById(id);
+  // }
 }

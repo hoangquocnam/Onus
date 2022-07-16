@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-import { User } from './user.model';
+import {User} from './user.model';
 import {belongsTo, hasMany} from '@loopback/repository';
 
 @model({settings: {strict: true}})
@@ -15,7 +15,7 @@ export class Workspace extends Entity {
     id: true,
     generated: false,
   })
-  id?: string;
+  id: string;
 
   @property({
     type: 'string',
@@ -23,19 +23,26 @@ export class Workspace extends Entity {
   })
   description: string;
 
-  @belongsTo(() => User, {name: 'user'})
+  @property({
+    type: 'string',
+    required: true,
+  })
   ownerId: string;
 
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  statusListId: string[];
 
-
-
+  @property({
+    type: 'array',
+    itemType: 'string',
+    default: [],
+  })
+  memberIdList: string[];
   
-
-  // Define well-known properties here
-
-  // Indexer property to allow additional data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [prop: string]: any;
 
   constructor(data?: Partial<Workspace>) {
     super(data);

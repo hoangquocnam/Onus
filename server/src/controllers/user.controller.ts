@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -11,6 +12,7 @@ import {
   param,
   get,
   getModelSchemaRef,
+  getJsonSchemaRef,
   patch,
   put,
   del,
@@ -26,36 +28,8 @@ export class UserController {
     public usersRepository: UserRepository,
   ) {}
 
-  @post('/users')
-  @response(200, {
-    description: 'Users model instance',
-    content: {'application/json': {schema: getModelSchemaRef(User)}},
-  })
-  async create(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(User, {
-            title: 'NewUsers',
-            exclude: ['id'],
-          }),
-        },
-      },
-    })
-    users: Omit<User, 'id'>,
-  ): Promise<User> {
-    return this.usersRepository.create(users);
-  }
-
-  @get('/users/count')
-  @response(200, {
-    description: 'Users model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(@param.where(User) where?: Where<User>): Promise<Count> {
-    return this.usersRepository.count(where);
-  }
-
+  //TODO: GET all users
+  @authenticate('jwt')
   @get('/users')
   @response(200, {
     description: 'Array of Users model instances',
@@ -72,31 +46,18 @@ export class UserController {
     return this.usersRepository.find(filter);
   }
 
-  @patch('/users')
-  @response(200, {
-    description: 'Users PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(User, {partial: true}),
+  //TODO: GET user by id
+  @authenticate('jwt')
+  @get('/users/{id}', {
+    // security: OPERATION_SECURITY_SPEC,
+    responses: {
+      '200': {
+        description: 'The current user profile',
+        content: {
+          'application/json': {
+            schema: getJsonSchemaRef(User),
+          },
         },
-      },
-    })
-    users: User,
-    @param.where(User) where?: Where<User>,
-  ): Promise<Count> {
-    return this.usersRepository.updateAll(users, where);
-  }
-
-  @get('/users/{id}')
-  @response(200, {
-    description: 'Users model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(User, {includeRelations: true}),
       },
     },
   })
@@ -104,10 +65,32 @@ export class UserController {
     @param.path.string('id') id: string,
     @param.filter(User, {exclude: 'where'})
     filter?: FilterExcludingWhere<User>,
-  ): Promise<User> {
+  ): Promise<Omit<User, 'password'>> {
     return this.usersRepository.findById(id, filter);
   }
 
+  //TODO: PATCH method all users
+  // @patch('/users')
+  // @response(200, {
+  //   description: 'Users PATCH success count',
+  //   content: {'application/json': {schema: CountSchema}},
+  // })
+  // async updateAll(
+  //   @requestBody({
+  //     content: {
+  //       'application/json': {
+  //         schema: getModelSchemaRef(User, {partial: true}),
+  //       },
+  //     },
+  //   })
+  //   users: User,
+  //   @param.where(User) where?: Where<User>,
+  // ): Promise<Count> {
+  //   return this.usersRepository.updateAll(users, where);
+  // }
+
+  //TODO: PATCH method by id
+  @authenticate('jwt')
   @patch('/users/{id}')
   @response(204, {
     description: 'Users PATCH success',
@@ -126,22 +109,24 @@ export class UserController {
     await this.usersRepository.updateById(id, users);
   }
 
-  @put('/users/{id}')
-  @response(204, {
-    description: 'Users PUT success',
-  })
-  async replaceById(
-    @param.path.string('id') id: string,
-    @requestBody() users: User,
-  ): Promise<void> {
-    await this.usersRepository.replaceById(id, users);
-  }
+  //TODO: PUT method by id
+  // @put('/users/{id}')
+  // @response(204, {
+  //   description: 'Users PUT success',
+  // })
+  // async replaceById(
+  //   @param.path.string('id') id: string,
+  //   @requestBody() users: User,
+  // ): Promise<void> {
+  //   await this.usersRepository.replaceById(id, users);
+  // }
 
-  @del('/users/{id}')
-  @response(204, {
-    description: 'Users DELETE success',
-  })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.usersRepository.deleteById(id);
-  }
+  //TODO: DELETE method by id
+  // @del('/users/{id}')
+  // @response(204, {
+  //   description: 'Users DELETE success',
+  // })
+  // async deleteById(@param.path.string('id') id: string): Promise<void> {
+  //   await this.usersRepository.deleteById(id);
+  // }
 }
