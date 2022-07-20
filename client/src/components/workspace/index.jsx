@@ -7,6 +7,7 @@ import '../../styles/pages/workspace.css';
 import WorkspaceHeader from './workspaceHeader';
 import WorkspaceMenuTab from './workspaceMenuTab';
 import TaskList from './workspaceTaskList';
+import { useParams } from 'react-router-dom';
 
 function Workspace() {
   const [workspace, setWorkspace] = useState(null);
@@ -14,6 +15,8 @@ function Workspace() {
   const [isShowMenu, setIsShowMenu] = useState(false);
   const [recentAddedTaskTaskListIndex, setRecentUpdatedTaskListIndex] =
     useState(null);
+
+  const { id } = useParams();
 
   useEffect(() => {
     const data = require('../../data/workspace.json');
