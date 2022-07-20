@@ -5,7 +5,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import "../../styles/components/tasklistView.scss";
 
-import TaskListView from "../workspace/taskListView";
+import TaskListBoard from "./taskListBoard";
 
 function LeftArrow() {
   const { isFirstItemVisible, scrollPrev } =
@@ -38,7 +38,6 @@ function RightArrow() {
 
 export function TasksListView() {
   const [workspaces, setWorkspaces] = useState([]);
-  const [showCreateWorkspace] = useState(false);
   useEffect(() => {
     const workspaces = require("../../data/workspaces.json");
     setWorkspaces(workspaces);
@@ -52,11 +51,10 @@ export function TasksListView() {
         <div className="tasklistViewList__container">
           <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
             {workspaces.map((task) => (
-              <TaskListView />
+              <TaskListBoard />
             ))}
           </ScrollMenu>
         </div>
-        {showCreateWorkspace}
       </div>
     </React.StrictMode>
   );
