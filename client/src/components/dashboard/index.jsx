@@ -1,16 +1,14 @@
-import React from "react";
-import "../../styles/pages/dashboard.css";
-import { WorkspaceListView } from "./workspaceList";
-
+import React from 'react';
+import '../../styles/pages/dashboard.css';
+import { WorkspaceListView } from './workspaceList';
+import { TasksListView } from './tasklistView';
 
 export default function Dashboard() {
   return (
     <React.StrictMode>
-      <div className="dashboard">
+      <div className='dashboard'>
         <WorkspaceListView />
-        <div>Tasks</div>
-        <div>New</div>
-        <div>Completed</div>
+        <TasksListView />
       </div>
     </React.StrictMode>
   );

@@ -1,0 +1,80 @@
+.dashboard__taskListView {
+  border-radius: 10px;
+  width: 322px;
+  height: 135px;
+  margin: 15px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  box-sizing: content-box;
+  overflow: auto;
+  cursor: pointer;
+  /* disable select content */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  -moz-user-select: none; /* Firefox */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* supported by Chrome and Opera */
+  }
+
+  .dashboard__taskListView:hover {
+    background-color: #EEF0F2;
+  }
+
+  .dashboard-taskListView__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .taskListView-info__members {
+    display: flex;
+    align-items: center;
+  }
+  
+  .taskListView-info__members-avatar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 0.5px solid #aaa;
+    box-sizing: border-box;
+  }
+  
+  .taskListView-info__members-avatar:hover {
+    filter: brightness(1.1);
+  }
+  
+  .taskListView-info__members-avatar:not(:first-child) {
+    margin-left: -5px;
+  }
+  
+  .taskListView-info__details {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .taskListView-info__details > div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 2px;
+    opacity: 0.4;
+    font-weight: 500;
+  }
+  
+  .dashboard-taskListView__title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    margin: 0px;
+  }
+
+  .dashboard-taskListView__description{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 19px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
