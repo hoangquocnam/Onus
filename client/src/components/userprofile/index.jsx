@@ -1,13 +1,16 @@
-import '../../styles/pages/userprofile.css';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-unused-vars */
+import '../../styles/pages/userprofile.scss';
 import { useAccount } from '../../hooks';
 import { CgProfile } from 'react-icons/cg';
 import { TbSettings } from 'react-icons/tb';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+// import { useNavigate } from 'react-router-dom';
 
 function UserProfile() {
   const [isEditing, setEditing] = useState(false);
-
+  const [isOnAccountSettings, setOnAccountSettings] = useState(false);
   const { account, updateProfile } = useAccount();
 
   const genderOptions = [
@@ -22,6 +25,32 @@ function UserProfile() {
     email: account.email,
   });
 
+  //Change password
+  const [newPassword, setNewPassword] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+
+  const handlePasswordChange = e => {
+    const { name, value } = e.target;
+    setNewPassword({ ...newPassword, [name]: value });
+  };
+
+  const handleSumbitPasswordChange = e => {
+    e.preventDefault();
+    const {
+      currentPassword,
+      newPassword: newPass,
+      confirmPassword,
+    } = newPassword;
+    if (newPass !== confirmPassword) {
+      window.alert('New password and confirm password do not match');
+      return;
+    }
+    updateProfile({ password: newPassword, confirmPassword });
+  };
+  // End change password
   function handleInputChange(e) {
     setData({
       ...data,
@@ -54,11 +83,21 @@ function UserProfile() {
       <div className='user-profile__container'>
         <nav className='profile-nav__container'>
           <ul className='profile-nav__list'>
-            <li className='profile-nav__item profile-nav__item--active'>
+            <li
+              className={`profile-nav__item profile-nav__item${
+                isOnAccountSettings ? '' : '--active'
+              }`}
+              onClick={() => setOnAccountSettings(false)}
+            >
               <CgProfile className='public-profile__icon' />
               <a href='#'>Public profile</a>
             </li>
-            <li className='profile-nav__item'>
+            <li
+              className={`profile-nav__item profile-nav__item${
+                isOnAccountSettings ? '--active' : ''
+              }`}
+              onClick={() => setOnAccountSettings(true)}
+            >
               <TbSettings className='public-profile__icon' />
               <a href='#'>Account Settings</a>
             </li>
@@ -84,7 +123,12 @@ function UserProfile() {
               </button>
             </div>
           </div>
-          <form className='public-profile__form'>
+
+          <form
+            className={`public-profile__form${
+              isOnAccountSettings ? '--hidden' : ''
+            }`}
+          >
             <div className='public-profile__info'>
               <div className='public-profile__fullname'>
                 <label>Full name: </label>
@@ -138,6 +182,49 @@ function UserProfile() {
                 placeholder='Email'
                 disabled={!isEditing}
               />
+            </div>
+          </form>
+          <form
+            className={`public-profile__form${
+              isOnAccountSettings ? '' : '--hidden'
+            }`}
+            onSubmit={handleSumbitPasswordChange}
+          >
+            <div className='public-profile__password'>
+              <div className='public-profile__fullname'>
+                <label>Your current password: </label>
+                <input
+                  type='password'
+                  name='currentPassword'
+                  value={newPassword.currentPassword}
+                  onChange={handlePasswordChange}
+                />
+              </div>
+            </div>
+            <div className='public-profile__new-password'>
+              <div className='public-profile__fullname'>
+                <label>New password: </label>
+                <input
+                  type='password'
+                  name='newPassword'
+                  onChange={handlePasswordChange}
+                  value={newPassword.newPassword}
+                />
+              </div>
+            </div>
+            <div className='public-profile__confirm-new-password'>
+              <div className='public-profile__fullname'>
+                <label>Confirm your new password: </label>
+                <input
+                  type='password'
+                  name='confirmPassword'
+                  value={newPassword.confirmPassword}
+                  onChange={handlePasswordChange}
+                />
+              </div>
+              <button className='public-profile__changePassword'>
+                Change My Password
+              </button>
             </div>
           </form>
         </div>
