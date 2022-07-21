@@ -1,16 +1,16 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Dashboard,
   ProtectedRoutes,
   PublicRoutes,
   UserProfile,
   Workspace,
-} from "./components";
-import { HomePage, LogInPage, SignUpPage } from "./pages";
-import routes from "./routes";
-import { AccountProvider } from "./stores/account";
+} from './components';
+import { HomePage, LogInPage, SignUpPage } from './pages';
+import routes from './routes';
+import { AccountProvider } from './stores/account';
 
 const App = () => {
   return (
@@ -24,7 +24,8 @@ const App = () => {
                 element={<Navigate to={routes.dashboard.path} replace />}
               />
               <Route path={routes.dashboard.path} element={<Dashboard />} />
-              <Route path={routes.account.profile.publicProfile} element={<UserProfile />} />
+              <Route path={routes.account.profile} element={<UserProfile />} />
+              <Route path={routes.account.path} element={<UserProfile />} />
               <Route path={routes.workspaces.path} element={<Workspace />} />
               <Route
                 path={routes.workspaces.workspace.path}
@@ -41,7 +42,7 @@ const App = () => {
       </AccountProvider>
 
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={true}

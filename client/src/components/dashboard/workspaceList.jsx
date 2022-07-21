@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { useAccount } from '../../hooks';
@@ -19,6 +18,7 @@ import routes from '../../routes';
 import '../../styles/components/workspaceListView.scss';
 import { methods, URL_Requests } from '../../APIs';
 import { toast } from 'react-toastify';
+import MemberAvatarList from '../memberAvatarList';
 
 function WorkspaceItemCard(props) {
   const { itemId: id, title, description, members } = props;
@@ -43,32 +43,7 @@ function WorkspaceItemCard(props) {
       <p className='workspace-item-card-description'>{description}</p>
 
       <div className='workspace-item-card-footer'>
-        <div className='workspace-item-card-members'>
-          {_.isArray(members)
-            ? members.slice(0, 6).map((member, index) => {
-                return (
-                  <div
-                    className='workspace-item-card-member'
-                    style={{ left: 20 * index + 'px' }}
-                    key={index}
-                  >
-                    {index <= 4 ? (
-                      <img
-                        src={member}
-                        alt='avatar'
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                        }}
-                      />
-                    ) : (
-                      <div>{`+${members.length - index}`}</div>
-                    )}
-                  </div>
-                );
-              })
-            : 'members'}
-        </div>
+        <MemberAvatarList members={members} />
         <BsArrowRight size={20} className='workspace-item-card-arrow' />
       </div>
     </div>

@@ -4,9 +4,12 @@ import { CgProfile } from 'react-icons/cg';
 import { TbSettings } from 'react-icons/tb';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../routes';
 
 function UserProfile() {
   const [isEditing, setEditing] = useState(false);
+  const navigate = useNavigate();
 
   const { account, updateProfile } = useAccount();
 
@@ -21,6 +24,14 @@ function UserProfile() {
     username: account.username,
     email: account.email,
   });
+
+  const goToPublic = () => {
+    navigate(`${routes.account.path}/${account.id}/profile`);
+  };
+
+  const goToSettings = () => {
+    navigate(`${routes.account.path}/${account.id}/settings`);
+  };
 
   function handleInputChange(e) {
     setData({
@@ -56,11 +67,11 @@ function UserProfile() {
           <ul className='profile-nav__list'>
             <li className='profile-nav__item profile-nav__item--active'>
               <CgProfile className='public-profile__icon' />
-              <a href='#'>Public profile</a>
+              <span onClick={goToPublic}>Public profile</span>
             </li>
             <li className='profile-nav__item'>
               <TbSettings className='public-profile__icon' />
-              <a href='#'>Account Settings</a>
+              <span onClick={goToSettings}>Account Settings</span>
             </li>
           </ul>
         </nav>
