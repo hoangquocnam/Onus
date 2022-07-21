@@ -62,6 +62,26 @@ export function AccountProvider(props) {
     })
   }
 
+  function changePassword(data) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { oldPassword, newPassword } = data;
+        
+        // TODO: call API to change password
+        const response = null;
+
+        // temporary
+        setTimeout(() => {
+          resolve(response);
+        }, 2000);
+
+        // resolve(response);
+      } catch (error) {
+        reject(error);
+      }
+    })
+  }
+
   function auth(token) {
     return new Promise(async (resolve, reject) => {
       setIsAuthenticating(true);
@@ -87,7 +107,7 @@ export function AccountProvider(props) {
 
   return (
     <AccountContext.Provider
-      value={{ account, login, logout, signup, setAccount, isAuthenticating, updateProfile }}
+      value={{ account, login, logout, signup, setAccount, isAuthenticating, updateProfile, changePassword }}
     >
       {props.children}
     </AccountContext.Provider>

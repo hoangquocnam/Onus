@@ -1,5 +1,6 @@
 .user-profile__page {
   height: 100%;
+  width: 100%;
 }
 
 .user-profile__container {
@@ -8,6 +9,10 @@
   color: #202142;
   justify-content: center;
   margin: 0;
+}
+
+.account-settings-container {
+  min-width: 500px;
 }
 
 .user-profile__title {

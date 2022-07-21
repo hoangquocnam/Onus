@@ -21,7 +21,6 @@ function Workspace() {
   useEffect(() => {
     const data = require('../../data/workspace.json');
 
-    setWorkspace(data);
     setTaskLists(data.lists);
   }, []);
 

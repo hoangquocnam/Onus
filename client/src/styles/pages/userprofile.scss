@@ -1,5 +1,6 @@
 .user-profile__page {
     height: 100%;
+    width: 100%;
 }
 
 .user-profile__container {
@@ -8,6 +9,10 @@
     color: #202142;
     justify-content: center;
     margin: 0;
+}
+
+.account-settings-container {
+    min-width: 500px;
 }
 
 .user-profile__title {
@@ -25,7 +30,6 @@
 .profile-nav__container {
     margin-right: 60px;
     width: 250px;
-
 }
 
 
@@ -110,20 +114,24 @@
 }
 
 .public-profile {
-    &__changeBtn,&__changePassword {
+
+    &__changeBtn,
+    &__changePassword {
         margin-bottom: 20px;
         background: #202142;
         border-radius: 8px;
         color: #FFFFFF;
         width: 200px;
         height: 55px;
-        &:hover{
+
+        &:hover {
             opacity: 0.9;
             cursor: pointer;
             transition: all .3s ease-in-out;
         }
     }
-    &__changePassword{
+
+    &__changePassword {
         margin-top: 15px;
     }
 }
