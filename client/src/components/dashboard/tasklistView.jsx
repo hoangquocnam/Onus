@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";

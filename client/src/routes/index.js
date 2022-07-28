@@ -1,27 +1,25 @@
 const routes = {
   home: {
-    path: "/",
+    path: '/',
   },
   login: {
-    path: "/login",
+    path: '/login',
   },
   signUp: {
-    path: "/signup",
+    path: '/signup',
   },
   account: {
-    path: "/account",
-    profile: {
-      publicProfile: "/account/profile",
-      accountSettings: "/account/settings"
-    }
+    path: '/account',
+    profile: '/account/:id/profile',
+    settings: '/account/:id/settings',
   },
   dashboard: {
-    path: "/dashboard",
+    path: '/dashboard',
   },
   workspaces: {
-    path: "/workspaces",
+    path: '/workspaces',
     workspace: {
-      path: "/workspaces/:id",
+      path: '/workspaces/:id',
     },
   },
 };

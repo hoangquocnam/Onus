@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { useAccount } from '../../hooks';
@@ -19,6 +18,8 @@ import routes from '../../routes';
 import '../../styles/components/workspaceListView.scss';
 import { methods, URL_Requests } from '../../APIs';
 import { toast } from 'react-toastify';
+import MemberAvatarList from '../memberAvatarList';
+import LoadingIndicator from '../spinner/LoadingComponents';
 
 function WorkspaceItemCard(props) {
   const { itemId: id, title, description, members } = props;
@@ -43,32 +44,7 @@ function WorkspaceItemCard(props) {
       <p className='workspace-item-card-description'>{description}</p>
 
       <div className='workspace-item-card-footer'>
-        <div className='workspace-item-card-members'>
-          {_.isArray(members)
-            ? members.slice(0, 6).map((member, index) => {
-                return (
-                  <div
-                    className='workspace-item-card-member'
-                    style={{ left: 20 * index + 'px' }}
-                    key={index}
-                  >
-                    {index <= 4 ? (
-                      <img
-                        src={member}
-                        alt='avatar'
-                        style={{
-                          width: '30px',
-                          height: '30px',
-                        }}
-                      />
-                    ) : (
-                      <div>{`+${members.length - index}`}</div>
-                    )}
-                  </div>
-                );
-              })
-            : 'members'}
-        </div>
+        <MemberAvatarList members={members} />
         <BsArrowRight size={20} className='workspace-item-card-arrow' />
       </div>
     </div>
@@ -108,6 +84,7 @@ export function WorkspaceListView() {
   const [workspaces, setWorkspaces] = useState([]);
   const { account } = useAccount();
   const [showCreateWorkspace, setShowCreateWorkspace] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleCreateWorkspace = async data => {
     setWorkspaces(prev => [...prev, data]);
@@ -120,11 +97,17 @@ export function WorkspaceListView() {
   };
 
   const fetchWorkspaceList = async () => {
-    const response = await methods.get(
-      URL_Requests.users.workspaces(account.id),
-    );
-    setWorkspaces(response.data);
-    return response.data;
+    setIsLoading(true);
+    try {
+      const response = await methods.get(
+        URL_Requests.users.workspaces(account.id),
+      );
+      setWorkspaces(response.data);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -137,25 +120,31 @@ export function WorkspaceListView() {
         <p className='workspaceList__title'>Workspaces</p>
 
         <div className='workspaceList__container'>
-          <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {workspaces.map(workspace => (
-              <WorkspaceItemCard
-                key={workspace.id}
-                title={workspace.title}
-                description={workspace.description}
-                itemId={workspace.id}
-                members={workspace.members}
-              />
-            ))}
-            <div
-              className='workspace-item-card--add-new-workspace'
-              onClick={() => setShowCreateWorkspace(true)}
-            >
-              <p className='workspace-item-card--add-new-workspace-heading'>
-                + Add new workspace
-              </p>
+          {isLoading ? (
+            <div style={{ height: 150, width: '100vw' }}>
+              <LoadingIndicator />
             </div>
-          </ScrollMenu>
+          ) : (
+            <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+              {workspaces.map(workspace => (
+                <WorkspaceItemCard
+                  key={workspace.id}
+                  title={workspace.title}
+                  description={workspace.description}
+                  itemId={workspace.id}
+                  members={workspace.members}
+                />
+              ))}
+              <div
+                className='workspace-item-card--add-new-workspace'
+                onClick={() => setShowCreateWorkspace(true)}
+              >
+                <p className='workspace-item-card--add-new-workspace-heading'>
+                  + Add new workspace
+                </p>
+              </div>
+            </ScrollMenu>
+          )}
         </div>
         {showCreateWorkspace && (
           <BoardNewWorkspace

@@ -17,7 +17,8 @@ export default function TopBar() {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const accountMenuRef = useRef(null);
 
-  const { logout } = useAccount();
+  const { logout, account } = useAccount();
+
 
   useOutsideAlerter(accountMenuRef, target => {
     if (isAccountMenuOpen) {
@@ -32,6 +33,11 @@ export default function TopBar() {
   function handleLogout() {
     logout();
   }
+
+  const goToAccountPage=  () => {
+    navigate(`${routes.account.path}/${account.id}/profile` );
+  }
+  
 
   return (
     <div className='topBar'>
@@ -106,7 +112,7 @@ export default function TopBar() {
                     className='top-bar__dropdown-item'
                     onClick={() => {
                       setIsAccountMenuOpen(false);
-                      navigate(routes.account.profile.publicProfile);
+                      goToAccountPage();
                     }}
                   >
                     Profile
