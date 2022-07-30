@@ -1,5 +1,5 @@
 :root {
-  --workspace-container-height: calc(100vh - var(--top-bar-height));
+  --workspace-height: calc(100vh - var(--top-bar-height));
 
   --workspace-main-padding-top: 20px;
   --workspace-main-padding-right: 30px;
@@ -8,15 +8,15 @@
   --workspace-main-gap: 15px;
 
   --workspace-body-height: calc(
-    var(--workspace-container-height) - var(--workspace-header-height) -
+    var(--workspace-height) - var(--workspace-header-height) -
       var(--workspace-main-padding-top) - var(--workspace-main-padding-bottom) -
       var(--workspace-main-gap)
   );
 }
 
-.workspace-container {
+.workspace {
   background-color: #fff;
-  height: var(--workspace-container-height);
+  height: var(--workspace-height);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -52,82 +52,11 @@
   display: flex;
 }
 
-.workspace-new-list-container {
-  flex: 0 0 280px;
-}
-
-.workspace__new-list--inactive {
-  border: 1px dashed rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-sizing: border-box;
-  height: 48px;
-}
-
-.workspace__new-list--inactive:active {
-  border: 1px dashed rgb(0, 0, 0);
-}
-
-.workspace__new-list--active {
-  box-sizing: border-box;
-  padding: 10px;
-  background: #efefef;
-  border-radius: 8px;
-}
-
-.workspace-new-list__input-title {
-  width: 100%;
-  height: 60px;
-  padding: 5px 0px 15px 20px;
-  outline: none;
-  color: #202142;
-  font-size: 14px;
-  border: none;
-  box-shadow: 0 1px 0 #091e4240;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-
-.workspace-new-list__group-btn {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  padding-top: 10px;
-}
-
-.workspace-new-list__btn-add {
-  padding: 0;
-  width: 110px;
-  height: 36px;
-  font-size: 14px;
-  font-weight: 400;
-  background: #2f80ed;
-  border-radius: 8px;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-.workspace-new-list__btn-cancel {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 10px;
-  opacity: 0.8;
-}
-
-.workspace-new-list__btn-cancel:hover {
-  opacity: 1;
-}
-
 .workspace-content > div > .smooth-dnd-draggable-wrapper {
   padding-right: 30px;
 }
 
-.workspace-list-drop-preview {
+.status-drop-preview {
   border: 1px dashed #abc;
   margin-right: 30px;
   border-radius: 10px;

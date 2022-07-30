@@ -1,0 +1,12 @@
+.task-delete-popover__text {
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.task-delete-popover {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0;
+}

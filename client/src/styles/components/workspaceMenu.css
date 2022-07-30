@@ -1,0 +1,253 @@
+.workspace-menu {
+  height: 100%;
+  transition: width 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.workspace-menu--active {
+  opacity: 1;
+  width: 450px;
+}
+
+.workspace-menu--inactive {
+  width: 0;
+  opacity: 0;
+}
+
+.workspace-menu__header {
+  width: 100%;
+  position: relative;
+}
+
+.workspace-menu__title {
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0 10px;
+  padding: 12px 0;
+  text-align: center;
+  /* border-bottom: 1px solid #d3d3d3; */
+}
+
+.workspace-menu__close-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-right: 15px;
+  cursor: pointer;
+  transform: translateY(-50%);
+  opacity: 0.8;
+}
+
+.workspace-menu__close-btn:hover {
+  opacity: 1;
+}
+
+.workspace-menu__body .accordion-item {
+  border: 0;
+}
+
+.workspace-menu__body .accordion-button,
+.workspace-menu__body .accordion-body {
+  background-color: #f0f0f0;
+}
+
+.workspace-menu__body .accordion-button:focus {
+  box-shadow: none;
+}
+
+.workspace-menu__body .accordion-button:not(.collapsed) {
+  color: #000;
+  background-color: #e0e0e0;
+  box-shadow: none;
+}
+
+.workspace-menu__body .accordion-button:not(.collapsed)::after {
+  background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23212529%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e');
+}
+
+.workspace-menu__accordion-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.workspace-menu__accordion-header-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.workspace-menu__accordion-header-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.workspace-menu__about {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.workspace-menu__about-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.workspace-menu__about-item-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.workspace-menu__about-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.workspace-menu__about-item-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.workspace-menu__about-admin {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.workspace-menu__about-admin-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+}
+
+.workspace-menu__about-admin-info-name {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.workspace-menu__about-admin-info-email {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.workspace-menu__description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.workspace-menu__description-input {
+  width: 100%;
+  resize: none;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 0;
+  background-color: #091e420d;
+  outline: none;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.workspace-menu__description-input:not(.workspace-menu__description-input--active):hover {
+  background-color: #091e4215;
+}
+
+.workspace-menu__description-input--active {
+  border: 2px solid #000;
+  background-color: #fff;
+  cursor: text;
+}
+
+.workspace-menu__description-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.workspace-menu__description-save-btn {
+  color: #fff;
+  background-color: #171645;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.workspace-menu__description-save-btn:hover {
+  opacity: 0.92;
+}
+
+.workspace-menu__description-save-btn:active {
+  opacity: 0.8;
+}
+
+.workspace-menu__description-cancel-btn {
+  color: #000;
+  background-color: #091e4214;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.workspace-menu__description-cancel-btn:hover {
+  background-color: #091e4220;
+}
+
+.workspace-menu__description-cancel-btn:active {
+  background-color: #091e4226;
+}
+
+.workspace-menu__settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.workspace-menu__settings-item {
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  gap: 8px;
+  padding: 12px 8px;
+  border-radius: 4px;
+}
+
+.workspace-menu__settings-item:hover {
+  background-color: #091e4215;
+}
+
+.workspace-menu__settings-item:active {
+  background-color: #091e4220;
+}
+
+.workspace-menu__settings-item-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.workspace-menu__settings-item-text {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}

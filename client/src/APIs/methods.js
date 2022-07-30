@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getTokenFromStorage } from '../utils/auth';
 import { settings } from './settings';
 
 const methods = {
@@ -12,7 +13,12 @@ const methods = {
 const SERVER_URL = settings.SERVER_URL;
 
 function getMethod(url, config = {}) {
-  return axios.get(`${SERVER_URL}/${url}`, config);
+  return axios.get(`${SERVER_URL}/${url}`, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+  });
 }
 
 function postMethod(url, data, config = {}) {

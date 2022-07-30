@@ -1,10 +1,12 @@
-import { useRef, useState } from 'react';
+import { OverlayTrigger } from 'react-bootstrap';
 import { AiOutlinePlusCircle, AiOutlineSearch } from 'react-icons/ai';
+import { FaCog, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { FiAlertCircle } from 'react-icons/fi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import { logo, trello_board_mark } from '../../assets';
-import { useAccount, useOutsideAlerter } from '../../hooks';
+import { PopoverContainer, PopoverSeparator } from '../../components/popover';
+import { useAccount } from '../../hooks';
 import routes from '../../routes';
 import '../../styles/components/topBar.css';
 
@@ -13,32 +15,6 @@ const TopBarSeparator = () => {
 };
 
 export default function TopBar() {
-  const navigate = useNavigate();
-  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
-  const accountMenuRef = useRef(null);
-
-  const { logout, account } = useAccount();
-
-
-  useOutsideAlerter(accountMenuRef, target => {
-    if (isAccountMenuOpen) {
-      if (target.classList.contains('account-avatar')) {
-        return;
-      }
-
-      setIsAccountMenuOpen(false);
-    }
-  });
-
-  function handleLogout() {
-    logout();
-  }
-
-  const goToAccountPage=  () => {
-    navigate(`${routes.account.path}/${account.id}/profile` );
-  }
-  
-
   return (
     <div className='topBar'>
       <div className='topBar__left'>
@@ -93,41 +69,97 @@ export default function TopBar() {
         </div>
 
         <div className='topBar__rightSpacing topBar__accountAvatar'>
-          <div className='topBar__avatar'>
-            <img
-              src='https://api.minimalavatars.com/avatar/random/png'
-              alt='avt'
-              className='account-avatar'
-              onClick={() => {
-                setIsAccountMenuOpen(!isAccountMenuOpen);
-              }}
-            />
-
-            {isAccountMenuOpen && (
-              <div ref={accountMenuRef} className='top-bar__dropdown-menu'>
-                <h3 className='top-bar__dropdown-menu-title'>Account</h3>
-                <ul className='top-bar__dropdown-menu-list'>
-                  <li className='top-bar__dropdown-item-separator'></li>
-                  <li
-                    className='top-bar__dropdown-item'
-                    onClick={() => {
-                      setIsAccountMenuOpen(false);
-                      goToAccountPage();
-                    }}
-                  >
-                    Profile
-                  </li>
-                  <li className='top-bar__dropdown-item'>Settings</li>
-                  <li className='top-bar__dropdown-item-separator'></li>
-                  <li className='top-bar__dropdown-item' onClick={handleLogout}>
-                    Log out
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
+          <AccountPopover />
         </div>
       </div>
     </div>
+  );
+}
+
+function AccountPopover() {
+  const { logout, account } = useAccount();
+  const navigate = useNavigate();
+
+  function handleViewProfile() {
+    navigate(`${routes.account.path}/${account.id}/profile`);
+    document.body.click();
+  }
+
+  function handleViewSettings() {
+    // navigate(routes.account.profile.accountSettings);
+    document.body.click();
+  }
+
+  return (
+    <OverlayTrigger
+      trigger='click'
+      rootClose={true}
+      placement='bottom'
+      overlay={
+        <PopoverContainer
+          title='Account'
+          style={{
+            maxWidth: '280px',
+            width: '100%',
+          }}
+        >
+          <div className='account-popover'>
+            <div className='account-popover__info'>
+              <img
+                src='https://api.minimalavatars.com/avatar/random/png'
+                alt='avt'
+                className='account-popover__info-avatar'
+              />
+
+              <div className='account-popover__info-wrapper'>
+                <p className='account-popover__info-fullname'>
+                  {account.fullname}
+                </p>
+
+                <p className='account-popover__info-email'>{account.email}</p>
+              </div>
+            </div>
+
+            <PopoverSeparator />
+
+            <button
+              type='button'
+              className='account-popover__btn'
+              onClick={handleViewProfile}
+            >
+              <FaUser className='account-popover__btn-icon' />
+              <span className='account-popover__btn-text'>Profile</span>
+            </button>
+
+            <button
+              type='button'
+              className='account-popover__btn'
+              onClick={handleViewSettings}
+            >
+              <FaCog className='account-popover__btn-icon' />
+              <span className='account-popover__btn-text'>Settings</span>
+            </button>
+
+            <PopoverSeparator />
+
+            <button
+              type='button'
+              className='account-popover__btn'
+              onClick={logout}
+            >
+              <FaSignOutAlt className='account-popover__btn-icon' />
+
+              <span className='account-popover__btn-text'>Log out</span>
+            </button>
+          </div>
+        </PopoverContainer>
+      }
+    >
+      <img
+        src='https://api.minimalavatars.com/avatar/random/png'
+        alt='avt'
+        className='account-avatar'
+      />
+    </OverlayTrigger>
   );
 }

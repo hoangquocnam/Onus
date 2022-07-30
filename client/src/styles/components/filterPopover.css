@@ -1,0 +1,63 @@
+.filter-popover {
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-popover__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-popover__item-title {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.filter-popover__input-keyword {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 8px 10px;
+}
+
+.filter-popover__input-keyword-description {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+  padding: 0;
+}
+
+.filter-popover__form-members {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-popover__form-members-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  height: 24px;
+}
+
+.filter-popover__form-members-item > span {
+  width: 100%;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.filter-popover__form-members-item-select {
+  width: 100%;
+  outline: none;
+  font-size: 13px;
+  padding: 2px;
+  border-radius: 4px;
+}
