@@ -1,0 +1,47 @@
+{
+  "id": "62d57846209c9d4b64c5f6ba",
+  "title": "Onus",
+  "description": "Onus is the visual work management tool that empowers teams to ideate, plan, manage, and celebrate their work together in a collaborative, productive, and organized way.",
+  "ownerId": "62d18d87ab1fa540645e371e",
+  "isFavorite": false,
+  "labels": [],
+  "members": [
+    {
+      "id": "62d18d87ab1fa540645e371e",
+      "email": "tamtest@demo.com",
+      "fullname": "Lê Duy Tâm",
+      "avatar": "https://api.minimalavatars.com/avatar/1/png"
+    },
+    {
+      "id": "62cf73ee8ccab90d7810d418",
+      "email": "btsangg@demo.com",
+      "fullname": "Bùi Tấn Sang",
+      "avatar": "https://api.minimalavatars.com/avatar/2/png"
+    },
+    {
+      "id": "62cc4179c434861c245c411b",
+      "email": "hnminh@demo.com",
+      "fullname": "Hoàng Nhật Minh",
+      "avatar": "https://api.minimalavatars.com/avatar/3/png"
+    },
+    {
+      "id": "62caea3e8d0d8b6264ac1688",
+      "email": "hqnam@demo.com",
+      "fullname": "Hoàng Quốc Nam",
+      "avatar": "https://api.minimalavatars.com/avatar/4/png"
+    },
+    {
+      "id": "62ce953f8a50423fc43f2a23",
+      "email": "hmduc@demo.com",
+      "fullname": "Huỳnh Minh Đức",
+      "avatar": "https://api.minimalavatars.com/avatar/5/png"
+    },
+    {
+      "id": "62ce9b47fe6c186468a4447a",
+      "email": "ntthang@demo.com",
+      "fullname": "Nguyễn Thị Thanh Hằng",
+      "avatar": "https://api.minimalavatars.com/avatar/6/png"
+    }
+  ],
+  "statuses": []
+}

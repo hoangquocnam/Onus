@@ -1,31 +1,28 @@
+import { forwardRef } from 'react';
 import { MEMBER_AVATAR_LIST_DISPLAY_LIMIT } from '../../constants';
-import _ from 'lodash';
 import '../../styles/components/memberAvatarList.css';
+import MemberAvatarItem from './memberAvatarItem';
+import MemberAvatarMore from './memberAvatarMore';
 
-function MemberAvatarList(props) {
-  const limit = MEMBER_AVATAR_LIST_DISPLAY_LIMIT;
-  const { members } = props;
+const MemberAvatarList = forwardRef(
+  ({ limit = MEMBER_AVATAR_LIST_DISPLAY_LIMIT, container = null }, ref) => {
+    const members = container ? container.object.members : [];
 
-  return (
-    <div className='member-avatar__list'>
-      {_.isArray(members)
-        ? members.slice(0, limit).map((member, index) => (
-            <div key={index} className='member-avatar__item'>
-              <img
-                src={member.avatar}
-                alt='avatar'
-                onMouseDown={e => e.preventDefault()}
-              />
-            </div>
-          ))
-        : 'members'}
-      {members?.length > limit && (
-        <div className='member-avatar__item member-avatar__more disable-user-select'>
-          +{props.members.length - limit}
-        </div>
-      )}
-    </div>
-  );
-}
+    return (
+      <div ref={ref} className='member-avatar-list'>
+        {members.slice(0, limit).map((member, index) => (
+          <MemberAvatarItem key={index} member={member} container={container} />
+        ))}
+        {members?.length > limit && (
+          <MemberAvatarMore
+            members={members}
+            value={members.length - limit}
+            container={container}
+          />
+        )}
+      </div>
+    );
+  },
+);
 
 export default MemberAvatarList;

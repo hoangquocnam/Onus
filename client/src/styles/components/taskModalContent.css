@@ -1,0 +1,132 @@
+.task-modal-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.task-modal-content__members {
+  margin-left: 38px;
+}
+
+.task-modal-content__members-title {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.task-modal-content__module {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-modal-content__module-header {
+  display: flex;
+  gap: 10px;
+}
+
+.task-modal-content__module-title-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.task-modal-content__module-title {
+  font-size: 16px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  height: 100%;
+}
+
+.task-modal-content__module-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+}
+
+.task-modal-content__description-wrapper {
+  margin-left: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-modal-content__description {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+  border-radius: 4px;
+  border: 0;
+  background-color: #091e420a;
+  outline: none;
+  border: 2px solid transparent;
+}
+
+.task-modal-content__description--active {
+  border: 2px solid #000;
+  background-color: #fff;
+}
+
+.task-modal-content__description-group-btn {
+  display: flex;
+  gap: 8px;
+}
+
+.task-modal-content__module-btn {
+  color: #000;
+  background-color: #091e420a;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 6px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.task-modal-content__description-save-btn,
+.task-modal-content__description-cancel-btn {
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 6px 20px;
+}
+
+.task-modal-content__description-save-btn {
+  color: #fff;
+  background-color: #171645;
+}
+
+.task-modal-content__description-save-btn:hover {
+  opacity: 0.92;
+}
+
+.task-modal-content__description-save-btn:active {
+  opacity: 0.8;
+}
+
+.task-modal-content__description-cancel-btn {
+  color: #000;
+  background-color: transparent;
+}
+
+.task-modal-content__module-btn:hover,
+.task-modal-content__description-cancel-btn:hover {
+  background-color: #091e4214;
+}
+
+.task-modal-content__module-btn:active,
+.task-modal-content__description-cancel-btn:active {
+  background-color: #091e4220;
+}
