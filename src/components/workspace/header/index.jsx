@@ -19,7 +19,6 @@ export default function WorkspaceHeader() {
     toggleInviteModal,
     workspace,
     updateWorkspace,
-    removeMemberFromWorkspace,
   } = useContext(WorkspaceContext);
 
   function handleFavoriteClick() {
