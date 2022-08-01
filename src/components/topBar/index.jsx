@@ -155,11 +155,7 @@ function AccountPopover() {
         </PopoverContainer>
       }
     >
-      <img
-        src='https://api.minimalavatars.com/avatar/random/png'
-        alt='avt'
-        className='account-avatar'
-      />
+      <img src={account.avatarUrl} alt='avt' className='account-avatar' />
     </OverlayTrigger>
   );
 }

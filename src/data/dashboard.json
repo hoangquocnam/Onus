@@ -99,44 +99,6 @@
           "avatar": "https://api.minimalavatars.com/avatar/2/png"
         }
       ]
-    },
-    {
-      "id": "62d57846209c9d4b64c5f6a4",
-      "title": "Object Oriented",
-      "description": "",
-      "members": [
-        {
-          "id": "62d18d87ab1fa540645e371e",
-          "email": "tamtest@demo.com",
-          "fullname": "Lê Duy Tâm",
-          "avatar": "https://api.minimalavatars.com/avatar/1/png"
-        },
-        {
-          "id": "62cf73ee8ccab90d7810d418",
-          "email": "btsangg@demo.com",
-          "fullname": "Bùi Tấn Sang",
-          "avatar": "https://api.minimalavatars.com/avatar/2/png"
-        }
-      ]
-    },
-    {
-      "id": "62d57846209c9d4b64c5f6a5",
-      "title": "Object Oriented",
-      "description": "",
-      "members": [
-        {
-          "id": "62d18d87ab1fa540645e371e",
-          "email": "tamtest@demo.com",
-          "fullname": "Lê Duy Tâm",
-          "avatar": "https://api.minimalavatars.com/avatar/1/png"
-        },
-        {
-          "id": "62cf73ee8ccab90d7810d418",
-          "email": "btsangg@demo.com",
-          "fullname": "Bùi Tấn Sang",
-          "avatar": "https://api.minimalavatars.com/avatar/2/png"
-        }
-      ]
     }
   ],
   "allWorkspaces": [],

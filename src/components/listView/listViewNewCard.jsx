@@ -1,4 +1,4 @@
-import '../../../styles/components/listViewNewCard.css';
+import '../../styles/components/listViewNewCard.css';
 
 function ListViewNewCard({ title, onClick }) {
   function handleOnClick() {

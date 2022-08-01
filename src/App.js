@@ -8,7 +8,7 @@ import {
   UserProfile,
   Workspace,
 } from './components';
-import { HomePage, LogInPage, SignUpPage } from './pages';
+import { HomePage, LogInPage, NotFoundPage, SignUpPage } from './pages';
 import routes from './routes';
 import { AccountProvider } from './stores/account';
 import { WorkspaceProvider } from './stores/workspace';
@@ -43,6 +43,12 @@ const App = () => {
               <Route path={routes.login.path} element={<LogInPage />} />
               <Route path={routes.signUp.path} element={<SignUpPage />} />
             </Route>
+
+            <Route path={routes.notFound.path} element={<NotFoundPage />} />
+            <Route
+              path='*'
+              element={<Navigate to={routes.notFound.path} replace />}
+            />
           </Routes>
         </WorkspaceProvider>
       </AccountProvider>

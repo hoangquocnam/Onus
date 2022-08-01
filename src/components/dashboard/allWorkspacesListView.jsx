@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import ListView from './listView';
-import ListViewCard from './listView/listViewCard';
+import { randInt } from '../../utils/common';
+import ListView from '../listView';
+import ListViewCard from '../listView/listViewCard';
 
 function AllWorkspacesListView() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function AllWorkspacesListView() {
     setTimeout(() => {
       setAllWorkspaces(require('../../data/dashboard.json').allWorkspaces);
       setIsLoading(false);
-    }, Math.floor(Math.random() * 3000 + 1000));
+    }, randInt(1000, 3000));
   }, []);
 
   function navigateToWorkspace(workspaceId) {

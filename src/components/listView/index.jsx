@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import '../../../styles/components/listView.css';
+import '../../styles/components/listView.css';
+import { randInt } from '../../utils/common';
 import ListViewCardLoading from './listViewCardLoading';
 
 export default function ListView({ title, children, isLoading = false }) {
@@ -16,7 +17,7 @@ export default function ListView({ title, children, isLoading = false }) {
           scrollContainerClassName='list-view__scroll-container'
         >
           {isLoading
-            ? Array(Math.floor(Math.random() * 4 + 1))
+            ? Array(randInt(1, 5))
                 .fill(0)
                 .map((_, index) => <ListViewCardLoading key={index} />)
             : children}

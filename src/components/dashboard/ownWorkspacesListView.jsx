@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import ListView from './listView';
-import ListViewCard from './listView/listViewCard';
-import ListViewNewCard from './listView/listViewNewCard';
+import { randInt } from '../../utils/common';
+import ListView from '../listView';
+import ListViewCard from '../listView/listViewCard';
+import ListViewNewCard from '../listView/listViewNewCard';
 import NewWorkspaceModal from './newWorkspaceModal';
 
 function OwnWorkspacesListView() {
@@ -17,7 +18,7 @@ function OwnWorkspacesListView() {
     setTimeout(() => {
       setOwnWorkspaces(require('../../data/dashboard.json').ownWorkspaces);
       setIsLoading(false);
-    }, Math.floor(Math.random() * 3000 + 1000));
+    }, randInt(1000, 3000));
   }, []);
 
   function navigateToWorkspace(workspaceId) {

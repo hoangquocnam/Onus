@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
-import { LIST_VIEW_CARD_BG_COLOR_LIST } from '../../../constants';
-import '../../../styles/components/listViewCard.css';
-import { limitText, randomItem } from '../../../utils/common';
-import MemberAvatarList from '../../memberAvatarList';
+import { LIST_VIEW_CARD_BG_COLOR_LIST } from '../../constants';
+import '../../styles/components/listViewCard.css';
+import { limitText, randItem } from '../../utils/common';
+import MemberAvatarList from '../memberAvatarList';
 
 export default function ListViewCard({ data, type, onClick }) {
   const ref = useRef();
@@ -27,7 +27,7 @@ export default function ListViewCard({ data, type, onClick }) {
     <div
       className='list-view-card disable-user-select'
       style={{
-        backgroundColor: randomItem(LIST_VIEW_CARD_BG_COLOR_LIST),
+        backgroundColor: randItem(LIST_VIEW_CARD_BG_COLOR_LIST),
       }}
       ref={ref}
       onClick={handleOnClick}

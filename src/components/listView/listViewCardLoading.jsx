@@ -1,5 +1,5 @@
 import { Placeholder } from 'react-bootstrap';
-import '../../../styles/components/listViewCardLoading.css';
+import '../../styles/components/listViewCardLoading.css';
 
 function ListViewCardLoading() {
   return (

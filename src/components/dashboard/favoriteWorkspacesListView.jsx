@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import ListView from './listView';
-import ListViewCard from './listView/listViewCard';
+import { randInt } from '../../utils/common';
+import ListView from '../listView';
+import ListViewCard from '../listView/listViewCard';
 
 function FavoriteWorkspacesListView() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function FavoriteWorkspacesListView() {
         require('../../data/dashboard.json').favoriteWorkspaces,
       );
       setIsLoading(false);
-    }, Math.floor(Math.random() * 3000 + 1000));
+    }, randInt(1000, 3000));
   }, []);
 
   function navigateToWorkspace(workspaceId) {
