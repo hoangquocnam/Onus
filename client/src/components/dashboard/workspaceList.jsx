@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
-import { useAccount } from '../../hooks';
 import {
   AiOutlineArrowLeft,
   AiOutlineArrowRight,
   AiOutlineClose,
 } from 'react-icons/ai';
 import { BsArrowRight } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
 import { IoTextOutline } from 'react-icons/io5';
 import {
-  MdOutlineAddReaction,
   MdAttachFile,
+  MdOutlineAddReaction,
   MdPersonAdd,
 } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { methods, URL_Requests } from '../../APIs';
+import { useAccount } from '../../hooks';
 import routes from '../../routes';
 import '../../styles/components/workspaceListView.scss';
-import { methods, URL_Requests } from '../../APIs';
-import { toast } from 'react-toastify';
 import MemberAvatarList from '../memberAvatarList';
 import LoadingIndicator from '../spinner/LoadingComponents';
 
@@ -112,6 +112,8 @@ export function WorkspaceListView() {
 
   useEffect(() => {
     fetchWorkspaceList();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

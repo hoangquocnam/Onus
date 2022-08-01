@@ -58,25 +58,26 @@ export default function Task({ task }) {
           </p>
         )}
 
-        <div className='task__info'>
+        <div className='task__footer'>
           <MemberAvatarList
             ref={memberAvatarListRef}
             container={{
               type: 'task',
               object: task,
             }}
+            allowRemove={true}
           />
 
-          <div className='task__info-wrapper'>
-            <div className='task__info-comment'>
+          <div className='task__footer-right'>
+            <div className='task__comment'>
               0
               <FaRegCommentDots size={13} />
             </div>
-            <div className='task__info-like'>
+            <div className='task__like'>
               0
               <FaRegHeart size={13} />
             </div>
-            <div className='task__info-attachment'>
+            <div className='task__attachment'>
               0
               <FaPaperclip size={13} />
             </div>

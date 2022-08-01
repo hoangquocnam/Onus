@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import React, { useEffect, useState } from 'react';
+import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
-import "../../styles/components/tasklistView.scss";
+import '../../styles/components/tasklistView.scss';
 
-import TaskListBoard from "./taskListBoard";
+import TaskListBoard from './taskListBoard';
 
 function LeftArrow() {
   const { isFirstItemVisible, scrollPrev } =
@@ -13,7 +13,7 @@ function LeftArrow() {
   return (
     <button
       disabled={isFirstItemVisible}
-      className="tasklistView-list-view-arrow"
+      className='tasklistView-list-view-arrow'
       onClick={() => scrollPrev()}
     >
       <AiOutlineArrowLeft size={20} />
@@ -27,7 +27,7 @@ function RightArrow() {
   return (
     <button
       disabled={isLastItemVisible}
-      className="tasklistView-list-view-arrow"
+      className='tasklistView-list-view-arrow'
       onClick={() => scrollNext()}
     >
       <AiOutlineArrowRight size={20} />
@@ -38,19 +38,19 @@ function RightArrow() {
 export function TasksListView() {
   const [workspaces, setWorkspaces] = useState([]);
   useEffect(() => {
-    const workspaces = require("../../data/workspaces.json");
+    const workspaces = require('../../data/workspaces.json');
     setWorkspaces(workspaces);
   }, []);
 
   return (
     <React.StrictMode>
-      <div className="tasklistViewListView">
-        <p className="tasklistViewList__title">Tasks</p>
+      <div className='tasklistViewListView'>
+        <p className='tasklistViewList__title'>Tasks</p>
 
-        <div className="tasklistViewList__container">
+        <div className='tasklistViewList__container'>
           <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
-            {workspaces.map((task) => (
-              <TaskListBoard />
+            {workspaces.map((task, index) => (
+              <TaskListBoard key={index} />
             ))}
           </ScrollMenu>
         </div>

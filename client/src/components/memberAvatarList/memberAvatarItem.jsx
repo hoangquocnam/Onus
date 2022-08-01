@@ -7,8 +7,9 @@ import routes from '../../routes';
 import { WorkspaceContext } from '../../stores/workspace';
 import '../../styles/components/memberAvatarItem.css';
 
-export default function MemberAvatarItem({ member, container }) {
-  const { updateWorkspace, updateTask } = useContext(WorkspaceContext);
+export default function MemberAvatarItem({ member, container, allowRemove }) {
+  const { removeMemberFromWorkspace, removeMemberFromTask } =
+    useContext(WorkspaceContext);
   const { account } = useAccount();
 
   const navigate = useNavigate();
@@ -23,43 +24,19 @@ export default function MemberAvatarItem({ member, container }) {
 
   function handleRemoveMember() {
     if (container.type === 'workspace') {
-      removeFromWorkspace(container.object, member);
+      removeMemberFromWorkspace(member.id);
     }
 
     if (container.type === 'task') {
-      removeFromTask(container.object, member);
+      removeMemberFromTask(container.object, member.id);
     }
 
     handleClosePopover();
   }
 
-  function removeFromWorkspace(workspace, member) {
-    updateWorkspace({
-      ...workspace,
-      members: workspace.members.filter(m => m.id !== member.id),
-      statuses: workspace.statuses.filter(status => {
-        return {
-          ...status,
-          tasks: status.tasks.map(task => {
-            return {
-              ...task,
-              members: task.members.filter(m => m.id !== member.id),
-            };
-          }),
-        };
-      }),
-    });
-  }
-
-  function removeFromTask(task, member) {
-    updateTask({
-      ...task,
-      members: task.members.filter(m => m.id !== member.id),
-    });
-  }
-
   function isShowRemoveButton() {
     return (
+      allowRemove &&
       container &&
       (container.type === 'task' ||
         (container.type === 'workspace' &&

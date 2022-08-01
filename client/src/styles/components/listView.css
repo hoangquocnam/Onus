@@ -1,0 +1,35 @@
+.list-view__title {
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0;
+  margin-left: 40px;
+}
+
+.list-view__arrow-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-view__arrow {
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.list-view__arrow:not(:disabled):hover {
+  background-color: rgb(214, 211, 208);
+  cursor: pointer;
+}
+
+.list-view__scroll-container {
+  min-height: 150px;
+}
+
+.list-view-loading {
+  width: 100%;
+}

@@ -5,6 +5,13 @@ export const EMAIL_REGEX =
 
 export const MEMBER_AVATAR_LIST_DISPLAY_LIMIT = 4;
 
+export const LIST_VIEW_CARD_BG_COLOR_LIST = [
+  '#EEF7FB',
+  '#f4f4f4',
+  '#F8F1FF',
+  '#FEF7EF',
+];
+
 export const COVER_BACKGROUND_COLOR_LIST = [
   '#7BC86C',
   '#F5DD29',

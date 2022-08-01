@@ -147,6 +147,7 @@ export default function WorkspaceMenu() {
                         type: 'workspace',
                         object: workspace,
                       }}
+                      allowRemove={true}
                     />
                   </div>
                 </div>

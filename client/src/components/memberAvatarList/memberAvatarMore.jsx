@@ -21,6 +21,7 @@ export default function MemberAvatarMore(props) {
           <MemberAvatarMorePopover
             members={props.members}
             container={props.container}
+            allowRemove={props.allowRemove}
           />
         </PopoverContainer>
       }
@@ -65,11 +66,8 @@ function MemberAvatarMorePopover(props) {
           <MemberAvatarItem
             key={index}
             member={member}
-            style={{
-              width: '32px',
-              height: '32px',
-            }}
             container={props.container}
+            allowRemove={props.allowRemove}
           />
         ))}
       </div>

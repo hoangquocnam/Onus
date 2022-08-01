@@ -2,9 +2,10 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  overflow-y: auto;
+  gap: 40px;
 }
 
-.workspaceList__title {
+/* .workspaceList__title {
   margin: 0 0 0 30px;
-}
+} */

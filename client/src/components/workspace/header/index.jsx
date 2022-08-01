@@ -19,6 +19,7 @@ export default function WorkspaceHeader() {
     toggleInviteModal,
     workspace,
     updateWorkspace,
+    removeMemberFromWorkspace,
   } = useContext(WorkspaceContext);
 
   function handleFavoriteClick() {
@@ -31,8 +32,6 @@ export default function WorkspaceHeader() {
   return (
     <div className='workspace-header'>
       <div className='workspace-header__left'>
-        {/* <h1 className='workspace-header__title'>{workspace.title}</h1> */}
-
         <TitleInput />
 
         <div className='workspace-header__utility'>
@@ -61,11 +60,11 @@ export default function WorkspaceHeader() {
         </div>
 
         <MemberAvatarList
-          members={workspace.members}
           container={{
             type: 'workspace',
             object: workspace,
           }}
+          allowRemove={true}
         />
       </div>
 

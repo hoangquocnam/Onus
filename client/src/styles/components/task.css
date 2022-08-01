@@ -49,7 +49,7 @@
   margin-right: 5px;
 }
 
-.task__info {
+.task__footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +57,7 @@
   height: 30px;
 }
 
-.task__info-wrapper {
+.task__footer-right {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -65,7 +65,7 @@
   height: 100%;
 }
 
-.task__info-wrapper > div {
+.task__footer-right > div {
   display: flex;
   align-items: center;
   flex-direction: row;

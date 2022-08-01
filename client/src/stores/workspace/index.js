@@ -238,6 +238,41 @@ export function WorkspaceProvider(props) {
     }
   }
 
+  async function removeMemberFromWorkspace(memberId) {
+    try {
+      if (memberId === state.workspace.ownerId) {
+        return;
+      }
+
+      const newWorkspace = {
+        ...state.workspace,
+        members: state.workspace.members.filter(m => m.id !== memberId),
+        statuses: state.workspace.statuses.map(status => ({
+          ...status,
+          tasks: status.tasks.map(task => ({
+            ...task,
+            members: task.members.filter(m => m.id !== memberId),
+          })),
+        })),
+      };
+
+      updateWorkspace(newWorkspace);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function removeMemberFromTask(task, memberId) {
+    try {
+      updateTask({
+        ...task,
+        members: task.members.filter(m => m.id !== memberId),
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   return (
     <WorkspaceContext.Provider
       value={{
@@ -255,6 +290,8 @@ export function WorkspaceProvider(props) {
         inviteMemberToWorkspace,
         deleteTask,
         deleteStatus,
+        removeMemberFromWorkspace,
+        removeMemberFromTask,
       }}
     >
       {props.children}

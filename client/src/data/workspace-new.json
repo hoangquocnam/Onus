@@ -2,13 +2,13 @@
   "id": "62d57846209c9d4b64c5f6ba",
   "title": "Onus",
   "description": "Onus is the visual work management tool that empowers teams to ideate, plan, manage, and celebrate their work together in a collaborative, productive, and organized way.",
-  "ownerId": "62d18d87ab1fa540645e371e",
+  "ownerId": "62e6ca9ff26d024c583180ad",
   "isFavorite": false,
   "labels": [],
   "members": [
     {
-      "id": "62d18d87ab1fa540645e371e",
-      "email": "tamtest@demo.com",
+      "id": "62e6ca9ff26d024c583180ad",
+      "email": "ldtam@demo.com",
       "fullname": "Lê Duy Tâm",
       "avatar": "https://api.minimalavatars.com/avatar/1/png"
     },

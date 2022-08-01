@@ -1,15 +1,32 @@
 import React from 'react';
 import '../../styles/pages/dashboard.css';
-import { WorkspaceListView } from './workspaceList';
-import { TasksListView } from './tasklistView';
+// import { TasksListView } from './tasklistView';
+import { useEffect, useState } from 'react';
+import Spinner from '../spinner';
+import AllTasksListView from './allTasksListView';
+import AllWorkspacesListView from './allWorkspacesListView';
+import FavoriteWorkspacesListView from './favoriteWorkspacesListView';
+import OwnWorkspacesListView from './ownWorkspacesListView';
+// import { WorkspaceListView } from './workspaceList';
 
 export default function Dashboard() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    setData(require('../../data/dashboard.json'));
+  }, [data]);
+
+  if (!data) {
+    return <Spinner />;
+  }
+
   return (
-    <React.StrictMode>
-      <div className='dashboard'>
-        <WorkspaceListView />
-        <TasksListView />
-      </div>
-    </React.StrictMode>
+    <div className='dashboard'>
+      {/* <WorkspaceListView /> */}
+      <OwnWorkspacesListView />
+      <AllWorkspacesListView />
+      <FavoriteWorkspacesListView />
+      <AllTasksListView />
+    </div>
   );
 }

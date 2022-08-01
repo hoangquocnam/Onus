@@ -57,6 +57,7 @@ export default function TaskModalContent({ task, setTask }) {
               type: 'task',
               object: task,
             }}
+            allowRemove={true}
           />
         </div>
       )}

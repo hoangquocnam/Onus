@@ -3,6 +3,7 @@
 }
 
 .topBar {
+  min-height: var(--top-bar-height);
   height: var(--top-bar-height);
   width: 100%;
   display: flex;

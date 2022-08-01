@@ -22,19 +22,39 @@ function getMethod(url, config = {}) {
 }
 
 function postMethod(url, data, config = {}) {
-  return axios.post(`${SERVER_URL}/${url}`, data, config);
+  return axios.post(`${SERVER_URL}/${url}`, data, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+  });
 }
 
 function putMethod(url, data, config = {}) {
-  return axios.put(`${SERVER_URL}/${url}`, data, config);
+  return axios.put(`${SERVER_URL}/${url}`, data, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+  });
 }
 
 function deleteMethod(url, config = {}) {
-  return axios.delete(`${SERVER_URL}/${url}`, config);
+  return axios.delete(`${SERVER_URL}/${url}`, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+  });
 }
 
 function patchMethod(url, config = {}) {
-  return axios.patch(`${SERVER_URL}/${url}`, config);
+  return axios.patch(`${SERVER_URL}/${url}`, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+  });
 }
 
 export { methods };

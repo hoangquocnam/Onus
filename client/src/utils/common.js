@@ -22,3 +22,7 @@ export function scrollToRef(ref) {
 export function getColorCoverUrl(color) {
   return `https://singlecolorimage.com/get/${color.substring(1)}/200x100`;
 }
+
+export function randomItem(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
