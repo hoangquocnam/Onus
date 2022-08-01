@@ -1,0 +1,18 @@
+.list-view-new-card {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 360px;
+  height: 150px;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.list-view-new-card:active {
+  border-color: rgb(0, 0, 0);
+}
