@@ -21,7 +21,7 @@ import MemberAvatarList from '../../memberAvatarList';
 import WorkspaceDeletePopover from './workspaceDeletePopover';
 
 export default function WorkspaceMenu() {
-  const { toggleMenu, isMenuOpening, workspace, updateWorkspace } =
+  const { setIsMenuOpening, isMenuOpening, workspace, updateWorkspace } =
     useContext(WorkspaceContext);
 
   const [data, setData] = useState({
@@ -88,7 +88,10 @@ export default function WorkspaceMenu() {
       <div className='workspace-menu__header'>
         <h3 className='workspace-menu__title'>Menu</h3>
 
-        <div className='workspace-menu__close-btn' onClick={toggleMenu}>
+        <div
+          className='workspace-menu__close-btn'
+          onClick={() => setIsMenuOpening(false)}
+        >
           <RiCloseFill size={28} />
         </div>
       </div>

@@ -8,7 +8,13 @@ import {
   UserProfile,
   Workspace,
 } from './components';
-import { HomePage, LogInPage, NotFoundPage, SignUpPage } from './pages';
+import {
+  AboutPage,
+  HomePage,
+  LogInPage,
+  NotFoundPage,
+  SignUpPage,
+} from './pages';
 import routes from './routes';
 import { AccountProvider } from './stores/account';
 import { WorkspaceProvider } from './stores/workspace';
@@ -25,17 +31,24 @@ const App = () => {
                   path={routes.home.path}
                   element={<Navigate to={routes.dashboard.path} replace />}
                 />
+
                 <Route path={routes.dashboard.path} element={<Dashboard />} />
+
                 <Route
                   path={routes.account.profile}
                   element={<UserProfile />}
                 />
+
                 <Route path={routes.account.path} element={<UserProfile />} />
+
                 <Route path={routes.workspaces.path} element={<Workspace />} />
+
                 <Route
                   path={routes.workspaces.workspace.path}
                   element={<Workspace />}
                 />
+
+                <Route path={routes.about.path} element={<AboutPage />} />
               </Route>
             </Route>
 

@@ -1,5 +1,5 @@
 import { OverlayTrigger } from 'react-bootstrap';
-import { AiOutlinePlusCircle, AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { FaCog, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { FiAlertCircle } from 'react-icons/fi';
 import { IoMdNotificationsOutline } from 'react-icons/io';
@@ -15,6 +15,13 @@ const TopBarSeparator = () => {
 };
 
 export default function TopBar() {
+  const { account } = useAccount();
+  const navigate = useNavigate();
+
+  function navigateToAboutPage() {
+    navigate(routes.about.path);
+  }
+
   return (
     <div className='topBar'>
       <div className='topBar__left'>
@@ -56,27 +63,29 @@ export default function TopBar() {
       </div>
 
       <div className='topBar__right'>
-        <div className='topBar__rightSpacing topBar__plus'>
-          <AiOutlinePlusCircle size={20} />
-        </div>
-
         <div className='topBar__rightSpacing topBar__warning'>
-          <FiAlertCircle size={20} />
+          <FiAlertCircle size={20} onClick={navigateToAboutPage} />
         </div>
 
         <div className='topBar__rightSpacing topBar__notifications'>
-          <IoMdNotificationsOutline size={22} />
+          <NotificationPopover>
+            <span>
+              <IoMdNotificationsOutline size={22} />
+            </span>
+          </NotificationPopover>
         </div>
 
         <div className='topBar__rightSpacing topBar__accountAvatar'>
-          <AccountPopover />
+          <AccountPopover>
+            <img src={account.avatarUrl} alt='avt' className='account-avatar' />
+          </AccountPopover>
         </div>
       </div>
     </div>
   );
 }
 
-function AccountPopover() {
+function AccountPopover({ children }) {
   const { logout, account } = useAccount();
   const navigate = useNavigate();
 
@@ -155,7 +164,39 @@ function AccountPopover() {
         </PopoverContainer>
       }
     >
-      <img src={account.avatarUrl} alt='avt' className='account-avatar' />
+      {children}
+    </OverlayTrigger>
+  );
+}
+
+function NotificationPopover({ children }) {
+  return (
+    <OverlayTrigger
+      trigger='click'
+      rootClose={true}
+      placement='bottom'
+      overlay={
+        <PopoverContainer
+          title='Notifications'
+          style={{
+            maxWidth: '300px',
+            width: '100%',
+            height: '280px',
+          }}
+        >
+          <p
+            style={{
+              fontSize: '14px',
+              marginTop: '10px',
+              textAlign: 'center',
+            }}
+          >
+            This function is not implemented yet.
+          </p>
+        </PopoverContainer>
+      }
+    >
+      {children}
     </OverlayTrigger>
   );
 }

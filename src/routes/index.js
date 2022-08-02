@@ -25,6 +25,9 @@ const routes = {
   notFound: {
     path: '/notfound',
   },
+  about: {
+    path: '/about',
+  }
 };
 
 export default routes;

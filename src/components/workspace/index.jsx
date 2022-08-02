@@ -13,14 +13,20 @@ import WorkspaceTaskModal from './taskModal';
 
 export default function Workspace() {
   const { id } = useParams();
-  const { workspace, getWorkspace, updateWorkspace } =
+  const { workspace, getWorkspace, updateWorkspace, setIsMenuOpening } =
     useContext(WorkspaceContext);
 
   useEffect(() => {
     if (!workspace) {
       getWorkspace(id);
     }
-  });
+
+    return () => {
+      setIsMenuOpening(false);
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!workspace) {
     return <Spinner />;
