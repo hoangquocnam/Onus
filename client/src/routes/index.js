@@ -8,6 +8,10 @@ const routes = {
   signUp: {
     path: "/signup",
   },
+  changePass: {
+    path: "/change-password",
+  },
+
   account: {
     path: "/account",
     profile: {

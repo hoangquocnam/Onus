@@ -6,7 +6,7 @@ import routes from "../../routes";
 import "../../styles/pages/login.css";
 import { validateEmail, validatePassword } from "../../utils/validate";
 
-function LogInPage() {
+function LogInPageNe() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState({
@@ -153,4 +153,4 @@ function LogInPage() {
   );
 }
 
-export default LogInPage;
+export default LogInPageNe;

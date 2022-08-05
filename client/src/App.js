@@ -1,16 +1,16 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Dashboard,
   ProtectedRoutes,
   PublicRoutes,
   UserProfile,
   Workspace,
-} from "./components";
-import { HomePage, LogInPage, SignUpPage } from "./pages";
-import routes from "./routes";
-import { AccountProvider } from "./stores/account";
+} from './components';
+import { HomePage, LogInPage, SignUpPage, ChangePasswordPage } from './pages';
+import routes from './routes';
+import { AccountProvider } from './stores/account';
 
 const App = () => {
   return (
@@ -20,14 +20,24 @@ const App = () => {
           <Route element={<ProtectedRoutes />}>
             <Route path={routes.home.path} element={<HomePage />}>
               <Route
+                path={routes.changePass.path}
+                element={<ChangePasswordPage />}
+              />
+              <Route
                 path={routes.home.path}
                 element={<Navigate to={routes.dashboard.path} replace />}
               />
               <Route path={routes.dashboard.path} element={<Dashboard />} />
 
               <Route path={routes.account.path} element={<UserProfile />} />
-              <Route path={routes.account.profile.publicProfile} element={<UserProfile />} />
-              <Route path={routes.account.profile.accountSettings} element={<UserProfile />} />
+              <Route
+                path={routes.account.profile.publicProfile}
+                element={<UserProfile />}
+              />
+              <Route
+                path={routes.account.profile.accountSettings}
+                element={<UserProfile />}
+              />
 
               <Route path={routes.workspaces.path} element={<Workspace />} />
               <Route
@@ -45,7 +55,7 @@ const App = () => {
       </AccountProvider>
 
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={true}
