@@ -1,4 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
+import { toast } from 'react-toastify';
+import { methods, URL_Requests } from '../../APIs';
+import { useAccount } from '../../hooks';
 import { randInt } from '../../utils/common';
 import reducer from './reducer';
 
@@ -16,6 +19,8 @@ export function DashboardProvider({ children }) {
     isLoadingAllTasks: true,
   });
 
+  const { account } = useAccount();
+
   function setOwnWorkspaces(workspaces) {
     dispatch({ type: 'SET_OWN_WORKSPACES', payload: workspaces });
   }
@@ -32,12 +37,19 @@ export function DashboardProvider({ children }) {
     dispatch({ type: 'SET_ALL_TASKS', payload: tasks });
   }
 
-  function fetchOwnWorkspaces() {
+  async function fetchOwnWorkspaces() {
     // TODO: call API to fetch own workspaces here
-    setTimeout(() => {
-      const workspaces = require('../../data/dashboard.json').ownWorkspaces;
+    // const workspaces = require('../../data/dashboard.json').ownWorkspaces;
+    try {
+      const { data: workspaces } = await methods.get(
+        URL_Requests.users.workspaces(account.id),
+      );
+
       setOwnWorkspaces(workspaces);
-    }, randInt(1000, 3000));
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+      setOwnWorkspaces([]);
+    }
   }
 
   function fetchAllWorkspaces() {

@@ -27,7 +27,10 @@ const routes = {
   },
   about: {
     path: '/about',
-  }
+  },
+  search: {
+    path: '/search',
+  },
 };
 
 export default routes;

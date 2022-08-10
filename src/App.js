@@ -7,6 +7,7 @@ import {
   PublicRoutes,
   UserProfile,
   Workspace,
+  Search
 } from './components';
 import {
   AboutPage,
@@ -49,6 +50,8 @@ const App = () => {
                 />
 
                 <Route path={routes.about.path} element={<AboutPage />} />
+
+                <Route path={routes.search.path} element={<Search />} />
               </Route>
             </Route>
 

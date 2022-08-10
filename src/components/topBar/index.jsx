@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { OverlayTrigger } from 'react-bootstrap';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaCog, FaSignOutAlt, FaUser } from 'react-icons/fa';
@@ -17,9 +18,23 @@ const TopBarSeparator = () => {
 export default function TopBar() {
   const { account } = useAccount();
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
+  const searchRef = useRef(null);
 
   function navigateToAboutPage() {
     navigate(routes.about.path);
+  }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    searchRef.current.focus();
+
+    if (searchText.trim().length === 0) {
+      return;
+    }
+
+    setSearchText(searchText.trim());
+    navigate(`${routes.search.path}?s=${searchText.trim()}`);
   }
 
   return (
@@ -47,14 +62,15 @@ export default function TopBar() {
 
         <form
           className='topBar__leftSpacing topBar__searchBox'
-          onSubmit={e => {
-            e.preventDefault();
-          }}
+          onSubmit={handleSearch}
         >
           <input
-            type='search'
+            ref={searchRef}
+            type='text'
             className='searchField__topBar'
             placeholder='Search'
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
           />
           <button type='submit' className='topBar__searchBtn'>
             <AiOutlineSearch size={20} />
