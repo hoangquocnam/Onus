@@ -12,7 +12,7 @@ export default function InviteModal() {
   const {
     workspace,
     isInviteModalOpening,
-    toggleInviteModal,
+    setIsInviteModalOpening,
     inviteMemberToWorkspace,
   } = useContext(WorkspaceContext);
   const { account } = useContext(AccountContext);
@@ -58,7 +58,7 @@ export default function InviteModal() {
     <Modal
       size='lg'
       show={isInviteModalOpening}
-      onHide={toggleInviteModal}
+      onHide={() => setIsInviteModalOpening(false)}
       onExited={handleOnExited}
       centered
     >
@@ -66,7 +66,10 @@ export default function InviteModal() {
         <header className='invite-modal__header'>
           <h3 className='invite-modal__title'>Invite to workspace</h3>
 
-          <span className='invite-modal__close' onClick={toggleInviteModal}>
+          <span
+            className='invite-modal__close'
+            onClick={() => setIsInviteModalOpening(false)}
+          >
             <RiCloseFill size={28} />
           </span>
         </header>

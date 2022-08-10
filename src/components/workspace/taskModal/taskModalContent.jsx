@@ -1,11 +1,13 @@
 import { useContext, useRef, useState } from 'react';
 import { FaBars, FaComments, FaStream } from 'react-icons/fa';
 import TextareaAutosize from 'react-textarea-autosize';
+import { AccountContext } from '../../../stores/account';
 import { WorkspaceContext } from '../../../stores/workspace';
 import '../../../styles/components/taskModalContent.css';
 import MemberAvatarList from '../../memberAvatarList';
 
 export default function TaskModalContent({ task, setTask }) {
+  const { account } = useContext(AccountContext);
   const { taskModal, updateTask } = useContext(WorkspaceContext);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const inputDescriptionRef = useRef(null);
@@ -134,7 +136,25 @@ export default function TaskModalContent({ task, setTask }) {
           </div>
         </div>
 
-        <div className='task-modal-content__module-content'></div>
+        <div className='task-modal-content__module-content'>
+          <div className='task-modal-content__comments'>
+            <div className='task-modal-content__comment-item'>
+              <img
+                src={account.avatarUrl}
+                alt='avatar'
+                className='task-modal-content__comment-item-avatar'
+              />
+
+              <div className='task-modal-content__comment-item-input-wrapper'>
+                <TextareaAutosize
+                  className='task-modal-content__comment-item-input'
+                  placeholder='Write a comment...'
+                  disabled={true}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className='task-modal-content__module'>

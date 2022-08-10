@@ -22,6 +22,15 @@ const routes = {
       path: '/workspaces/:id',
     },
   },
+  notFound: {
+    path: '/notfound',
+  },
+  about: {
+    path: '/about',
+  },
+  search: {
+    path: '/search',
+  },
 };
 
 export default routes;

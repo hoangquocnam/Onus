@@ -7,8 +7,15 @@ import {
   PublicRoutes,
   UserProfile,
   Workspace,
+  Search
 } from './components';
-import { HomePage, LogInPage, SignUpPage } from './pages';
+import {
+  AboutPage,
+  HomePage,
+  LogInPage,
+  NotFoundPage,
+  SignUpPage,
+} from './pages';
 import routes from './routes';
 import { AccountProvider } from './stores/account';
 import { WorkspaceProvider } from './stores/workspace';
@@ -25,17 +32,26 @@ const App = () => {
                   path={routes.home.path}
                   element={<Navigate to={routes.dashboard.path} replace />}
                 />
+
                 <Route path={routes.dashboard.path} element={<Dashboard />} />
+
                 <Route
                   path={routes.account.profile}
                   element={<UserProfile />}
                 />
+
                 <Route path={routes.account.path} element={<UserProfile />} />
+
                 <Route path={routes.workspaces.path} element={<Workspace />} />
+
                 <Route
                   path={routes.workspaces.workspace.path}
                   element={<Workspace />}
                 />
+
+                <Route path={routes.about.path} element={<AboutPage />} />
+
+                <Route path={routes.search.path} element={<Search />} />
               </Route>
             </Route>
 
@@ -43,6 +59,12 @@ const App = () => {
               <Route path={routes.login.path} element={<LogInPage />} />
               <Route path={routes.signUp.path} element={<SignUpPage />} />
             </Route>
+
+            <Route path={routes.notFound.path} element={<NotFoundPage />} />
+            <Route
+              path='*'
+              element={<Navigate to={routes.notFound.path} replace />}
+            />
           </Routes>
         </WorkspaceProvider>
       </AccountProvider>

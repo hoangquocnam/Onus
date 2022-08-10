@@ -1,10 +1,10 @@
-import { createContext, useEffect, useState } from "react";
-import { methods, URL_Requests } from "../../APIs";
+import { createContext, useEffect, useState } from 'react';
+import { methods, URL_Requests } from '../../APIs';
 import {
   getTokenFromStorage,
   removeTokenFromStorage,
   setTokenToStorage,
-} from "../../utils/auth";
+} from '../../utils/auth';
 
 export const AccountContext = createContext();
 
@@ -15,7 +15,7 @@ export function AccountProvider(props) {
   useEffect(() => {
     const token = getTokenFromStorage();
 
-    auth(token).catch((err) => {
+    auth(token).catch(err => {
       removeTokenFromStorage();
     });
   }, [setIsAuthenticating]);
@@ -49,7 +49,10 @@ export function AccountProvider(props) {
   function updateProfile(data) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await methods.patch(URL_Requests.users.editUser(account.id), data);
+        const response = await methods.patch(
+          URL_Requests.users.editUser(account.id),
+          data,
+        );
 
         setAccount({
           id: account.id,
@@ -59,7 +62,7 @@ export function AccountProvider(props) {
       } catch (error) {
         reject(error);
       }
-    })
+    });
   }
 
   function auth(token) {
@@ -87,7 +90,15 @@ export function AccountProvider(props) {
 
   return (
     <AccountContext.Provider
-      value={{ account, login, logout, signup, setAccount, isAuthenticating, updateProfile }}
+      value={{
+        account,
+        login,
+        logout,
+        signup,
+        setAccount,
+        isAuthenticating,
+        updateProfile,
+      }}
     >
       {props.children}
     </AccountContext.Provider>

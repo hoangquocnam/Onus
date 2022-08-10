@@ -1,11 +1,11 @@
-import '../../styles/pages/userprofile.css';
-import { useAccount } from '../../hooks';
+import { useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { TbSettings } from 'react-icons/tb';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAccount } from '../../hooks';
 import routes from '../../routes';
+import '../../styles/pages/userprofile.css';
 
 function UserProfile() {
   const [isEditing, setEditing] = useState(false);
@@ -79,7 +79,7 @@ function UserProfile() {
           <h2 className='public-profile__title'>Public profile</h2>
           <div className='public-profile__picture'>
             <img
-              src='https://api.minimalavatars.com/avatar/random/png'
+              src={account.avatarUrl}
               alt='Avatar'
               className='public-profile__image'
             />

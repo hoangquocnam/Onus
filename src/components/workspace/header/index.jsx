@@ -15,8 +15,8 @@ import FilterPopover from './filterPopover';
 export default function WorkspaceHeader() {
   const {
     isMenuOpening,
-    toggleMenu,
-    toggleInviteModal,
+    setIsMenuOpening,
+    setIsInviteModalOpening,
     workspace,
     updateWorkspace,
   } = useContext(WorkspaceContext);
@@ -71,7 +71,7 @@ export default function WorkspaceHeader() {
         <button
           type='button'
           className='workspace-header__btn'
-          onClick={toggleInviteModal}
+          onClick={() => setIsInviteModalOpening(true)}
         >
           <FaUserPlus size={24} />
           <p>Invite</p>
@@ -88,7 +88,7 @@ export default function WorkspaceHeader() {
           <button
             type='button'
             className='workspace-header__btn'
-            onClick={toggleMenu}
+            onClick={() => setIsMenuOpening(true)}
           >
             <FaBars size={24} />
             <p>Menu</p>

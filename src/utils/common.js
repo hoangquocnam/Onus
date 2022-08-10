@@ -23,6 +23,10 @@ export function getColorCoverUrl(color) {
   return `https://singlecolorimage.com/get/${color.substring(1)}/200x100`;
 }
 
-export function randomItem(array) {
-  return array[Math.floor(Math.random() * array.length)];
+export function randItem(array) {
+  return array[randInt(0, array.length - 1)];
+}
+
+export function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -6,16 +6,16 @@ export default function reducer(state, action) {
         workspace: action.payload,
       };
 
-    case 'TOGGLE_MENU':
+    case 'SET_IS_MENU_OPENING':
       return {
         ...state,
-        isMenuOpening: !state.isMenuOpening,
+        isMenuOpening: action.payload,
       };
 
-    case 'TOGGLE_INVITE_MODAL':
+    case 'SET_IS_INVITE_MODAL_OPENING':
       return {
         ...state,
-        isInviteModalOpening: !state.isInviteModalOpening,
+        isInviteModalOpening: action.payload,
       };
 
     case 'SET_TASK_MODAL':

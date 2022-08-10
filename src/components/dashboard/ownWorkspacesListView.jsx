@@ -1,24 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import ListView from './listView';
-import ListViewCard from './listView/listViewCard';
-import ListViewNewCard from './listView/listViewNewCard';
+import { DashboardContext } from '../../stores/dashboard';
+import ListView from '../listView';
+import ListViewCard from '../listView/listViewCard';
+import ListViewNewCard from '../listView/listViewNewCard';
 import NewWorkspaceModal from './newWorkspaceModal';
 
 function OwnWorkspacesListView() {
   const navigate = useNavigate();
-  const [ownWorkspaces, setOwnWorkspaces] = useState(null);
   const [isNewWorkspaceModalOpening, setIsNewWorkspaceModalOpen] =
     useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setOwnWorkspaces(require('../../data/dashboard.json').ownWorkspaces);
-      setIsLoading(false);
-    }, Math.floor(Math.random() * 3000 + 1000));
-  }, []);
+  const { ownWorkspaces, isLoadingOwnWorkspaces, setOwnWorkspaces } =
+    useContext(DashboardContext);
 
   function navigateToWorkspace(workspaceId) {
     navigate(`${routes.workspaces.path}/${workspaceId}`);
@@ -35,7 +29,7 @@ function OwnWorkspacesListView() {
 
   return (
     <>
-      <ListView title='Your workspaces' isLoading={isLoading}>
+      <ListView title='Your workspaces' isLoading={isLoadingOwnWorkspaces}>
         {ownWorkspaces?.map(workspace => (
           <ListViewCard
             key={workspace.id}

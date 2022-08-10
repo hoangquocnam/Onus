@@ -40,9 +40,10 @@ export function WorkspaceProvider(props) {
     });
   }
 
-  function toggleInviteModal() {
+  function setIsInviteModalOpening(isOpen) {
     dispatch({
-      type: 'TOGGLE_INVITE_MODAL',
+      type: 'SET_IS_INVITE_MODAL_OPENING',
+      payload: isOpen,
     });
   }
 
@@ -53,9 +54,10 @@ export function WorkspaceProvider(props) {
     });
   }
 
-  function toggleMenu() {
+  function setIsMenuOpening(isOpen) {
     dispatch({
-      type: 'TOGGLE_MENU',
+      type: 'SET_IS_MENU_OPENING',
+      payload: isOpen,
     });
   }
 
@@ -278,14 +280,14 @@ export function WorkspaceProvider(props) {
       value={{
         ...state,
         getWorkspace,
-        toggleMenu,
+        setIsMenuOpening,
         addStatus,
         addTask,
         setTaskModal,
         updateWorkspace,
         updateStatus,
         updateTask,
-        toggleInviteModal,
+        setIsInviteModalOpening,
         setRecentStatusAddedTask,
         inviteMemberToWorkspace,
         deleteTask,

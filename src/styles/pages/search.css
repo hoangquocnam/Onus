@@ -1,0 +1,165 @@
+.search {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.search * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.search__container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search__header {
+  margin: 30px 0;
+}
+
+.search__title {
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.search__body {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+}
+
+.search__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-basis: 220px;
+}
+
+.search__sidebar-item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.search__sidebar-item--active {
+  background-color: #f4f0fe;
+  color: #5e2ced;
+}
+
+.search__sidebar-item-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.search__sidebar-item-text {
+  flex: 1;
+  color: inherit;
+  font-size: 14px;
+}
+
+.search__sidebar-item-count {
+  color: inherit;
+  font-size: 14px;
+}
+
+.search__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.search__content-header {
+  width: 100%;
+  text-align: right;
+}
+
+.search__content-sort {
+  border: none;
+  outline: none;
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search__results {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.search__result-item-separator {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.search__result-item {
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  gap: 8px;
+  align-items: center;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background-color: #fff;
+  transition: all 0.1s ease-in-out;
+}
+
+.search__result-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 0px 8px #5e2ced55;
+}
+
+.search__result-item-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.search__result-item-info {
+  flex: 1;
+  gap: 4px;
+}
+
+.search__result-item-info-primary {
+  font-size: 15px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.search__result-item-info-secondary {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.search__result-item-type {
+  font-size: 13px;
+  font-weight: 500;
+  color: #5e2ced;
+  background-color: #f4f0fe;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.search__result-empty {
+  font-size: 14px;
+  text-align: center;
+}

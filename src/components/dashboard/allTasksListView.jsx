@@ -1,37 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import ListView from './listView';
-import ListViewCard from './listView/listViewCard';
+import { DashboardContext } from '../../stores/dashboard';
+import ListView from '../listView';
+import ListViewCard from '../listView/listViewCard';
 
 function AllTasksListView() {
   const navigate = useNavigate();
-  const [allTasks, setAllTasks] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setAllTasks(require('../../data/dashboard.json').allTasks);
-      setIsLoading(false);
-    }, Math.floor(Math.random() * 3000 + 1000));
-  }, []);
+  const { allTasks, isLoadingAllTasks } = useContext(DashboardContext);
 
   function navigateToTask(workspaceId, taskId) {
     navigate(`${routes.workspaces.path}/${workspaceId}?taskId=${taskId}`);
   }
 
   return (
-    <>
-      <ListView title='All tasks' isLoading={isLoading}>
-        {allTasks?.map(task => (
-          <ListViewCard
-            key={task.id}
-            data={task}
-            onClick={() => navigateToTask(task.workspaceId, task.id)}
-          />
-        ))}
-      </ListView>
-    </>
+    <ListView title='All tasks' isLoading={isLoadingAllTasks}>
+      {allTasks?.map(task => (
+        <ListViewCard
+          key={task.id}
+          data={task}
+          onClick={() => navigateToTask(task.workspaceId, task.id)}
+        />
+      ))}
+    </ListView>
   );
 }
 

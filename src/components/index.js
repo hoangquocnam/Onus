@@ -5,6 +5,7 @@ import Spinner from "./spinner";
 import TopBar from "./topBar";
 import UserProfile from "./userprofile";
 import Workspace from "./workspace";
+import Search from './search';
 
 export {
   Workspace,
@@ -14,4 +15,5 @@ export {
   ProtectedRoutes,
   PublicRoutes,
   Spinner,
+  Search
 };

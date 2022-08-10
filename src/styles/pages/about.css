@@ -1,0 +1,153 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.about * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 50px 0;
+}
+
+.about-header__logo {
+  width: 90px;
+  height: 90px;
+}
+
+.about-header__heading {
+  font-weight: 700;
+  font-size: 40px;
+  color: rgba(0, 0, 0, 0.88);
+  margin: 0;
+}
+
+.about-header__slogan {
+  font-size: 18px;
+  color: #1f1f1f8f;
+  margin: 0;
+  max-width: 700px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.about-main {
+  flex: 1;
+}
+
+.about__members {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.about__member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 25px;
+  min-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 80px 0px rgb(0 0 0 / 6%);
+  transition: box-shadow 300ms ease 0ms;
+}
+
+.about__member:hover {
+  box-shadow: 0px 50px 80px 0px rgb(0 0 0 / 14%);
+}
+
+.about__member-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid #f4f0fe;
+  box-shadow: 0px 12px 18px -6px rgb(0 0 0 / 14%);
+}
+
+.about__member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.about__member-name {
+  font-size: 20px;
+  margin: 0;
+}
+
+.about__member-roles {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.about__member-role {
+  font-size: 16px;
+  color: rgba(31, 31, 31, 0.6);
+  font-weight: 500;
+}
+
+.about__member-socials {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.about__member-social {
+  text-decoration: none;
+  width: 36px;
+  height: 36px;
+  background-color: #f4f0fe;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-member-social-icon {
+  width: 18px;
+  height: 18px;
+  color: #5e2ced;
+}
+
+.about-footer {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.about__link-to-home:link,
+.about__link-to-home:visited {
+  color: #5e2ced;
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  text-decoration: underline;
+  margin: 30px 0;
+}
+
+.about__link-to-home-icon {
+  width: 24px;
+  height: 24px;
+  color: #5e2ced;
+  margin-right: 4px;
+}
