@@ -1,4 +1,6 @@
 import { createContext, useReducer } from 'react';
+import { methods, URL_Requests } from '../../APIs';
+import { useAccount } from '../../hooks';
 import reducer from './reducer';
 
 export const WorkspaceContext = createContext();
@@ -10,19 +12,33 @@ export function WorkspaceProvider(props) {
     isInviteModalOpening: false,
     recentStatusAddedTask: null,
     taskModal: null,
+    isOwner: false,
   });
+
+  const { account } = useAccount();
+
+  function resetWorkspace() {
+    dispatch({
+      type: 'RESET_WORKSPACE',
+    });
+  }
 
   async function getWorkspace(id) {
     try {
-      const { data } = await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({ data: require('../../data/workspace-new.json') });
-        }, 1000);
-      });
+      const { data: workspace } = await methods.get(
+        URL_Requests.workspaces.workspace(id),
+      );
 
-      setWorkspace(data);
+      if (workspace.ownerId === account.id) {
+        dispatch({
+          type: 'SET_IS_OWNER',
+          payload: true,
+        });
+      }
+
+      setWorkspace(workspace);
     } catch (error) {
-      setError(error);
+      throw error;
     }
   }
 
@@ -47,13 +63,6 @@ export function WorkspaceProvider(props) {
     });
   }
 
-  function setError(error) {
-    dispatch({
-      type: 'SET_ERROR',
-      payload: error,
-    });
-  }
-
   function setIsMenuOpening(isOpen) {
     dispatch({
       type: 'SET_IS_MENU_OPENING',
@@ -70,17 +79,13 @@ export function WorkspaceProvider(props) {
 
   async function addStatus(title) {
     try {
-      const { data: status } = await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              id: Date.now().toString(),
-              title,
-              tasks: [],
-            },
-          });
-        }, 0);
-      });
+      const { data: status } = await methods.post(
+        URL_Requests.statuses.url,
+        {
+          title,
+          workspaceId: state.workspace.id,
+        }
+      );
 
       dispatch({
         type: 'ADD_STATUS',
@@ -156,15 +161,17 @@ export function WorkspaceProvider(props) {
     }
   }
 
-  async function updateWorkspace(workspace) {
+  async function updateWorkspace(data) {
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(workspace);
-        }, 0);
+      // setWorkspace({
+      //   ...data,
+      // });
+      setWorkspace({
+        ...state.workspace,
+        ...data,
       });
 
-      setWorkspace(workspace);
+      await methods.patch(`workspaces/${state.workspace.id}`, data);
     } catch (error) {
       throw error;
     }
@@ -217,34 +224,24 @@ export function WorkspaceProvider(props) {
   }
 
   async function inviteMemberToWorkspace(memberEmail) {
-    try {
-      const { data: member } = await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              id: Date.now().toString(),
-              avatar: 'https://api.minimalavatars.com/avatar/random/png',
-              email: memberEmail,
-              fullname: 'Lê Duy Tâm',
-            },
-          });
-        }, 0);
-      });
+    const { data: member } = await methods.post(
+      `workspaces/${state.workspace.id}/members`,
+      {
+        email: memberEmail,
+      },
+    );
 
-      setWorkspace({
-        ...state.workspace,
-        members: [...state.workspace.members, member],
-      });
-    } catch (error) {
-      throw error;
-    }
+    setWorkspace({
+      ...state.workspace,
+      members: [...state.workspace.members, member],
+    });
   }
 
   async function removeMemberFromWorkspace(memberId) {
     try {
-      if (memberId === state.workspace.ownerId) {
-        return;
-      }
+      await methods.delete(
+        `workspaces/${state.workspace.id}/members/${memberId}`,
+      );
 
       const newWorkspace = {
         ...state.workspace,
@@ -258,7 +255,7 @@ export function WorkspaceProvider(props) {
         })),
       };
 
-      updateWorkspace(newWorkspace);
+      setWorkspace(newWorkspace);
     } catch (error) {
       throw error;
     }
@@ -270,6 +267,45 @@ export function WorkspaceProvider(props) {
         ...task,
         members: task.members.filter(m => m.id !== memberId),
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function toggleFavorite() {
+    try {
+      const isFavorite = !state.workspace.isFavorite;
+
+      setWorkspace({
+        ...state.workspace,
+        isFavorite,
+      });
+
+      if (isFavorite) {
+        await methods.post(`users/favorite-workspaces/${state.workspace.id}`);
+      } else {
+        await methods.delete(`users/favorite-workspaces/${state.workspace.id}`);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function deleteWorkspace() {
+    try {
+      await methods.delete(`workspaces/${state.workspace.id}`);
+      resetWorkspace();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function leaveWorkspace() {
+    try {
+      await methods.delete(
+        `workspaces/${state.workspace.id}/members/${account.id}`,
+      );
+      resetWorkspace();
     } catch (error) {
       throw error;
     }
@@ -294,6 +330,10 @@ export function WorkspaceProvider(props) {
         deleteStatus,
         removeMemberFromWorkspace,
         removeMemberFromTask,
+        toggleFavorite,
+        resetWorkspace,
+        deleteWorkspace,
+        leaveWorkspace,
       }}
     >
       {props.children}

@@ -1,7 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Container } from 'react-smooth-dnd';
+import { toast } from 'react-toastify';
 import { Spinner } from '../../components';
+import routes from '../../routes';
 import { WorkspaceContext } from '../../stores/workspace';
 import '../../styles/pages/workspace.css';
 import WorkspaceHeader from './header';
@@ -13,16 +16,30 @@ import WorkspaceTaskModal from './taskModal';
 
 export default function Workspace() {
   const { id } = useParams();
-  const { workspace, getWorkspace, updateWorkspace, setIsMenuOpening } =
+  const { workspace, getWorkspace, updateWorkspace, resetWorkspace } =
     useContext(WorkspaceContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!workspace) {
-      getWorkspace(id);
-    }
+    (async () => {
+      if (id === undefined || id === null) {
+        navigate(routes.home.path, {
+          replace: true,
+        });
+      } else {
+        try {
+          await getWorkspace(id);
+        } catch (error) {
+          toast.error(error.response.data.error.message);
+          navigate(routes.notFound.path, {
+            replace: true,
+          });
+        }
+      }
+    })();
 
     return () => {
-      setIsMenuOpening(false);
+      resetWorkspace();
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -140,7 +140,7 @@ export default function TaskModalContent({ task, setTask }) {
           <div className='task-modal-content__comments'>
             <div className='task-modal-content__comment-item'>
               <img
-                src={account.avatarUrl}
+                src={account.avatar}
                 alt='avatar'
                 className='task-modal-content__comment-item-avatar'
               />

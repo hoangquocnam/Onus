@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 import { RiCloseLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAccount } from '../../hooks';
 import routes from '../../routes';
 import { WorkspaceContext } from '../../stores/workspace';
@@ -23,15 +24,19 @@ export default function MemberAvatarItem({ member, container, allowRemove }) {
   }
 
   function handleRemoveMember() {
-    if (container.type === 'workspace') {
-      removeMemberFromWorkspace(member.id);
-    }
+    try {
+      if (container.type === 'workspace') {
+        removeMemberFromWorkspace(member.id);
+      }
 
-    if (container.type === 'task') {
-      removeMemberFromTask(container.object, member.id);
-    }
+      if (container.type === 'task') {
+        removeMemberFromTask(container.object, member.id);
+      }
 
-    handleClosePopover();
+      handleClosePopover();
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
   }
 
   function isShowRemoveButton() {

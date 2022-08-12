@@ -6,6 +6,22 @@ export default function reducer(state, action) {
         workspace: action.payload,
       };
 
+    case 'RESET_WORKSPACE':
+      return {
+        workspace: null,
+        isMenuOpening: false,
+        isInviteModalOpening: false,
+        recentStatusAddedTask: null,
+        taskModal: null,
+        isOwner: false,
+      };
+
+    case 'SET_IS_OWNER':
+      return {
+        ...state,
+        isOwner: action.payload,
+      };
+
     case 'SET_IS_MENU_OPENING':
       return {
         ...state,

@@ -5,9 +5,9 @@ import {
   Dashboard,
   ProtectedRoutes,
   PublicRoutes,
+  Search,
   UserProfile,
   Workspace,
-  Search
 } from './components';
 import {
   AboutPage,
@@ -52,6 +52,8 @@ const App = () => {
                 <Route path={routes.about.path} element={<AboutPage />} />
 
                 <Route path={routes.search.path} element={<Search />} />
+
+                <Route path={routes.notFound.path} element={<NotFoundPage />} />
               </Route>
             </Route>
 

@@ -7,6 +7,8 @@ import {
   FaStar,
   FaUserPlus,
 } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { useAccount } from '../../../hooks';
 import { WorkspaceContext } from '../../../stores/workspace';
 import '../../../styles/components/workspaceHeader.css';
 import MemberAvatarList from '../../memberAvatarList';
@@ -18,20 +20,24 @@ export default function WorkspaceHeader() {
     setIsMenuOpening,
     setIsInviteModalOpening,
     workspace,
-    updateWorkspace,
+    toggleFavorite,
+    isOwner,
   } = useContext(WorkspaceContext);
 
+  const { account } = useAccount();
+
   function handleFavoriteClick() {
-    updateWorkspace({
-      ...workspace,
-      isFavorite: !workspace.isFavorite,
-    });
+    try {
+      toggleFavorite();
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
   }
 
   return (
     <div className='workspace-header'>
       <div className='workspace-header__left'>
-        <TitleInput />
+        <TitleInput disabled={!isOwner} />
 
         <div className='workspace-header__utility'>
           {workspace.isFavorite ? (
@@ -68,14 +74,16 @@ export default function WorkspaceHeader() {
       </div>
 
       <div className='workspace-header__right'>
-        <button
-          type='button'
-          className='workspace-header__btn'
-          onClick={() => setIsInviteModalOpening(true)}
-        >
-          <FaUserPlus size={24} />
-          <p>Invite</p>
-        </button>
+        {account && account.id === workspace.ownerId && (
+          <button
+            type='button'
+            className='workspace-header__btn'
+            onClick={() => setIsInviteModalOpening(true)}
+          >
+            <FaUserPlus size={24} />
+            <p>Invite</p>
+          </button>
+        )}
 
         <FilterPopover>
           <button type='button' className='workspace-header__btn'>
@@ -99,7 +107,7 @@ export default function WorkspaceHeader() {
   );
 }
 
-function TitleInput() {
+function TitleInput({ disabled = false }) {
   const { workspace, updateWorkspace } = useContext(WorkspaceContext);
 
   const [title, setTitle] = useState(workspace.title);
@@ -125,10 +133,11 @@ function TitleInput() {
       return;
     }
 
-    updateWorkspace({
-      ...workspace,
-      title: title.trim(),
-    });
+    try {
+      updateWorkspace({ title });
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
   }
 
   useEffect(() => {
@@ -152,6 +161,7 @@ function TitleInput() {
 
       <form onSubmit={handleUpdateTitle}>
         <input
+          disabled={disabled}
           ref={titleRef}
           type='text'
           value={title}

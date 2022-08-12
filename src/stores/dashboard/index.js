@@ -1,8 +1,6 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { toast } from 'react-toastify';
 import { methods, URL_Requests } from '../../APIs';
-import { useAccount } from '../../hooks';
-import { randInt } from '../../utils/common';
 import reducer from './reducer';
 
 export const DashboardContext = createContext();
@@ -18,8 +16,6 @@ export function DashboardProvider({ children }) {
     allTasks: [],
     isLoadingAllTasks: true,
   });
-
-  const { account } = useAccount();
 
   function setOwnWorkspaces(workspaces) {
     dispatch({ type: 'SET_OWN_WORKSPACES', payload: workspaces });
@@ -38,11 +34,9 @@ export function DashboardProvider({ children }) {
   }
 
   async function fetchOwnWorkspaces() {
-    // TODO: call API to fetch own workspaces here
-    // const workspaces = require('../../data/dashboard.json').ownWorkspaces;
     try {
       const { data: workspaces } = await methods.get(
-        URL_Requests.users.workspaces(account.id),
+        URL_Requests.workspaces.ownWorkspaces,
       );
 
       setOwnWorkspaces(workspaces);
@@ -52,29 +46,34 @@ export function DashboardProvider({ children }) {
     }
   }
 
-  function fetchAllWorkspaces() {
-    // TODO: call API to fetch all workspaces here
-    setTimeout(() => {
-      const workspaces = require('../../data/dashboard.json').allWorkspaces;
+  async function fetchAllWorkspaces() {
+    try {
+      const { data: workspaces } = await methods.get(
+        URL_Requests.workspaces.allWorkspaces,
+      );
+
       setAllWorkspaces(workspaces);
-    }, randInt(1000, 3000));
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+      setAllWorkspaces([]);
+    }
   }
 
-  function fetchFavoriteWorkspaces() {
-    // TODO: call API to fetch favorite workspaces here
-    setTimeout(() => {
-      const workspaces =
-        require('../../data/dashboard.json').favoriteWorkspaces;
+  async function fetchFavoriteWorkspaces() {
+    try {
+      const { data: workspaces } = await methods.get(
+        URL_Requests.workspaces.favoriteWorkspaces,
+      );
+
       setFavoriteWorkspaces(workspaces);
-    }, randInt(1000, 3000));
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+      setFavoriteWorkspaces([]);
+    }
   }
 
   function fetchAllTasks() {
-    // TODO: call API to fetch all tasks here
-    setTimeout(() => {
-      const tasks = require('../../data/dashboard.json').allTasks;
-      setAllTasks(tasks);
-    }, randInt(1000, 3000));
+    setAllTasks([]);
   }
 
   useEffect(() => {

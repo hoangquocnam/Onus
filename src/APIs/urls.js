@@ -16,7 +16,14 @@ const URL_Requests = {
   workspaces: {
     url: 'workspaces',
     workspace: id => `workspaces/${id}`,
+    ownWorkspaces: 'workspaces/own',
+    allWorkspaces: 'workspaces/all',
+    favoriteWorkspaces: 'workspaces/favorite',
   },
+  statuses: {
+    url: 'statuses',
+    status: id => `statuses/${id}`,
+  }
 };
 
 export { URL_Requests };

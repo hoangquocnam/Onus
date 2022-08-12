@@ -48,8 +48,8 @@ function deleteMethod(url, config = {}) {
   });
 }
 
-function patchMethod(url, config = {}) {
-  return axios.patch(`${SERVER_URL}/${url}`, {
+function patchMethod(url, data, config = {}) {
+  return axios.patch(`${SERVER_URL}/${url}`, data, {
     ...config,
     headers: {
       Authorization: `Bearer ${getTokenFromStorage()}`,
