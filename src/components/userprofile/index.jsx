@@ -78,7 +78,7 @@ function UserProfile() {
   };
 
   const goToSettings = () => {
-    navigate(`${routes.account.path}/${account.id}/settings`);
+    navigate(routes.account.settings);
   };
 
   function handleInputChange(e) {
@@ -139,13 +139,16 @@ function UserProfile() {
         {isCurrentUser && (
           <nav className='profile-nav__container'>
             <ul className='profile-nav__list'>
-              <li className='profile-nav__item profile-nav__item--active'>
+              <li
+                className='profile-nav__item profile-nav__item--active'
+                onClick={goToPublic}
+              >
                 <CgProfile className='public-profile__icon' />
-                <span onClick={goToPublic}>Public profile</span>
+                <span>Public profile</span>
               </li>
-              <li className='profile-nav__item'>
+              <li className='profile-nav__item' onClick={goToSettings}>
                 <TbSettings className='public-profile__icon' />
-                <span onClick={goToSettings}>Account Settings</span>
+                <span>Account Settings</span>
               </li>
             </ul>
           </nav>

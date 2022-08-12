@@ -2,11 +2,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
+  ChangePassword,
   Dashboard,
   ProtectedRoutes,
   PublicRoutes,
   Search,
   UserProfile,
+  UserSettings,
   Workspace,
 } from './components';
 import {
@@ -54,6 +56,16 @@ const App = () => {
                 <Route path={routes.search.path} element={<Search />} />
 
                 <Route path={routes.notFound.path} element={<NotFoundPage />} />
+
+                <Route
+                  path={routes.account.settings}
+                  element={<UserSettings />}
+                />
+
+                <Route
+                  path={routes.account.changePassword}
+                  element={<ChangePassword />}
+                />
               </Route>
             </Route>
 

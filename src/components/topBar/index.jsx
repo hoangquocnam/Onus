@@ -111,7 +111,7 @@ function AccountPopover({ children }) {
   }
 
   function handleViewSettings() {
-    // navigate(routes.account.profile.accountSettings);
+    navigate(routes.account.settings);
     document.body.click();
   }
 

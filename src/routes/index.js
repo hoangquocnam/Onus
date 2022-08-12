@@ -11,7 +11,8 @@ const routes = {
   account: {
     path: '/account',
     profile: '/account/:id/profile',
-    settings: '/account/:id/settings',
+    settings: '/account/settings',
+    changePassword: '/account/change-password',
   },
   dashboard: {
     path: '/dashboard',

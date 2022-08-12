@@ -5,6 +5,9 @@ const URL_Requests = {
   signUp: {
     url: 'signup',
   },
+  changePassword: {
+    url: 'auth/change-password',
+  },
   me: {
     url: 'auth/me',
   },
