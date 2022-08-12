@@ -7,7 +7,6 @@ import {
   FaStar,
   FaUserPlus,
 } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 import { useAccount } from '../../../hooks';
 import { WorkspaceContext } from '../../../stores/workspace';
 import '../../../styles/components/workspaceHeader.css';
@@ -27,11 +26,7 @@ export default function WorkspaceHeader() {
   const { account } = useAccount();
 
   function handleFavoriteClick() {
-    try {
-      toggleFavorite();
-    } catch (error) {
-      toast.error(error.response.data.error.message);
-    }
+    toggleFavorite();
   }
 
   return (
@@ -133,11 +128,7 @@ function TitleInput({ disabled = false }) {
       return;
     }
 
-    try {
-      updateWorkspace({ title });
-    } catch (error) {
-      toast.error(error.response.data.error.message);
-    }
+    updateWorkspace({ title });
   }
 
   useEffect(() => {

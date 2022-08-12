@@ -6,7 +6,8 @@ import '../../../styles/components/taskMembersPopover.css';
 import { PopoverContainer } from '../../popover';
 
 export default function TaskMembersPopover({ task, children }) {
-  const { workspace, updateTask } = useContext(WorkspaceContext);
+  const { workspace, addMemberToTask, removeMemberFromTask } =
+    useContext(WorkspaceContext);
   const [searchText, setSearchText] = useState('');
 
   const workspaceMembers = useMemo(() => {
@@ -28,15 +29,11 @@ export default function TaskMembersPopover({ task, children }) {
       taskMember => taskMember.id === member.id,
     );
 
-    const newTask = { ...task };
-
     if (memberIndex === -1) {
-      newTask.members.push(member);
+      addMemberToTask(task, member);
     } else {
-      newTask.members.splice(memberIndex, 1);
+      removeMemberFromTask(task, member);
     }
-
-    updateTask(task);
   }
 
   return (

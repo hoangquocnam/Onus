@@ -83,7 +83,7 @@ export default function WorkspaceMenu() {
     });
   }
 
-  function handleCopyWorkspaceToClipboard() {
+  function handleExportWorkspaceToClipboard() {
     navigator.clipboard.writeText(JSON.stringify(workspace));
     toast.success('Workspace JSON copied to clipboard!');
   }
@@ -234,7 +234,7 @@ export default function WorkspaceMenu() {
                   <FaRegCopy className='workspace-menu__settings-item-icon' />
 
                   <span className='workspace-menu__settings-item-text'>
-                    Copy workspace
+                    Clone workspace
                   </span>
                 </button>
 
@@ -249,7 +249,7 @@ export default function WorkspaceMenu() {
                 <button
                   type='button'
                   className='workspace-menu__settings-item'
-                  onClick={handleCopyWorkspaceToClipboard}
+                  onClick={handleExportWorkspaceToClipboard}
                 >
                   <FaShareAlt className='workspace-menu__settings-item-icon' />
                   <span className='workspace-menu__settings-item-text'>

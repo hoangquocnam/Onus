@@ -23,7 +23,11 @@ const URL_Requests = {
   statuses: {
     url: 'statuses',
     status: id => `statuses/${id}`,
-  }
+  },
+  tasks: {
+    url: 'tasks',
+    task: id => `tasks/${id}`,
+  },
 };
 
 export { URL_Requests };

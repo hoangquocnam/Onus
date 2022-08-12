@@ -24,11 +24,7 @@ export default function NewStatus() {
       return;
     }
 
-    try {
-      addStatus(title.trim());
-    } catch (error) {
-      toast.error(error.response.data.error.message);
-    }
+    addStatus(title.trim());
 
     setTitle('');
     setIsActive(false);

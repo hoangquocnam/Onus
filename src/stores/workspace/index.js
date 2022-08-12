@@ -1,4 +1,5 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { methods, URL_Requests } from '../../APIs';
 import { useAccount } from '../../hooks';
 import reducer from './reducer';
@@ -15,31 +16,15 @@ export function WorkspaceProvider(props) {
     isOwner: false,
   });
 
+  const taskMoveFrom = useRef(null);
+  const taskMoveTo = useRef(null);
+
   const { account } = useAccount();
 
   function resetWorkspace() {
     dispatch({
       type: 'RESET_WORKSPACE',
     });
-  }
-
-  async function getWorkspace(id) {
-    try {
-      const { data: workspace } = await methods.get(
-        URL_Requests.workspaces.workspace(id),
-      );
-
-      if (workspace.ownerId === account.id) {
-        dispatch({
-          type: 'SET_IS_OWNER',
-          payload: true,
-        });
-      }
-
-      setWorkspace(workspace);
-    } catch (error) {
-      throw error;
-    }
   }
 
   function setWorkspace(workspace) {
@@ -77,41 +62,47 @@ export function WorkspaceProvider(props) {
     });
   }
 
+  async function getWorkspace(id) {
+    try {
+      const { data: workspace } = await methods.get(
+        URL_Requests.workspaces.workspace(id),
+      );
+
+      if (workspace.ownerId === account.id) {
+        dispatch({
+          type: 'SET_IS_OWNER',
+          payload: true,
+        });
+      }
+
+      setWorkspace(workspace);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async function addStatus(title) {
     try {
-      const { data: status } = await methods.post(
-        URL_Requests.statuses.url,
-        {
-          title,
-          workspaceId: state.workspace.id,
-        }
-      );
+      const { data: status } = await methods.post(URL_Requests.statuses.url, {
+        title,
+        workspaceId: state.workspace.id,
+      });
 
       dispatch({
         type: 'ADD_STATUS',
         payload: status,
       });
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
   async function addTask(title, statusId) {
     try {
-      const { data: task } = await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              id: Date.now().toString(),
-              title,
-              description: '',
-              cover: null,
-              labels: [],
-              members: [],
-              statusId,
-            },
-          });
-        }, 0);
+      const { data: task } = await methods.post(URL_Requests.tasks.url, {
+        title,
+        statusId,
+        workspaceId: state.workspace.id,
       });
 
       dispatch({
@@ -119,18 +110,12 @@ export function WorkspaceProvider(props) {
         payload: task,
       });
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
   async function deleteTask(task) {
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(true);
-        }, 0);
-      });
-
       dispatch({
         type: 'DELETE_TASK',
         payload: task,
@@ -139,33 +124,28 @@ export function WorkspaceProvider(props) {
       if (state.taskModal?.id === task.id) {
         setTaskModal(null);
       }
+
+      await methods.delete(URL_Requests.tasks.task(task.id));
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
-  async function deleteStatus(status) {
+  async function deleteStatus(id) {
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(true);
-        }, 0);
-      });
-
       dispatch({
         type: 'DELETE_STATUS',
-        payload: status,
+        payload: id,
       });
+
+      await methods.delete(URL_Requests.statuses.status(id));
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
   async function updateWorkspace(data) {
     try {
-      // setWorkspace({
-      //   ...data,
-      // });
       setWorkspace({
         ...state.workspace,
         ...data,
@@ -177,38 +157,43 @@ export function WorkspaceProvider(props) {
     }
   }
 
-  async function updateStatus(status) {
+  async function updateStatusListOfWorkspace(statuses) {
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              ...status,
-            },
-          });
-        }, 0);
+      setWorkspace({
+        ...state.workspace,
+        statuses,
       });
 
-      dispatch({
-        type: 'UPDATE_STATUS',
-        payload: status,
+      await methods.patch(`workspaces/${state.workspace.id}`, {
+        statusIdList: statuses.map(status => status.id),
       });
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
-  async function updateTask(task) {
+  async function updateStatus(id, data) {
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data: {
-              ...task,
-            },
-          });
-        }, 0);
+      dispatch({
+        type: 'UPDATE_STATUS',
+        payload: {
+          id,
+          data,
+        },
       });
+
+      await methods.patch(URL_Requests.statuses.status(id), data);
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
+  }
+
+  async function updateTask(task, data) {
+    try {
+      task = {
+        ...task,
+        ...data,
+      };
 
       dispatch({
         type: 'UPDATE_TASK',
@@ -218,8 +203,80 @@ export function WorkspaceProvider(props) {
       if (state.taskModal?.id === task.id) {
         setTaskModal(task);
       }
+
+      await methods.patch(URL_Requests.tasks.task(task.id), data);
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
+    }
+  }
+
+  async function updateMembersOfTask(task, members) {
+    try {
+      task = {
+        ...task,
+        members,
+      };
+
+      dispatch({
+        type: 'UPDATE_TASK',
+        payload: task,
+      });
+
+      if (state.taskModal?.id === task.id) {
+        setTaskModal(task);
+      }
+
+      await methods.patch(URL_Requests.tasks.task(task.id), {
+        memberIdList: members.map(member => member.id),
+      });
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
+  }
+
+  async function addMemberToTask(task, member) {
+    try {
+      task = {
+        ...task,
+        members: [...task.members, member],
+      };
+
+      dispatch({
+        type: 'UPDATE_TASK',
+        payload: task,
+      });
+
+      if (state.taskModal?.id === task.id) {
+        setTaskModal(task);
+      }
+
+      await methods.post(`tasks/${task.id}/members`, {
+        memberId: member.id,
+      });
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
+  }
+
+  async function removeMemberFromTask(task, member) {
+    try {
+      task = {
+        ...task,
+        members: task.members.filter(m => m.id !== member.id),
+      };
+
+      dispatch({
+        type: 'UPDATE_TASK',
+        payload: task,
+      });
+
+      if (state.taskModal?.id === task.id) {
+        setTaskModal(task);
+      }
+
+      await methods.delete(`tasks/${task.id}/members/${member.id}`);
+    } catch (error) {
+      toast.error(error.response.data.error.message);
     }
   }
 
@@ -257,18 +314,7 @@ export function WorkspaceProvider(props) {
 
       setWorkspace(newWorkspace);
     } catch (error) {
-      throw error;
-    }
-  }
-
-  async function removeMemberFromTask(task, memberId) {
-    try {
-      updateTask({
-        ...task,
-        members: task.members.filter(m => m.id !== memberId),
-      });
-    } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
@@ -287,7 +333,7 @@ export function WorkspaceProvider(props) {
         await methods.delete(`users/favorite-workspaces/${state.workspace.id}`);
       }
     } catch (error) {
-      throw error;
+      toast.error(error.response.data.error.message);
     }
   }
 
@@ -311,6 +357,43 @@ export function WorkspaceProvider(props) {
     }
   }
 
+  async function updateMovingTask() {
+    if (taskMoveFrom === null || taskMoveTo === null) {
+      return;
+    }
+
+    const fromStatusIndex = taskMoveFrom.current.statusIndex;
+    const toStatusIndex = taskMoveTo.current.statusIndex;
+    const fromTaskIndex = taskMoveFrom.current.taskIndex;
+    const toTaskIndex = taskMoveTo.current.taskIndex;
+
+    if (fromStatusIndex === toStatusIndex && fromTaskIndex === toTaskIndex) {
+      return;
+    }
+
+    const statuses = [...state.workspace.statuses];
+
+    const [task] = statuses[fromStatusIndex].tasks.splice(fromTaskIndex, 1);
+    statuses[toStatusIndex].tasks.splice(toTaskIndex, 0, task);
+
+    setWorkspace({
+      ...state.workspace,
+      statuses,
+    });
+
+    taskMoveFrom.current = null;
+    taskMoveTo.current = null;
+
+    try {
+      await methods.post(`tasks/${task.id}/move`, {
+        statusId: statuses[toStatusIndex].id,
+        taskIndex: toTaskIndex,
+      });
+    } catch (error) {
+      toast.error(error.response.data.error.message);
+    }
+  }
+
   return (
     <WorkspaceContext.Provider
       value={{
@@ -326,14 +409,20 @@ export function WorkspaceProvider(props) {
         setIsInviteModalOpening,
         setRecentStatusAddedTask,
         inviteMemberToWorkspace,
+        removeMemberFromWorkspace,
         deleteTask,
         deleteStatus,
-        removeMemberFromWorkspace,
-        removeMemberFromTask,
         toggleFavorite,
         resetWorkspace,
         deleteWorkspace,
         leaveWorkspace,
+        updateStatusListOfWorkspace,
+        updateMembersOfTask,
+        addMemberToTask,
+        removeMemberFromTask,
+        updateMovingTask,
+        taskMoveFrom,
+        taskMoveTo,
       }}
     >
       {props.children}

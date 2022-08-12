@@ -14,8 +14,10 @@ export default function Status({ status }) {
     workspace,
     recentStatusAddedTask,
     setRecentStatusAddedTask,
-    updateWorkspace,
     updateStatus,
+    updateMovingTask,
+    taskMoveFrom,
+    taskMoveTo,
   } = useContext(WorkspaceContext);
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -43,12 +45,11 @@ export default function Status({ status }) {
       return;
     }
 
-    if (title === status.title) {
+    if (title.trim() === status.title) {
       return;
     }
 
-    status = { ...status, title: title.trim() };
-    updateStatus(status);
+    updateStatus(status.id, { title: title.trim() });
   }
 
   function handleOnTaskDrop(statusId, result) {
@@ -57,23 +58,50 @@ export default function Status({ status }) {
     }
 
     const statusIndex = workspace.statuses.findIndex(s => s.id === statusId);
-    const newStatus = { ...workspace.statuses[statusIndex] };
+    // const newStatus = { ...workspace.statuses[statusIndex] };
+
+    // if (result.removedIndex !== null && result.addedIndex !== null) {
+    //   countRef.current += 2;
+    //   console.log(countRef.current);
+    //   return;
+    // }
 
     if (result.removedIndex !== null) {
-      newStatus.tasks.splice(result.removedIndex, 1);
+      taskMoveFrom.current = {
+        statusIndex,
+        taskIndex: result.removedIndex,
+      };
+
+      // newStatus.tasks.splice(result.removedIndex, 1);
     }
 
     if (result.addedIndex !== null) {
-      result.payload.statusId = statusId;
-      newStatus.tasks.splice(result.addedIndex, 0, result.payload);
+      taskMoveTo.current = {
+        statusIndex,
+        taskIndex: result.addedIndex,
+      };
+
+      // result.payload.statusId = statusId;
+      // newStatus.tasks.splice(result.addedIndex, 0, result.payload);
     }
 
-    setRecentStatusAddedTask({ id: statusId });
+    if (taskMoveFrom.current && taskMoveTo.current) {
+      updateMovingTask();
+    }
 
-    const statuses = [...workspace.statuses];
-    statuses[statusIndex] = newStatus;
+    // don't delete
+    // setRecentStatusAddedTask({ id: statusId });
 
-    updateWorkspace({ ...workspace, statuses });
+    // const statuses = [...workspace.statuses];
+    // statuses[statusIndex] = newStatus;
+
+    // setWorkspace({ ...workspace, statuses });
+
+    // if (taskMoveRef.current.count === 2) {
+    //   console.log('run');
+    //   taskMoveRef.current.count = 0;
+    // }
+    // updateWorkspace({ ...workspace, statuses });
   }
 
   useEffect(() => {

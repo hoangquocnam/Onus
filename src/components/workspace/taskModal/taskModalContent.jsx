@@ -28,17 +28,9 @@ export default function TaskModalContent({ task, setTask }) {
     });
   }
 
-  function handleUpdateTask(task) {
-    try {
-      updateTask(task);
-    } catch (error) {
-      console.error('task modal error line 60');
-    }
-  }
-
   function handleUpdateDescription() {
     const description = task.description.trim();
-    handleUpdateTask({ ...task, description });
+    updateTask(task, { description });
     setIsEditingDescription(false);
   }
 

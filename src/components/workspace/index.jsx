@@ -16,8 +16,12 @@ import WorkspaceTaskModal from './taskModal';
 
 export default function Workspace() {
   const { id } = useParams();
-  const { workspace, getWorkspace, updateWorkspace, resetWorkspace } =
-    useContext(WorkspaceContext);
+  const {
+    workspace,
+    getWorkspace,
+    updateStatusListOfWorkspace,
+    resetWorkspace,
+  } = useContext(WorkspaceContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,7 +57,8 @@ export default function Workspace() {
     const statuses = [...workspace.statuses];
     const [removed] = statuses.splice(result.removedIndex, 1);
     statuses.splice(result.addedIndex, 0, removed);
-    updateWorkspace({ ...workspace, statuses });
+
+    updateStatusListOfWorkspace(statuses);
   }
 
   return (
