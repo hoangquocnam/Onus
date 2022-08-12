@@ -28,17 +28,9 @@ export default function TaskModalContent({ task, setTask }) {
     });
   }
 
-  function handleUpdateTask(task) {
-    try {
-      updateTask(task);
-    } catch (error) {
-      console.error('task modal error line 60');
-    }
-  }
-
   function handleUpdateDescription() {
     const description = task.description.trim();
-    handleUpdateTask({ ...task, description });
+    updateTask(task, { description });
     setIsEditingDescription(false);
   }
 
@@ -140,7 +132,7 @@ export default function TaskModalContent({ task, setTask }) {
           <div className='task-modal-content__comments'>
             <div className='task-modal-content__comment-item'>
               <img
-                src={account.avatarUrl}
+                src={account.avatar}
                 alt='avatar'
                 className='task-modal-content__comment-item-avatar'
               />

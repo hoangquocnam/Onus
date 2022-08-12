@@ -14,7 +14,7 @@ export default function NewStatus() {
   const ref = useRef(null);
   useOutsideAlerter(ref, handleInactive);
 
-  function handleCreateNewTask(e) {
+  function handleCreateNewStatus(e) {
     e.preventDefault();
 
     if (title.trim() === '') {
@@ -55,7 +55,7 @@ export default function NewStatus() {
   return (
     <div className='new-status'>
       <div ref={ref} className='new-status--active'>
-        <form onSubmit={handleCreateNewTask}>
+        <form onSubmit={handleCreateNewStatus}>
           <input
             type='text'
             className='new-status__input-title'

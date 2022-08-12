@@ -21,19 +21,27 @@ import MemberAvatarList from '../../memberAvatarList';
 import WorkspaceDeletePopover from './workspaceDeletePopover';
 
 export default function WorkspaceMenu() {
-  const { setIsMenuOpening, isMenuOpening, workspace, updateWorkspace } =
-    useContext(WorkspaceContext);
+  const {
+    setIsMenuOpening,
+    isMenuOpening,
+    workspace,
+    updateWorkspace,
+    isOwner,
+  } = useContext(WorkspaceContext);
 
   const [data, setData] = useState({
     description: workspace.description,
     isOnEditingDescription: false,
+    owner: workspace.members.find(member => member.id === workspace.ownerId),
   });
 
   useEffect(() => {
     if (isMenuOpening) {
-      setData({
-        description: workspace.description,
-        isOnEditingDescription: false,
+      setData(prev => {
+        return {
+          ...prev,
+          description: workspace.description,
+        };
       });
     }
   }, [isMenuOpening, setData, workspace]);
@@ -52,25 +60,30 @@ export default function WorkspaceMenu() {
   function handleOnUpdateDescription() {
     data.description = data.description.trim();
 
-    updateWorkspace({
-      ...workspace,
-      description: data.description,
-    });
+    if (data.description === workspace.description) {
+      handleCancelUpdateDescription();
+      return;
+    }
 
     setData({
       ...data,
       isOnEditingDescription: false,
     });
+
+    updateWorkspace({
+      description: data.description,
+    });
   }
 
   function handleCancelUpdateDescription() {
     setData({
+      ...data,
       description: workspace.description,
       isOnEditingDescription: false,
     });
   }
 
-  function handleCopyWorkspaceToClipboard() {
+  function handleExportWorkspaceToClipboard() {
     navigator.clipboard.writeText(JSON.stringify(workspace));
     toast.success('Workspace JSON copied to clipboard!');
   }
@@ -118,18 +131,18 @@ export default function WorkspaceMenu() {
 
                   <div className='workspace-menu__about-item-body workspace-menu__about-admin'>
                     <img
-                      src='https://api.minimalavatars.com/avatar/random/png'
+                      src={data.owner.avatar}
                       alt='avatar'
                       className='workspace-menu__about-admin-avatar'
                     />
 
                     <div className='workspace-menu__about-admin-info'>
                       <h5 className='workspace-menu__about-admin-info-name'>
-                        Lê Duy Tâm
+                        {data.owner.fullname}
                       </h5>
 
                       <p className='workspace-menu__about-admin-info-email'>
-                        ldtam@demo.com
+                        {data.owner.email}
                       </p>
                     </div>
                   </div>
@@ -166,6 +179,7 @@ export default function WorkspaceMenu() {
                   <div className='workspace-menu__about-item-body'>
                     <div className='workspace-menu__description'>
                       <TextareaAutosize
+                        disabled={!isOwner}
                         className={`workspace-menu__description-input workspace-menu__description-input--${
                           data.isOnEditingDescription ? 'active' : ''
                         }`}
@@ -220,7 +234,7 @@ export default function WorkspaceMenu() {
                   <FaRegCopy className='workspace-menu__settings-item-icon' />
 
                   <span className='workspace-menu__settings-item-text'>
-                    Copy workspace
+                    Clone workspace
                   </span>
                 </button>
 
@@ -235,7 +249,7 @@ export default function WorkspaceMenu() {
                 <button
                   type='button'
                   className='workspace-menu__settings-item'
-                  onClick={handleCopyWorkspaceToClipboard}
+                  onClick={handleExportWorkspaceToClipboard}
                 >
                   <FaShareAlt className='workspace-menu__settings-item-icon' />
                   <span className='workspace-menu__settings-item-text'>
@@ -250,7 +264,7 @@ export default function WorkspaceMenu() {
                   >
                     <FaRegTrashAlt className='workspace-menu__settings-item-icon' />
                     <span className='workspace-menu__settings-item-text'>
-                      Delete workspace
+                      {isOwner ? 'Delete workspace' : 'Leave workspace'}
                     </span>
                   </button>
                 </WorkspaceDeletePopover>

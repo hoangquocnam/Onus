@@ -16,6 +16,10 @@ export default function StatusOptionsPopover({
 }) {
   const { deleteStatus } = useContext(WorkspaceContext);
 
+  function handleDeleteStatus() {
+    deleteStatus(status.id);
+  }
+
   return (
     <OverlayTrigger
       trigger='click'
@@ -51,7 +55,7 @@ export default function StatusOptionsPopover({
             <PopoverButton
               variant='ghost-danger'
               closedOnClick={true}
-              onClick={() => deleteStatus(status)}
+              onClick={handleDeleteStatus}
             >
               Delete
             </PopoverButton>

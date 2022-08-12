@@ -26,7 +26,7 @@ export default function TaskModalHeader({ task, setTask }) {
       return;
     }
 
-    updateTask({ ...task, title });
+    updateTask(task, { title });
   }
 
   return (

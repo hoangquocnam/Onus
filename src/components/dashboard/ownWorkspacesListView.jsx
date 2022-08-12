@@ -11,7 +11,7 @@ function OwnWorkspacesListView() {
   const navigate = useNavigate();
   const [isNewWorkspaceModalOpening, setIsNewWorkspaceModalOpen] =
     useState(false);
-  const { ownWorkspaces, isLoadingOwnWorkspaces, setOwnWorkspaces } =
+  const { ownWorkspaces, isLoadingOwnWorkspaces } =
     useContext(DashboardContext);
 
   function navigateToWorkspace(workspaceId) {
@@ -22,9 +22,8 @@ function OwnWorkspacesListView() {
     setIsNewWorkspaceModalOpen(true);
   }
 
-  function onAfterCreatedNewWorkspace(data) {
-    setOwnWorkspaces([...ownWorkspaces, data]);
-    setIsNewWorkspaceModalOpen(false);
+  function onAfterCreatedNewWorkspace() {
+    window.location.reload();
   }
 
   return (

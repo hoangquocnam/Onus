@@ -6,6 +6,22 @@ export default function reducer(state, action) {
         workspace: action.payload,
       };
 
+    case 'RESET_WORKSPACE':
+      return {
+        workspace: null,
+        isMenuOpening: false,
+        isInviteModalOpening: false,
+        recentStatusAddedTask: null,
+        taskModal: null,
+        isOwner: false,
+      };
+
+    case 'SET_IS_OWNER':
+      return {
+        ...state,
+        isOwner: action.payload,
+      };
+
     case 'SET_IS_MENU_OPENING':
       return {
         ...state,
@@ -82,7 +98,7 @@ export default function reducer(state, action) {
         workspace: {
           ...state.workspace,
           statuses: state.workspace.statuses.filter(
-            status => status.id !== action.payload.id,
+            status => status.id !== action.payload,
           ),
         },
       };
@@ -94,7 +110,10 @@ export default function reducer(state, action) {
           ...state.workspace,
           statuses: state.workspace.statuses.map(status => {
             if (status.id === action.payload.id) {
-              return action.payload;
+              return {
+                ...status,
+                ...action.payload.data,
+              };
             }
             return status;
           }),

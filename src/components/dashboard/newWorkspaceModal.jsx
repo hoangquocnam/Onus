@@ -37,8 +37,8 @@ export default function NewWorkspaceModal({
     toast.promise(createNewWorkspace(data), {
       pending: 'Creating workspace...',
       success: {
-        render({ data }) {
-          onAfterCreatedNewWorkspace(data);
+        render() {
+          onAfterCreatedNewWorkspace();
           return 'Create workspace successfully';
         },
         autoClose: 1000,
@@ -57,10 +57,7 @@ export default function NewWorkspaceModal({
     try {
       const response = await methods.post(URL_Requests.workspaces.url, {
         title: data.title.trim(),
-        description:
-          data.description.trim() === ''
-            ? 'Description'
-            : data.description.trim(),
+        description: data.description.trim(),
         ownerId: account.id,
       });
       return response.data;

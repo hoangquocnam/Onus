@@ -28,6 +28,12 @@
   cursor: pointer;
 }
 
+.workspace-header__title:disabled {
+  color: #000;
+  background: inherit;
+  cursor: default;
+}
+
 .workspace-header__title:focus {
   border-color: #000;
   cursor: text;

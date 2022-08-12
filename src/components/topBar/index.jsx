@@ -93,7 +93,7 @@ export default function TopBar() {
 
         <div className='topBar__rightSpacing topBar__accountAvatar'>
           <AccountPopover>
-            <img src={account.avatarUrl} alt='avt' className='account-avatar' />
+            <img src={account.avatar} alt='avt' className='account-avatar' />
           </AccountPopover>
         </div>
       </div>
@@ -111,7 +111,7 @@ function AccountPopover({ children }) {
   }
 
   function handleViewSettings() {
-    // navigate(routes.account.profile.accountSettings);
+    navigate(routes.account.settings);
     document.body.click();
   }
 
@@ -131,7 +131,7 @@ function AccountPopover({ children }) {
           <div className='account-popover'>
             <div className='account-popover__info'>
               <img
-                src='https://api.minimalavatars.com/avatar/random/png'
+                src={account.avatar}
                 alt='avt'
                 className='account-popover__info-avatar'
               />

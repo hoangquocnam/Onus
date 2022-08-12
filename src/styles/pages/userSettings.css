@@ -1,0 +1,104 @@
+.user-settings__page {
+  height: 100%;
+}
+
+.user-settings__heading {
+}
+
+.user-settings__heading-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 665px;
+  font-size: 32px;
+  color: #202142;
+  padding: 0;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.user-settings__body {
+  display: flex;
+  flex-direction: row;
+  color: #202142;
+  justify-content: center;
+  margin: 0;
+}
+
+.user-settings__nav {
+  margin-right: 60px;
+  width: 250px;
+}
+
+.user-settings__nav-list {
+  list-style: none;
+  align-items: flex-start;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+  color: #202142;
+  padding-right: 20px;
+  border-right: 1px solid #efefff;
+}
+
+.user-settings__nav-item {
+  margin-right: 40px;
+  width: 100%;
+  color: #202142;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 35px;
+  height: 50px;
+  border-radius: 12px;
+  cursor: pointer;
+  border-left: 5px solid transparent;
+}
+
+.user-settings__nav-item > a:link,
+.user-settings__nav-item > a:visited {
+  color: #202142;
+  outline: none;
+}
+
+.user-settings__nav-item--active {
+  color: #202142;
+  background: #fcfcff;
+  border: 1.2px solid #efefff;
+  border-radius: 5px;
+  outline: none;
+  border-left: 5px solid #202142;
+}
+
+.user-settings__nav-item-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.user-settings__content {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-settings__change-password-btn {
+  width: 300px;
+  height: 50px;
+  border-radius: 12px;
+  background: #202142;
+  color: #fcfcff;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.user-settings__change-password-btn:hover {
+  background-color: #202142ee;
+}

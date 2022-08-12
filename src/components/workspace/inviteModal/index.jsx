@@ -20,7 +20,7 @@ export default function InviteModal() {
   const emailInputRef = useRef(null);
   const dummyDivRef = useRef(null);
 
-  function handleOnSubmit(e) {
+  async function handleOnSubmit(e) {
     e.preventDefault();
 
     const error = validateEmail(email);
@@ -34,8 +34,14 @@ export default function InviteModal() {
       return;
     }
 
-    inviteMemberToWorkspace(email);
-    setEmail('');
+    try {
+      await inviteMemberToWorkspace(email);
+      setEmail('');
+    } catch (error) {
+      emailInputRef.current.select();
+      emailInputRef.current.focus();
+      toast.error(error.response.data.error.message);
+    }
   }
 
   function handleOnEmailChange(e) {

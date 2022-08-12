@@ -159,11 +159,15 @@
   box-sizing: border-box;
   padding: 10px;
   border: 2px solid transparent;
-  cursor: pointer;
 }
 
-.workspace-menu__description-input:not(.workspace-menu__description-input--active):hover {
+.workspace-menu__description-input:disabled {
+  color: #000;
+}
+
+.workspace-menu__description-input:not(:disabled):not(.workspace-menu__description-input--active):hover {
   background-color: #091e4215;
+  cursor: pointer;
 }
 
 .workspace-menu__description-input--active {

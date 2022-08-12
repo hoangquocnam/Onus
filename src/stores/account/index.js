@@ -65,6 +65,14 @@ export function AccountProvider(props) {
     });
   }
 
+  async function changePassword(data) {
+    try {
+      await methods.put(URL_Requests.changePassword.url, data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   function auth(token) {
     return new Promise(async (resolve, reject) => {
       setIsAuthenticating(true);
@@ -98,6 +106,7 @@ export function AccountProvider(props) {
         setAccount,
         isAuthenticating,
         updateProfile,
+        changePassword,
       }}
     >
       {props.children}

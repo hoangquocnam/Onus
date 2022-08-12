@@ -1,6 +1,6 @@
 import { DashboardProvider } from '../../stores/dashboard';
 import '../../styles/pages/dashboard.css';
-import AllTasksListView from './allTasksListView';
+// import AllTasksListView from './allTasksListView';
 import AllWorkspacesListView from './allWorkspacesListView';
 import FavoriteWorkspacesListView from './favoriteWorkspacesListView';
 import OwnWorkspacesListView from './ownWorkspacesListView';
@@ -12,7 +12,7 @@ export default function Dashboard() {
         <OwnWorkspacesListView />
         <AllWorkspacesListView />
         <FavoriteWorkspacesListView />
-        <AllTasksListView />
+        {/* <AllTasksListView /> */}
       </div>
     </DashboardProvider>
   );

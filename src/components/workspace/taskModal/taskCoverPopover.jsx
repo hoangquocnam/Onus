@@ -14,21 +14,11 @@ export default function TaskCoverPopover({ task, children }) {
   const { updateTask } = useContext(WorkspaceContext);
 
   function handleCoverColorClick(color) {
-    const newTask = {
-      ...task,
-      cover: getColorCoverUrl(color),
-    };
-
-    updateTask(newTask);
+    updateTask(task, { cover: getColorCoverUrl(color) });
   }
 
   function handleRemoveCover() {
-    const newTask = {
-      ...task,
-      cover: null,
-    };
-
-    updateTask(newTask);
+    updateTask(task, { cover: '' });
   }
 
   return (
