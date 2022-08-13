@@ -107,7 +107,7 @@ function UserResultItem({ result }) {
 }
 
 function TaskResultItem({ result }) {
-  const { id, title, description, workspaceId } = result.data;
+  const { id, title, description, workspaceId } = result;
   const navigate = useNavigate();
 
   function navigateToTask() {
@@ -129,7 +129,7 @@ function TaskResultItem({ result }) {
 }
 
 function WorkspaceResultItem({ result }) {
-  const { id, title, description } = result.data;
+  const { id, title, description } = result;
   const navigate = useNavigate();
 
   function navigateToWorkspace() {
