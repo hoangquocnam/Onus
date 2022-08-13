@@ -4,73 +4,23 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import routes from '../../routes';
 import '../../styles/pages/search.css';
 import Spinner from '../spinner';
+import * as helpers from './search.helpers';
+import ResultList from './searchResultList';
 
 export default function Search() {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [results, setResults] = useState(null);
   const navigate = useNavigate();
-  const [currentActive, setCurrentActive] = useState('all');
+  const [currentActive, setCurrentActive] = useState(helpers.FILTER_SEARCH.ALL);
 
   useEffect(() => {
     const term = searchParams.get('s');
-
-    if (!term) {
-      navigate(routes.home.path);
-      return;
-    }
-
-    (async () => {
-      try {
-        setIsLoading(true);
-        setTimeout(() => {
-          setResults([
-            {
-              type: 'user',
-              data: {
-                id: '1',
-                fullname: 'Lê Duy Tâm',
-                avatarUrl: 'https://api.minimalavatars.com/avatar/random/png',
-                email: 'ldtam@demo.com',
-              },
-            },
-            {
-              type: 'task',
-              data: {
-                id: '1',
-                title: 'Task 1',
-                description: 'Task 1 description',
-                workspaceId: '1',
-              },
-            },
-            {
-              type: 'workspace',
-              data: {
-                id: '1',
-                title: 'Workspace 1',
-                description: 'Workspace 1 description',
-              },
-            },
-          ]);
-          setIsLoading(false);
-        }, 1000);
-      } catch (error) {}
-    })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    helpers.search(term).then(res => {
+      setResults(res);
+    });
+    setIsLoading(false);
   }, [searchParams]);
-
-  function countResultType(results, type) {
-    if (!results) {
-      return 0;
-    }
-
-    if (type === 'all') {
-      return results.length;
-    }
-
-    return results.filter(result => result.type === type).length;
-  }
 
   return (
     <div className='search'>
@@ -85,53 +35,57 @@ export default function Search() {
           <div className='search__sidebar'>
             <div
               className={`search__sidebar-item ${
-                currentActive === 'all' && 'search__sidebar-item--active'
+                currentActive === helpers.FILTER_SEARCH.ALL &&
+                'search__sidebar-item--active'
               }`}
-              onClick={() => setCurrentActive('all')}
+              onClick={() => setCurrentActive(helpers.FILTER_SEARCH.ALL)}
             >
               <BsXDiamond className='search__sidebar-item-icon' />
               <span className='search__sidebar-item-text'>All</span>
               <span className='search__sidebar-item-count'>
-                {countResultType(results, 'all')}
+                {helpers.countResultType(results, helpers.FILTER_SEARCH.ALL)}
               </span>
             </div>
 
             <div
               className={`search__sidebar-item ${
-                currentActive === 'user' && 'search__sidebar-item--active'
+                currentActive === helpers.FILTER_SEARCH.USER &&
+                'search__sidebar-item--active'
               }`}
-              onClick={() => setCurrentActive('user')}
+              onClick={() => setCurrentActive(helpers.FILTER_SEARCH.USER)}
             >
               <BsPerson className='search__sidebar-item-icon' />
               <span className='search__sidebar-item-text'>Users</span>
               <span className='search__sidebar-item-count'>
-                {countResultType(results, 'user')}
+                {helpers.countResultType(results, helpers.FILTER_SEARCH.USER)}
               </span>
             </div>
 
             <div
               className={`search__sidebar-item ${
-                currentActive === 'workspace' && 'search__sidebar-item--active'
+                currentActive === helpers.FILTER_SEARCH.WORKSPACE &&
+                'search__sidebar-item--active'
               }`}
-              onClick={() => setCurrentActive('workspace')}
+              onClick={() => setCurrentActive(helpers.FILTER_SEARCH.WORKSPACE)}
             >
               <BsColumnsGap className='search__sidebar-item-icon' />
               <span className='search__sidebar-item-text'>Workspaces</span>
               <span className='search__sidebar-item-count'>
-                {countResultType(results, 'workspace')}
+                {helpers.countResultType(results, helpers.FILTER_SEARCH.WORKSPACE)}
               </span>
             </div>
 
             <div
               className={`search__sidebar-item ${
-                currentActive === 'task' && 'search__sidebar-item--active'
+                currentActive === helpers.FILTER_SEARCH.TASK &&
+                'search__sidebar-item--active'
               }`}
-              onClick={() => setCurrentActive('task')}
+              onClick={() => setCurrentActive(helpers.FILTER_SEARCH.TASK)}
             >
               <BsPuzzle className='search__sidebar-item-icon' />
               <span className='search__sidebar-item-text'>Tasks</span>
               <span className='search__sidebar-item-count'>
-                {countResultType(results, 'task')}
+                {helpers.countResultType(results, helpers.FILTER_SEARCH.TASK)}
               </span>
             </div>
           </div>
@@ -151,120 +105,14 @@ export default function Search() {
                 }}
               />
             ) : (
-              <ResultList
-                results={
-                  currentActive === 'all'
-                    ? results
-                    : results.filter(result => result.type === currentActive)
-                }
-              />
+              <React.Fragment>
+                {results && (
+                  <ResultList results={results} type={currentActive} />
+                )}
+              </React.Fragment>
             )}
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function ResultList({ results }) {
-  return (
-    <div className='search__results'>
-      {results?.map((result, index) => (
-        <React.Fragment key={index}>
-          <ResultItem result={result} />
-
-          {index !== results.length - 1 && (
-            <div className='search__result-item-separator' />
-          )}
-        </React.Fragment>
-      ))}
-
-      {results?.length === 0 && (
-        <p className='search__result-empty'>No results found</p>
-      )}
-    </div>
-  );
-}
-
-function ResultItem({ result }) {
-  switch (result.type) {
-    case 'user':
-      return <UserResultItem result={result} />;
-
-    case 'task':
-      return <TaskResultItem result={result} />;
-
-    case 'workspace':
-      return <WorkspaceResultItem result={result} />;
-
-    default:
-      return null;
-  }
-}
-
-function UserResultItem({ result }) {
-  const { id, fullname, avatarUrl, email } = result.data;
-  const navigate = useNavigate();
-
-  function navigateToUser() {
-    navigate(`${routes.account.path}/${id}/profile`);
-  }
-
-  return (
-    <div className='search__result-item' onClick={navigateToUser}>
-      <img src={avatarUrl} alt='avatar' className='search__result-item-image' />
-
-      <div className='search__result-item-info'>
-        <p className='search__result-item-info-primary'>{fullname}</p>
-        <p className='search__result-item-info-secondary'>{email}</p>
-      </div>
-
-      <div>
-        <span className='search__result-item-type'>User</span>
-      </div>
-    </div>
-  );
-}
-
-function TaskResultItem({ result }) {
-  const { id, title, description, workspaceId } = result.data;
-  const navigate = useNavigate();
-
-  function navigateToTask() {
-    navigate(`${routes.workspaces.path}/${workspaceId}?taskId=${id}`);
-  }
-
-  return (
-    <div className='search__result-item' onClick={navigateToTask}>
-      <div className='search__result-item-info'>
-        <p className='search__result-item-info-primary'>{title}</p>
-        <p className='search__result-item-info-secondary'>{description}</p>
-      </div>
-
-      <div>
-        <span className='search__result-item-type'>Task</span>
-      </div>
-    </div>
-  );
-}
-
-function WorkspaceResultItem({ result }) {
-  const { id, title, description } = result.data;
-  const navigate = useNavigate();
-
-  function navigateToWorkspace() {
-    navigate(`${routes.workspaces.path}/${id}`);
-  }
-
-  return (
-    <div className='search__result-item' onClick={navigateToWorkspace}>
-      <div className='search__result-item-info'>
-        <p className='search__result-item-info-primary'>{title}</p>
-        <p className='search__result-item-info-secondary'>{description}</p>
-      </div>
-
-      <div>
-        <span className='search__result-item-type'>Workspace</span>
       </div>
     </div>
   );

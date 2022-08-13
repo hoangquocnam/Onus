@@ -31,6 +31,11 @@ const URL_Requests = {
     url: 'tasks',
     task: id => `tasks/${id}`,
   },
+  utils: {
+    search: {
+      url: 'search',
+    },
+  },
 };
 
 export { URL_Requests };
