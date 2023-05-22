@@ -13,6 +13,7 @@ import {
 } from './components';
 import {
   AboutPage,
+  AdminPage,
   HomePage,
   LogInPage,
   NotFoundPage,
@@ -75,6 +76,12 @@ const App = () => {
             </Route>
 
             <Route path={routes.notFound.path} element={<NotFoundPage />} />
+
+            <Route path={routes.admin.path} element={<AdminPage />}>
+              <Route path={routes.admin.users} element={<AdminPage />} />
+              <Route path={routes.admin.workspaces} element={<AdminPage />} />
+              <Route path={routes.admin.tasks} element={<AdminPage />} />
+            </Route>
             <Route
               path='*'
               element={<Navigate to={routes.notFound.path} replace />}

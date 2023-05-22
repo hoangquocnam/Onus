@@ -94,6 +94,7 @@ export function AccountProvider(props) {
   function logout() {
     removeTokenFromStorage();
     setAccount(null);
+    window.location.href = 'http://localhost:3000/login';
   }
 
   return (

@@ -32,6 +32,12 @@ const routes = {
   search: {
     path: '/search',
   },
+  admin: {
+    path: '/admin',
+    users: '/admin/users',
+    tasks: '/admin/tasks',
+    workspaces: '/admin/workspaces',
+  },
 };
 
 export default routes;

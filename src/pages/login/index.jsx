@@ -77,7 +77,6 @@ function LogInPage() {
         },
         error: {
           render({ data }) {
-            console.log(data);
             return `Login failed: ${data.response.data.error.message}`;
           },
         },

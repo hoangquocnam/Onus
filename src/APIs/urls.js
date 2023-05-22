@@ -15,9 +15,11 @@ const URL_Requests = {
     url: 'users',
     editUser: id => `users/${id}`,
     workspaces: id => `users/${id}/workspaces`,
+    createNewUser: 'users/create',
   },
   workspaces: {
     url: 'workspaces',
+    getDetailWorkspaceByAdmin: `workspaces/admin`,
     workspace: id => `workspaces/${id}`,
     ownWorkspaces: 'workspaces/own',
     allWorkspaces: 'workspaces/all',
