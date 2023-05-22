@@ -25,6 +25,7 @@ function OwnWorkspacesListView() {
   function onAfterCreatedNewWorkspace() {
     window.location.reload();
   }
+  console.log('ownWorkspaces', ownWorkspaces);
 
   return (
     <>

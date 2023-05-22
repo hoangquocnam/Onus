@@ -53,12 +53,15 @@ export default function AddWorkspaceModal({
     }
   }
 
+  console.log(defaultWorkspace, data);
+
   async function handleOnSubmit(e) {
     e.preventDefault();
 
     setData({
       title: data.title.trim(),
       description: data.description.trim(),
+      ownerId: data.ownerId,
     });
 
     if (data.title.trim().length === 0) {
@@ -72,7 +75,7 @@ export default function AddWorkspaceModal({
         updateWorkspaceById(defaultWorkspace.id, {
           title: data.title.trim(),
           description: data.description.trim(),
-          ownerId: data.ownerId,
+          // ownerId: data.ownerId,
         }),
         {
           pending: 'Loading...',
@@ -108,11 +111,14 @@ export default function AddWorkspaceModal({
 
   async function createNewWorkspace(data) {
     try {
-      const response = await methods.post(URL_Requests.workspaces.url, {
-        title: data.title.trim(),
-        description: data.description.trim(),
-        ownerId: data.ownerId,
-      });
+      const response = await methods.post(
+        URL_Requests.workspaces.getDetailWorkspaceByAdmin,
+        {
+          title: data.title.trim(),
+          description: data.description.trim(),
+          ownerId: data.ownerId,
+        },
+      );
 
       return response.data;
     } catch (error) {
@@ -142,7 +148,7 @@ export default function AddWorkspaceModal({
         <div className='new-workspace-modal__left'>
           <div className='new-workspace-modal__header'>
             <h2 className='new-workspace-modal__header-title'>
-              Let's create a new workspace
+              Let's {isUpdate ? 'update' : 'create'} a new workspace
             </h2>
 
             <p className='new-workspace-modal__header-description'>
@@ -176,6 +182,7 @@ export default function AddWorkspaceModal({
                 onClick={fetchAllUsers}
                 onChange={handleInputChange}
                 value={data.ownerId}
+                disabled={isUpdate}
               >
                 <option value='' disabled>
                   Choose a user as host
@@ -219,7 +226,7 @@ export default function AddWorkspaceModal({
             <input
               type='submit'
               className='new-workspace-modal__submit-btn'
-              value='Create'
+              value={isUpdate ? 'update' : 'create'}
             />
           </form>
         </div>

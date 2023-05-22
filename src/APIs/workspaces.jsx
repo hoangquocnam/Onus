@@ -6,10 +6,9 @@ export async function getWorkspaces() {
 }
 
 export async function deleteWorkspaceById(id) {
-  const { data: workspace } = await methods.delete(
-    `${URL_Requests.workspaces.url}/${id}`,
+  await methods.delete(
+    `${URL_Requests.workspaces.getDetailWorkspaceByAdmin}/${id}`,
   );
-  return workspace;
 }
 
 export async function updateWorkspaceById(id, data) {

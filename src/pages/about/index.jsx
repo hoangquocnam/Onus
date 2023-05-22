@@ -52,21 +52,10 @@ function AboutPage() {
       },
     },
     {
-      id: '20127138',
-      name: 'Huỳnh Minh Đức',
-      roles: ['Front-end Developer', 'Tester'],
+      id: '20127470',
+      name: 'Thân Minh Đức',
+      roles: ['Back-end Developer', 'Tester'],
       avatar: avatar_4,
-      socials: {
-        facebook: 'https://facebook.com',
-        instagram: 'https://instagram.com',
-        linkedin: 'https://linkedin.com',
-      },
-    },
-    {
-      id: '20127239',
-      name: 'Hoàng Nhật Minh',
-      roles: ['Front-end Developer', 'Tester'],
-      avatar: avatar_5,
       socials: {
         facebook: 'https://facebook.com',
         instagram: 'https://instagram.com',
